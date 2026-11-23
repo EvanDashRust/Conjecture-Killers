@@ -1,0 +1,298 @@
+{
+  "version": "Lean (version 4.33.1, x86_64-w64-windows-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+  "mathlib": "0df444a360eaa60ab8c11dca51a86af692955474",
+  "units": {
+    "Cells": {
+      "source_sha256": "6141b04cde039e9bfa38f1351c0741f2d4b99fbca599c523bab4eee50c988241",
+      "object_sha256": "a372ce5fdaea1cf2be7b791970673e55494ab9f525e4ff372b77aebce1ee2986",
+      "axioms": {
+        "CrystalCampaign.StageTwo.cellProperties": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.conditions_iff": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.normalize": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.exchangeDistinct": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.original_iff_noExchange": "propext, Classical.choice, Quot.sound"
+      }
+    },
+    "ThreeSupport": {
+      "source_sha256": "bec2eb4b2346cc8f38e6934888aec63e8fd059856cca9798dd07860f522829ff",
+      "object_sha256": "6a2d9996a7314e7d77ed67ffd5dd9bc9f5ddefe8a234b9fa9e7d04acc2114432",
+      "axioms": {
+        "CrystalCampaign.StageTwo.supportedOfProduct": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.unitCell": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.singleBlockPrimePower": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.threeSupportReduction": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.threePrimeUniquenessOfSinglePrimePower": "propext,\n Classical.choice,\n Quot.sound"
+      }
+    },
+    "Fiber": {
+      "source_sha256": "a1e068da384136e8cd2eed629feb10369ea2e11c32008362db0f50d868de2ea3",
+      "object_sha256": "339a589cb204fb7be3acae3a5adac87b365ce83157d258f941215bd7aa439ef6",
+      "axioms": {
+        "CrystalCampaign.StageTwo.buildFiber": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.fiberProduct": "propext, Quot.sound",
+        "CrystalCampaign.StageTwo.axialCoprime": "propext, Classical.choice, Quot.sound"
+      }
+    },
+    "Elimination": {
+      "source_sha256": "ee266978b8e5a4737a5e51580cc7158156fb7b39c4477c71a92be75bc54c5430",
+      "object_sha256": "6153eb6175c1d8184c9f3870d15a09ada9d440041f7a0236b78fe2ea5fbd89c2",
+      "axioms": {
+        "CrystalCampaign.StageTwo.conic_iff_product": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.fiberConic": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.successorElimination": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.positiveDeterminant": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.universalCertificate": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.noIntegralVieta": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.reconstruct": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.fiveCertificateValue": "propext"
+      }
+    },
+    "Separation": {
+      "source_sha256": "eaddcc587c44c345478cb3c7041a7c9a00a1398a755801d91fb73a25c307b3bf",
+      "object_sha256": "ff1d25f3598d1eb1929473c467dc1deb67423fc9f96167119d4dd28d9092f03b",
+      "axioms": {
+        "CrystalCampaign.StageTwo.orderedQuotients": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.separated": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.noBalancedAxes": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.distinctShiftProducts": "propext, Classical.choice, Quot.sound"
+      }
+    },
+    "UnitSlice": {
+      "source_sha256": "a804e7d75eeed48a1c855165dd22258a98c61e9795238b2cf23afecd058007fc",
+      "object_sha256": "462c28fc00b4f657dee65d93b0c0f9857c0a87ed7ddba9047212866960106444",
+      "axioms": {
+        "CrystalCampaign.StageTwo.unitDeficit": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.unitResidue": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.fivePrimitiveSlice": "propext, Classical.choice, Quot.sound"
+      }
+    },
+    "WeakFamily": {
+      "source_sha256": "4f8b451c0d843463e9430fce885325f64b9fef99f48867c6702d369028190138",
+      "object_sha256": "111f3ec2437395c6eec397004ce6b0f61c98b9ff2addb0023d0320d6068eda4a",
+      "axioms": {
+        "CrystalCampaign.StageTwo.orbitInvariant": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.orbitGrowth": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.weakFamily": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.firstWeakTerm": "",
+        "CrystalCampaign.StageTwo.threePrimeRegression": "propext, Classical.choice, Quot.sound"
+      }
+    },
+    "AxisResidues": {
+      "source_sha256": "3016c27703f980baeac0e7a52a89513eea1debb48b0b0fed4f918f4b038376be",
+      "object_sha256": "9e227e0b40977da9b17753396bad7f2d753af48c3faf06e4483b85e92e1bc207",
+      "axioms": {
+        "CrystalCampaign.StageTwo.shiftedFactors": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.axisResidues": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.unitSize": "propext, Classical.choice, Quot.sound"
+      }
+    },
+    "Extremal": {
+      "source_sha256": "6c9353be4668f6247e0cc0870ec6f89afcd877f5e3d6138ec6a26a991cd8419e",
+      "object_sha256": "f088f941ce80b35ec61793b6c7d155eb9e4bf51d9702d9f60a4fcdfec31b8ec4",
+      "axioms": {
+        "CrystalCampaign.StageTwo.halfOffsets": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.extremal_bound": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.extremal_strict": "propext, Quot.sound",
+        "CrystalCampaign.StageTwo.primePowerExtremal": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.noHigherPrimePower": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.higherOffset": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.compositeExample": "propext, Classical.choice, Quot.sound"
+      }
+    },
+    "SuccessorSupport": {
+      "source_sha256": "784bfe4832e80292907994209e0c93595c445850eabb1750d4313c272d4a1618",
+      "object_sha256": "0be4a2b63c409707a3de017a3a0b9a2e8e4fd7c4542593d7a7470a91e13c5b91",
+      "axioms": {
+        "CrystalCampaign.StageTwo.only35OfTwoPrimeHalfSuccessor": "propext, Classical.choice, Quot.sound",
+        "CrystalCampaign.StageTwo.twoPrimeHalfSuccessorClassification": "propext,\n Classical.choice,\n Quot.sound",
+        "CrystalCampaign.StageTwo.twoPrimeHalfSuccessorUniqueness": "propext, Classical.choice, Quot.sound"
+      }
+    }
+  },
+  "commands": [
+    {
+      "argv": [
+        "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\find-the-newest-message-in-my\\work\\elan\\toolchains\\leanprover--lean4---v4.33.1\\bin\\lean.exe",
+        "-j1",
+        "-M2048",
+        "-T1500000",
+        "-o",
+        "Cells.olean",
+        "Cells.lean"
+      ],
+      "cwd": "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\new-chat-3\\Crystal_Components_20261122\\phase2\\proof",
+      "exit": 0,
+      "seconds": 11.691978900000322,
+      "output": "'CrystalCampaign.StageTwo.cellProperties' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.conditions_iff' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.normalize' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.exchangeDistinct' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.original_iff_noExchange' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "argv": [
+        "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\find-the-newest-message-in-my\\work\\elan\\toolchains\\leanprover--lean4---v4.33.1\\bin\\lean.exe",
+        "-j1",
+        "-M2048",
+        "-T1500000",
+        "-o",
+        "ThreeSupport.olean",
+        "ThreeSupport.lean"
+      ],
+      "cwd": "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\new-chat-3\\Crystal_Components_20261122\\phase2\\proof",
+      "exit": 0,
+      "seconds": 11.516838400000779,
+      "output": "'CrystalCampaign.StageTwo.supportedOfProduct' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.unitCell' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.singleBlockPrimePower' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.threeSupportReduction' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.threePrimeUniquenessOfSinglePrimePower' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]\n"
+    },
+    {
+      "argv": [
+        "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\find-the-newest-message-in-my\\work\\elan\\toolchains\\leanprover--lean4---v4.33.1\\bin\\lean.exe",
+        "-j1",
+        "-M2048",
+        "-T1500000",
+        "-o",
+        "Fiber.olean",
+        "Fiber.lean"
+      ],
+      "cwd": "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\new-chat-3\\Crystal_Components_20261122\\phase2\\proof",
+      "exit": 0,
+      "seconds": 11.23307770000065,
+      "output": "'CrystalCampaign.StageTwo.buildFiber' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.fiberProduct' depends on axioms: [propext, Quot.sound]\n'CrystalCampaign.StageTwo.axialCoprime' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "argv": [
+        "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\find-the-newest-message-in-my\\work\\elan\\toolchains\\leanprover--lean4---v4.33.1\\bin\\lean.exe",
+        "-j1",
+        "-M2048",
+        "-T1500000",
+        "-o",
+        "Elimination.olean",
+        "Elimination.lean"
+      ],
+      "cwd": "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\new-chat-3\\Crystal_Components_20261122\\phase2\\proof",
+      "exit": 0,
+      "seconds": 12.828551900000093,
+      "output": "'CrystalCampaign.StageTwo.conic_iff_product' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.fiberConic' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.successorElimination' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.positiveDeterminant' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.universalCertificate' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.noIntegralVieta' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.reconstruct' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.fiveCertificateValue' depends on axioms: [propext]\n"
+    },
+    {
+      "argv": [
+        "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\find-the-newest-message-in-my\\work\\elan\\toolchains\\leanprover--lean4---v4.33.1\\bin\\lean.exe",
+        "-j1",
+        "-M2048",
+        "-T1500000",
+        "-o",
+        "Separation.olean",
+        "Separation.lean"
+      ],
+      "cwd": "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\new-chat-3\\Crystal_Components_20261122\\phase2\\proof",
+      "exit": 0,
+      "seconds": 12.207185299999765,
+      "output": "'CrystalCampaign.StageTwo.orderedQuotients' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.separated' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.noBalancedAxes' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.distinctShiftProducts' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "argv": [
+        "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\find-the-newest-message-in-my\\work\\elan\\toolchains\\leanprover--lean4---v4.33.1\\bin\\lean.exe",
+        "-j1",
+        "-M2048",
+        "-T1500000",
+        "-o",
+        "UnitSlice.olean",
+        "UnitSlice.lean"
+      ],
+      "cwd": "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\new-chat-3\\Crystal_Components_20261122\\phase2\\proof",
+      "exit": 0,
+      "seconds": 12.730505899999116,
+      "output": "'CrystalCampaign.StageTwo.unitDeficit' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.unitResidue' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.fivePrimitiveSlice' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "argv": [
+        "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\find-the-newest-message-in-my\\work\\elan\\toolchains\\leanprover--lean4---v4.33.1\\bin\\lean.exe",
+        "-j1",
+        "-M2048",
+        "-T1500000",
+        "-o",
+        "WeakFamily.olean",
+        "WeakFamily.lean"
+      ],
+      "cwd": "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\new-chat-3\\Crystal_Components_20261122\\phase2\\proof",
+      "exit": 0,
+      "seconds": 15.426382499999818,
+      "output": "'CrystalCampaign.StageTwo.orbitInvariant' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.orbitGrowth' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.weakFamily' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.firstWeakTerm' does not depend on any axioms\n'CrystalCampaign.StageTwo.threePrimeRegression' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "argv": [
+        "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\find-the-newest-message-in-my\\work\\elan\\toolchains\\leanprover--lean4---v4.33.1\\bin\\lean.exe",
+        "-j1",
+        "-M2048",
+        "-T1500000",
+        "-o",
+        "AxisResidues.olean",
+        "AxisResidues.lean"
+      ],
+      "cwd": "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\new-chat-3\\Crystal_Components_20261122\\phase2\\proof",
+      "exit": 0,
+      "seconds": 13.76029870000093,
+      "output": "'CrystalCampaign.StageTwo.shiftedFactors' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.axisResidues' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.unitSize' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "argv": [
+        "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\find-the-newest-message-in-my\\work\\elan\\toolchains\\leanprover--lean4---v4.33.1\\bin\\lean.exe",
+        "-j1",
+        "-M2048",
+        "-T1500000",
+        "-o",
+        "Extremal.olean",
+        "Extremal.lean"
+      ],
+      "cwd": "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\new-chat-3\\Crystal_Components_20261122\\phase2\\proof",
+      "exit": 0,
+      "seconds": 12.700055299999804,
+      "output": "'CrystalCampaign.StageTwo.halfOffsets' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.extremal_bound' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.extremal_strict' depends on axioms: [propext, Quot.sound]\n'CrystalCampaign.StageTwo.primePowerExtremal' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.noHigherPrimePower' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.higherOffset' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.compositeExample' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "argv": [
+        "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\find-the-newest-message-in-my\\work\\elan\\toolchains\\leanprover--lean4---v4.33.1\\bin\\lean.exe",
+        "-j1",
+        "-M2048",
+        "-T1500000",
+        "-o",
+        "SuccessorSupport.olean",
+        "SuccessorSupport.lean"
+      ],
+      "cwd": "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\new-chat-3\\Crystal_Components_20261122\\phase2\\proof",
+      "exit": 0,
+      "seconds": 12.258301399999254,
+      "output": "'CrystalCampaign.StageTwo.only35OfTwoPrimeHalfSuccessor' depends on axioms: [propext, Classical.choice, Quot.sound]\n'CrystalCampaign.StageTwo.twoPrimeHalfSuccessorClassification' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]\n'CrystalCampaign.StageTwo.twoPrimeHalfSuccessorUniqueness' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "argv": [
+        "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\find-the-newest-message-in-my\\work\\elan\\toolchains\\leanprover--lean4---v4.33.1\\bin\\leanchecker.exe",
+        "-v",
+        "Cells",
+        "ThreeSupport",
+        "Fiber",
+        "Elimination",
+        "Separation",
+        "UnitSlice",
+        "WeakFamily",
+        "AxisResidues",
+        "Extremal",
+        "SuccessorSupport"
+      ],
+      "cwd": "C:\\Users\\taite\\Documents\\Codex\\2026-11-22\\new-chat-3\\Crystal_Components_20261122\\phase2\\proof",
+      "exit": 0,
+      "seconds": 214.71484959999907,
+      "output": "replaying SuccessorSupport\nreplaying Extremal\nreplaying AxisResidues\nreplaying WeakFamily\nreplaying UnitSlice\nreplaying Separation\nreplaying Elimination\nreplaying Fiber\nreplaying ThreeSupport\nreplaying Cells\n"
+    }
+  ],
+  "historical_objects": {
+    "Upstream": "89d5741b68719c4adcf6c81078f94790e87ab93094ed5fa8afcacadfb69d181f",
+    "Crystal": "afdf332f1f9f99629ed60dcd036fae61965bfdb1c9607cda988088c438a66968",
+    "Five": "a174c996fed188fbacd9686abd4de6bb4330324cd2f795547886743dc4d79524",
+    "Transfer": "876021db7a0a324daf968c7dcac758f84ba400e3e09231e1e986bba0dc63d92f"
+  },
+  "reused_units": [
+    "Cells",
+    "ThreeSupport",
+    "Fiber",
+    "Elimination",
+    "Separation",
+    "UnitSlice"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "archive_sha256": "e67a0db4f28794ebd59a5a399160457a3a25326aa93f935bcc2cf9e40ad1431b",
+  "source_hashes": {
+    "logs/budget.json": "4b47c5731775a3e8ecac19ca7c5efd4ab753ffdc2c7f81bc26646dbe4ff30501",
+    "logs/lean.txt": "303d22333c4c5e508cd760501a452653000429b5c1cb723dc616039dd942f254",
+    "proof/Crystal.lean": "37f18ec0872a2f1d7ebc4765c302b5f4609a59164ddeb484a56c61350b05d0f0",
+    "proof/Five.lean": "7cc1f2179d56b937466bb46142429630645f5b293b6d6510545ba661cce5ae63",
+    "proof/Transfer.lean": "342b76e510e054aea803b253ee0d83344fb7cde1e1f35a3a1c91138c14558cc2",
+    "proof/Upstream.lean": "db767978d484455a4dde308047f8ab471c186ef558693b8beca92f56c7bcbe5a",
+    "PROOF_LEDGER.md": "5dc020d36783122b674545c27bf225e3845d5d93a53eebf2fd4720866f842d9d",
+    "verify.ps1": "e2c705d08fade3f72f36b9f2e4a5bd8436587c9b48eeeb7a4b1fff01e5f04b98"
+  },
+  "budget_reserved_cpu_s": 3003,
+  "budget_remaining_at_start_cpu_s": 4197
+}

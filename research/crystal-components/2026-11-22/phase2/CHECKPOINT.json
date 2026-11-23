@@ -1,0 +1,63 @@
+{
+  "campaign": "Crystal Components",
+  "checkpoint": "Phase II",
+  "sealed_at": "2026-11-22T18:25:49.745187-05:00",
+  "predecessor_archive_sha256": "e67a0db4f28794ebd59a5a399160457a3a25326aa93f935bcc2cf9e40ad1431b",
+  "status": "Universal conjecture unresolved. No certified counterexample.",
+  "strongest_classification": "If n+1=2 P^i Q^j with primes P,Q and natural exponents, the only crystal product is 35, components {5,7}.",
+  "primary_declaration": "CrystalCampaign.StageTwo.only35OfTwoPrimeHalfSuccessor",
+  "kernel_replayed": [
+    "Cells",
+    "ThreeSupport",
+    "Fiber",
+    "Elimination",
+    "Separation",
+    "UnitSlice",
+    "WeakFamily",
+    "AxisResidues",
+    "Extremal",
+    "SuccessorSupport"
+  ],
+  "audit_count": 46,
+  "lean": "Lean (version 4.33.1, x86_64-w64-windows-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+  "mathlib": "0df444a360eaa60ab8c11dca51a86af692955474",
+  "source_sha256": {
+    "Cells": "6141b04cde039e9bfa38f1351c0741f2d4b99fbca599c523bab4eee50c988241",
+    "ThreeSupport": "bec2eb4b2346cc8f38e6934888aec63e8fd059856cca9798dd07860f522829ff",
+    "Fiber": "a1e068da384136e8cd2eed629feb10369ea2e11c32008362db0f50d868de2ea3",
+    "Elimination": "ee266978b8e5a4737a5e51580cc7158156fb7b39c4477c71a92be75bc54c5430",
+    "Separation": "eaddcc587c44c345478cb3c7041a7c9a00a1398a755801d91fb73a25c307b3bf",
+    "UnitSlice": "a804e7d75eeed48a1c855165dd22258a98c61e9795238b2cf23afecd058007fc",
+    "WeakFamily": "4f8b451c0d843463e9430fce885325f64b9fef99f48867c6702d369028190138",
+    "AxisResidues": "3016c27703f980baeac0e7a52a89513eea1debb48b0b0fed4f918f4b038376be",
+    "Extremal": "6c9353be4668f6247e0cc0870ec6f89afcd877f5e3d6138ec6a26a991cd8419e",
+    "SuccessorSupport": "784bfe4832e80292907994209e0c93595c445850eabb1750d4313c272d4a1618"
+  },
+  "object_sha256": {
+    "Cells": "a372ce5fdaea1cf2be7b791970673e55494ab9f525e4ff372b77aebce1ee2986",
+    "ThreeSupport": "6a2d9996a7314e7d77ed67ffd5dd9bc9f5ddefe8a234b9fa9e7d04acc2114432",
+    "Fiber": "339a589cb204fb7be3acae3a5adac87b365ce83157d258f941215bd7aa439ef6",
+    "Elimination": "6153eb6175c1d8184c9f3870d15a09ada9d440041f7a0236b78fe2ea5fbd89c2",
+    "Separation": "ff1d25f3598d1eb1929473c467dc1deb67423fc9f96167119d4dd28d9092f03b",
+    "UnitSlice": "462c28fc00b4f657dee65d93b0c0f9857c0a87ed7ddba9047212866960106444",
+    "WeakFamily": "111f3ec2437395c6eec397004ce6b0f61c98b9ff2addb0023d0320d6068eda4a",
+    "AxisResidues": "9e227e0b40977da9b17753396bad7f2d753af48c3faf06e4483b85e92e1bc207",
+    "Extremal": "f088f941ce80b35ec61793b6c7d155eb9e4bf51d9702d9f60a4fcdfec31b8ec4",
+    "SuccessorSupport": "0be4a2b63c409707a3de017a3a0b9a2e8e4fd7c4542593d7a7470a91e13c5b91"
+  },
+  "receipt_sha256": {
+    "logs/verified.json": "fee65b4ae170eb8e6e1767b9ff0df013b489e87550916913ed8f446ab72e7d19",
+    "logs/regression.json": "c8a06a8c244a9bd27c44eb3c6e2a3421be5cbc50115d11740311715fe2dc6f5f",
+    "logs/budget.json": "428056ef3f8e174a50a58de1ff1e17bc11c4ebd4bfba631519e03501d9b0a4ca",
+    "logs/diagnostic-launches.jsonl": "1fd405ab84b71b131227b2646b4fef5938d8146f244e572e20118376a0b85372",
+    "predecessor.json": "ed5c9935a8167fa99054899ae56da5af4c9ff03d8993e28d417664e31bb271f1"
+  },
+  "diagnostic_cases": 9,
+  "old_exhaustive_endpoint": 100000,
+  "cpu_seconds_reserved": 3603,
+  "cpu_seconds_remaining": 3597,
+  "resume_proof": "python phase2/replay.py --resume",
+  "resume_diagnostic": "python phase2/diagnostic.py",
+  "open": "Exclude all prime-power unit exchanges with nonextremal higher half-successor, then handle four nonunit cells.",
+  "next_case": "When (n+1)/2 has three prime bases, impose the two proper idempotent residues of L+1 together with both cross-shift relations and original successor tests."
+}

@@ -2,6 +2,12 @@
 
 Formal mathematics, auditable Lean 4 proofs, reproducible experiments, and careful attribution.
 
+## Case 007: Graffiti.pc Conjecture 255
+
+**Status: disproved in Lean.** An 11-vertex graph has total domination number 3, eleven center vertices, and an open neighborhood union of size 7 at every edge. The conjecture requires $3\cdot7\ge2\cdot11$.
+
+[Counterexample, proof, and replay instructions](Results/Graffiti255/README.md)
+
 ## Case 006: Emanuel’s Type 3 conjecture with strict coefficients
 
 **Status: proved in Lean.** Every width at least 262 admits a two-row Type 3 covering system under the printed bound $1<a,b<m$. Both rows are near covers.

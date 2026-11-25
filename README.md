@@ -2,6 +2,12 @@
 
 Formal mathematics, auditable Lean 4 proofs, reproducible experiments, and careful attribution.
 
+## Case 003: The eventual 9–6–3 conjecture
+
+**Status: proved in Lean.** Every length from 25 onward has a disjoint congruence cover with three consecutive positions assigned moduli 9, 6, and 3 in that order. Length 24 is impossible, so 25 is the least eventual threshold.
+
+[Proof, certificates, and replay instructions](Results/DisjointCovers/NINE_SIX_THREE.md)
+
 ## Case 002: Myerson’s disjoint congruence covers
 
 **Status: proved in Lean.** For every length at least 17, there is a disjoint congruence cover with distinct moduli all at least 3 and at least two points per class. From length 132 onward, all the moduli can be multiples of 3.

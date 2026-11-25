@@ -19,18 +19,18 @@ theorem coprime_covers (n : Nat) (hn : 44 ≤ n) :
 /-- Two residues modulo 3 have the common fibre size (n+1)/3. -/
 private theorem assemble {n : Nat} {cs ds : List Class} (hn : 132 ≤ n)
     (hc : Cover ((n+1)/3) cs) (hd : Cover ((n+1)/3) ds)
-    (hsep : Separate cs ds) : ∃ es, Cover n es ∧ MultiplesOfThree es := by
+    (hsep : Separate cs ds) : ∃ es, Cover n es ∧ MultiplesOfThree es ∧ HasModulus es 3 := by
   by_cases he : n % 3 = 1
-  · refine ⟨(3,0) :: (lift 3 1 cs ++ lift 3 2 ds), ?_, triple_multiples⟩
+  · refine ⟨(3,0) :: (lift 3 1 cs ++ lift 3 2 ds), ?_, triple_multiples, by simp [HasModulus]⟩
     exact triple hc hd hsep (by decide) (by decide) (by decide) (by decide)
       (by decide) (by decide) (by omega) (fun y => by omega) (fun y => by omega)
-  · refine ⟨(3,2) :: (lift 3 0 cs ++ lift 3 1 ds), ?_, triple_multiples⟩
+  · refine ⟨(3,2) :: (lift 3 0 cs ++ lift 3 1 ds), ?_, triple_multiples, by simp [HasModulus]⟩
     exact triple hc hd hsep (by decide) (by decide) (by decide) (by decide)
       (by decide) (by decide) (by omega) (fun y => by omega) (fun y => by omega)
 
-/-- For every n at least 132, the cover can use only multiples of 3. -/
-theorem multiple_covers (n : Nat) (hn : 132 ≤ n) :
-    ∃ cs, Cover n cs ∧ MultiplesOfThree cs := by
+/-- For every n at least 132, there is a cover using modulus 3 and only multiples of 3. -/
+theorem multiple_covers_with_three (n : Nat) (hn : 132 ≤ n) :
+    ∃ cs, Cover n cs ∧ MultiplesOfThree cs ∧ HasModulus cs 3 := by
   induction n using Nat.strongRecOn with
   | ind n ih =>
     let k := (n+1)/3
@@ -39,8 +39,14 @@ theorem multiple_covers (n : Nat) (hn : 132 ≤ n) :
     · obtain ⟨cs, ds, hc, hd, hsep⟩ := paired_base k hk hsmall
       exact assemble hn hc hd hsep
     · obtain ⟨cs, hc, hcop⟩ := coprime_covers k hk
-      obtain ⟨ds, hd, hmul⟩ := ih k (by dsimp [k]; omega) (by omega)
+      obtain ⟨ds, hd, hmul, _⟩ := ih k (by dsimp [k]; omega) (by omega)
       exact assemble hn hc hd (separate_of_three hcop hmul)
+
+/-- For every n at least 132, the cover can use only multiples of 3. -/
+theorem multiple_covers (n : Nat) (hn : 132 ≤ n) :
+    ∃ cs, Cover n cs ∧ MultiplesOfThree cs := by
+  obtain ⟨cs, hc, hmul, _⟩ := multiple_covers_with_three n hn
+  exact ⟨cs, hc, hmul⟩
 
 theorem covers_from_seventeen (n : Nat) (hn : 17 ≤ n) :
     ∃ cs, Cover n cs ∧ (∀ c ∈ cs, 3 ≤ c.1) := by
@@ -53,15 +59,19 @@ theorem covers_from_seventeen (n : Nat) (hn : 17 ≤ n) :
     have := hm c hmem
     omega
 
-/-- The statement on the original interval [1,n], with distinct moduli at
-least 3, exactly one congruence per point and at least two points per class. -/
-def MyersonCover (n : Nat) (cs : List Class) : Prop :=
+/-- Distinct moduli above the given lower bound, exactly one class per point
+of [1,n], and at least two points per class. -/
+def IntervalCover (minModulus n : Nat) (cs : List Class) : Prop :=
   (cs.map Prod.fst).Nodup ∧
-  (∀ c ∈ cs, 3 ≤ c.1 ∧ c.2 < c.1 ∧
+  (∀ c ∈ cs, minModulus ≤ c.1 ∧ c.2 < c.1 ∧
     ∃ x y : Nat, 1 ≤ x ∧ x < y ∧ y ≤ n ∧ x % c.1 = c.2 ∧ y % c.1 = c.2) ∧
   (∀ x : Nat, 1 ≤ x → x ≤ n → cs.countP (hit x) = 1)
 
-private def shift (c : Class) : Class := (c.1, (c.2+1) % c.1)
+/-- Myerson's question excludes modulus 2. -/
+abbrev MyersonCover := IntervalCover 3
+
+/-- Translate a residue class forward by one integer. -/
+def shift (c : Class) : Class := (c.1, (c.2+1) % c.1)
 
 private theorem hit_shift (c : Class) (x : Nat) (hr : c.2 < c.1) :
     hit (x+1) (shift c) = hit x c := by
@@ -79,14 +89,15 @@ private theorem hit_shift (c : Class) (x : Nat) (hr : c.2 < c.1) :
   · intro he
     exact Nat.add_mod_eq_add_mod_right 1 (he.trans (Nat.mod_eq_of_lt hr).symm)
 
-private theorem to_myerson {n : Nat} {cs : List Class} (hc : Cover n cs)
-    (hm : ∀ c ∈ cs, 3 ≤ c.1) : MyersonCover n (cs.map shift) := by
+/-- Translate a cover on [0,n) to the published convention on [1,n]. -/
+theorem to_interval_cover {minModulus n : Nat} {cs : List Class} (hc : Cover n cs)
+    (hm : ∀ c ∈ cs, minModulus ≤ c.1) : IntervalCover minModulus n (cs.map shift) := by
   refine ⟨?_, ?_, ?_⟩
   · simpa [List.map_map, Function.comp_def, shift] using hc.distinct
   · intro d hd
     obtain ⟨c, hmem, rfl⟩ := List.mem_map.mp hd
     obtain ⟨hmin, hcanon, hbound⟩ := hc.valid c hmem
-    change 3 ≤ c.1 ∧ (c.2 + 1) % c.1 < c.1 ∧ _
+    change minModulus ≤ c.1 ∧ (c.2 + 1) % c.1 < c.1 ∧ _
     refine ⟨hm c hmem, Nat.mod_lt _ (by omega), c.2+1, c.2+c.1+1,
       by omega, by omega, by omega, rfl, ?_⟩
     change (c.2+c.1+1) % c.1 = (c.2+1) % c.1
@@ -106,7 +117,7 @@ private theorem to_myerson {n : Nat} {cs : List Class} (hc : Cover n cs)
 theorem myerson_second_question (n : Nat) (hn : 17 ≤ n) :
     ∃ cs, MyersonCover n cs := by
   obtain ⟨cs, hc, hm⟩ := covers_from_seventeen n hn
-  exact ⟨cs.map shift, to_myerson hc hm⟩
+  exact ⟨cs.map shift, to_interval_cover hc hm⟩
 
 #print axioms myerson_second_question
 #print axioms multiple_covers

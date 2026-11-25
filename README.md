@@ -2,6 +2,12 @@
 
 Formal mathematics, auditable Lean 4 proofs, reproducible experiments, and careful attribution.
 
+## Case 004: Emanuel’s two-row shifting conjecture
+
+**Status: disproved in Lean.** Two distinct length-20 covers satisfy the hypotheses of Emanuel’s §7.3 conjecture. No shift produces a valid two-row cover, even with extra cropping.
+
+[Counterexample and replay instructions](Results/DisjointCovers/SHIFT_COUNTEREXAMPLE.md)
+
 ## Case 003: The eventual 9–6–3 conjecture
 
 **Status: proved in Lean.** Every length from 25 onward has a disjoint congruence cover with three consecutive positions assigned moduli 9, 6, and 3 in that order. Length 24 is impossible, so 25 is the least eventual threshold.

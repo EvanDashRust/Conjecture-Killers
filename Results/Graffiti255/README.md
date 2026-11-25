@@ -6,7 +6,7 @@ Conjecture 255 predicts that every simple connected graph with an edge satisfies
 \gamma_t(G)\;\max_{uv\in E(G)} |N(u)\cup N(v)|\ \ge\ 2|C(G)|.
 \]
 
-Here $\gamma_t(G)$ is the minimum size of a set containing a neighbor of every vertex, $N(u)$ is the open neighborhood of $u$, and $C(G)$ is the set of vertices with minimum eccentricity. Ermelinda DeLaViña’s *Written on the Wall II* dates the conjecture to February 23, 2007 and still lists it as open in the catalog updated November 5, 2026. Literature and repository searches found no earlier resolution as of November 25, 2026. [Catalog, page 148](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/files/wowiiaii.pdf#page=148)
+Here $\gamma_t(G)$ is the minimum size of a set containing a neighbor of every vertex, $N(u)$ is the open neighborhood of $u$, and $C(G)$ is the set of vertices with minimum eccentricity. Ermelinda DeLaViña’s *Written on the Wall II* dates the conjecture to February 23, 2007. Its live entry still listed it as open when checked on November 25, 2026. Literature and repository searches found no earlier resolution. Search for `255` in the catalog. [Live catalog](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/index.html)
 
 ## Counterexample
 

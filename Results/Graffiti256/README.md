@@ -6,7 +6,7 @@ Let $A$ be the vertices of minimum degree in a finite simple connected graph $G$
 \gamma_t(G)\max_{uv\in E(G)}|N(u)\cup N(v)|\ \ge\ 2|N(A)|.
 \]
 
-Here $\gamma_t(G)$ is the minimum size of a set containing a neighbor of every vertex. The catalog defines $N(A)$ as the union of the open neighborhoods of the vertices in $A$. Thus a member of $A$ belongs to $N(A)$ whenever it has a neighbor in $A$. DeLaViña’s *Written on the Wall II* announced the conjecture on February 23, 2007 and lists it as open in the November 2026 edition. A search of the literature and the Formal Conjectures repository found no earlier resolution as of November 25, 2026. [Catalog statement, p. 149](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/files/wowiiaii.pdf#page=149) · [Neighborhood definition, p. 148](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/files/wowiiaii.pdf#page=148)
+Here $\gamma_t(G)$ is the minimum size of a set containing a neighbor of every vertex. The catalog defines $N(A)$ as the union of the open neighborhoods of the vertices in $A$. Thus a member of $A$ belongs to $N(A)$ whenever it has a neighbor in $A$. DeLaViña’s *Written on the Wall II* dates the conjecture to February 23, 2007. The live entry credits Tony Newton with a 14-vertex counterexample submitted November 21, 2026. The 15-vertex construction below was found independently and is verified in Lean. Search for `256` in the catalog and open **Comments** to see the attribution and Newton’s graph. [Live catalog](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/index.html)
 
 ## Counterexample
 

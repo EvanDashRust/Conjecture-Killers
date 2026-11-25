@@ -257,17 +257,18 @@ private theorem row_of_check {n : Nat} {cs : List StripClass} {upper : Bool}
   have := List.all_eq_true.mp h x.toNat (List.mem_range.mpr ha)
   simpa [Int.toNat_of_nonneg hx] using this
 
-private def checkImmediateHoles (n : Nat) (cs : List StripClass) (upper : Bool) : Bool :=
-  decide (cs.countP (stripHit upper (-1)) = 0) &&
-  decide (cs.countP (stripHit upper n) = 0) &&
-  cs.any (fun c => decide ((c.residue upper : Int) - c.modulus < -1 ∧
-    n < c.residue upper + c.modulus ∧ c.residue upper < n))
+private def checkHoles (n : Nat) (cs : List StripClass) (upper : Bool) (l r : Int) : Bool :=
+  decide (l < 0 ∧ (n:Int) ≤ r) &&
+  decide (cs.countP (stripHit upper l) = 0) &&
+  decide (cs.countP (stripHit upper r) = 0) &&
+  cs.any (fun c => decide ((c.residue upper : Int) - c.modulus < l ∧
+    r < (c.residue upper : Int) + c.modulus ∧ c.residue upper < n))
 
-private theorem near_of_check {n : Nat} {cs : List StripClass} {upper : Bool}
-    (h : checkImmediateHoles n cs upper = true) : NearRow n cs upper := by
-  simp only [checkImmediateHoles, Bool.and_eq_true, decide_eq_true_eq, List.any_eq_true] at h
+private theorem near_of_check {n : Nat} {cs : List StripClass} {upper : Bool} {l r : Int}
+    (h : checkHoles n cs upper l r = true) : NearRow n cs upper := by
+  simp only [checkHoles, Bool.and_eq_true, decide_eq_true_eq, List.any_eq_true] at h
   obtain ⟨c,hc,hl,hr,ha⟩ := h.2
-  exact ⟨c,hc,-1,n,hl,by decide,Int.le_refl _,by omega,ha,h.1.1,h.1.2⟩
+  exact ⟨c,hc,l,r,hl,h.1.1.1.1,h.1.1.1.2,hr,ha,h.1.1.2,h.1.2⟩
 
 private def checkData (n : Nat) (cs : List StripClass) : Bool :=
   decide (cs.map StripClass.modulus).Nodup &&
@@ -275,14 +276,14 @@ private def checkData (n : Nat) (cs : List StripClass) : Bool :=
     c.lower ≠ c.upper ∧ c.lower < n-1 ∧ c.upper < n ∧
     (c.lower + c.modulus < n-1 ∨ c.upper + c.modulus < n)))
 
-private def checkSeed (n : Nat) (cs : List StripClass) : Bool :=
+private def checkStable (n : Nat) (cs : List StripClass) (l r : Int) : Bool :=
   decide (3 ≤ n) && checkData n cs &&
   checkRow (n-1) cs false && checkRow n cs true && checkRow n cs false &&
-  checkImmediateHoles n cs false && checkImmediateHoles n cs true
+  checkHoles n cs false l r && checkHoles n cs true l r
 
-private theorem stable_of_check {n : Nat} {cs : List StripClass}
-    (h : checkSeed n cs = true) : Stable n cs := by
-  simp only [checkSeed, checkData, Bool.and_eq_true, decide_eq_true_eq, List.all_eq_true] at h
+private theorem stable_of_check {n : Nat} {cs : List StripClass} {l r : Int}
+    (h : checkStable n cs l r = true) : Stable n cs := by
+  simp only [checkStable, checkData, Bool.and_eq_true, decide_eq_true_eq, List.all_eq_true] at h
   obtain ⟨⟨⟨⟨⟨⟨hn, hd, hv⟩, hl⟩, hu⟩, hlf⟩, hln⟩, hun⟩ := h
   exact ⟨hn,⟨hd,hv,row_of_check hl,row_of_check hu⟩,row_of_check hlf,
     near_of_check hln,near_of_check hun⟩
@@ -308,7 +309,8 @@ private def seeds : List (List StripClass) := [
   [⟨4,1,2⟩, ⟨6,2,1⟩, ⟨8,3,0⟩, ⟨12,4,3⟩, ⟨14,10,9⟩, ⟨15,0,5⟩, ⟨17,6,11⟩, ⟨21,18,12⟩, ⟨22,12,17⟩, ⟨24,7,21⟩, ⟨25,22,4⟩]
 ]
 
-private theorem seeds_checked : checkTable checkSeed 19 seeds = true := by decide
+private theorem seeds_checked : checkTable (fun n cs => checkStable n cs (-1) n) 19 seeds = true := by
+  decide
 
 private theorem stable_from_nineteen (n : Nat) (hn : 19 ≤ n) :
     ∃ cs, Stable n cs := by
@@ -332,15 +334,260 @@ private theorem stable_from_nineteen (n : Nat) (hn : 19 ≤ n) :
       obtain ⟨cs, hcs⟩ := ih k hkn hk
       exact ⟨doubleRows p cs, hwidth ▸ step hp hcs⟩
 
-theorem near_strips_from_nineteen (n : Nat) (hn : 19 ≤ n) :
-    ∃ cs, Strip n n cs ∧ NearRow n cs false ∧ NearRow n cs true := by
-  obtain ⟨cs,h⟩ := stable_from_nineteen n hn
-  refine ⟨cs,⟨h.cropped.distinct,?_,h.lowerFull,h.cropped.exactUpper⟩,h.lowerNear,h.upperNear⟩
+private theorem Stable.full {n : Nat} {cs : List StripClass} (h : Stable n cs) : Strip n n cs := by
+  refine ⟨h.cropped.distinct,?_,h.lowerFull,h.cropped.exactUpper⟩
   intro c hc
   obtain ⟨hm,hlo,hup,hne,hl,hu,ht⟩ := h.cropped.valid c hc
   refine ⟨hm,hlo,hup,hne,by omega,hu,?_⟩
   rcases ht with ht | ht
   · exact Or.inl (by omega)
   · exact Or.inr ht
+
+
+theorem near_strips_from_nineteen (n : Nat) (hn : 19 ≤ n) :
+    ∃ cs, Strip n n cs ∧ NearRow n cs false ∧ NearRow n cs true := by
+  obtain ⟨cs,h⟩ := stable_from_nineteen n hn
+  exact ⟨cs,h.full,h.lowerNear,h.upperNear⟩
+
+private structure SeedWithHoles where
+  left : Int
+  right : Int
+  classes : List StripClass
+
+private def checkCoprimeSeed (n : Nat) (s : SeedWithHoles) : Bool :=
+  checkStable n s.classes s.left s.right &&
+    s.classes.all (fun c => decide (c.modulus%3 ≠ 0))
+
+private def coprimeSeeds : List SeedWithHoles := [
+  ⟨-1, 37, [⟨7,4,3⟩, ⟨10,6,8⟩, ⟨11,8,5⟩, ⟨13,7,0⟩, ⟨14,1,11⟩, ⟨16,12,7⟩, ⟨17,10,15⟩, ⟨19,5,1⟩, ⟨20,3,9⟩, ⟨22,17,14⟩, ⟨23,21,12⟩, ⟨25,9,19⟩, ⟨26,14,4⟩, ⟨28,22,6⟩, ⟨29,2,22⟩, ⟨31,13,2⟩, ⟨35,0,21⟩]⟩,
+  ⟨-1, 38, [⟨5,2,1⟩, ⟨10,1,2⟩, ⟨11,8,7⟩, ⟨13,3,4⟩, ⟨14,0,5⟩, ⟨16,10,8⟩, ⟨17,6,10⟩, ⟨19,15,9⟩, ⟨20,5,14⟩, ⟨22,20,15⟩, ⟨23,13,20⟩, ⟨25,18,0⟩, ⟨26,9,23⟩, ⟨29,4,13⟩, ⟨32,24,3⟩]⟩,
+  ⟨-1, 39, [⟨5,0,2⟩, ⟨10,8,6⟩, ⟨13,11,5⟩, ⟨14,12,0⟩, ⟨16,13,8⟩, ⟨17,6,13⟩, ⟨19,14,4⟩, ⟨20,2,9⟩, ⟨22,9,19⟩, ⟨23,19,11⟩, ⟨25,16,10⟩, ⟨26,1,15⟩, ⟨28,4,21⟩, ⟨29,7,20⟩, ⟨31,3,25⟩, ⟨32,17,1⟩, ⟨35,21,3⟩]⟩,
+  ⟨-1, 40, [⟨4,1,2⟩, ⟨8,3,1⟩, ⟨13,2,3⟩, ⟨14,6,7⟩, ⟨16,14,11⟩, ⟨17,7,15⟩, ⟨19,12,4⟩, ⟨20,18,8⟩, ⟨22,0,19⟩, ⟨23,16,13⟩, ⟨25,23,12⟩, ⟨26,10,24⟩, ⟨28,4,20⟩, ⟨31,26,0⟩, ⟨34,8,5⟩]⟩,
+  ⟨-1, 41, [⟨4,0,2⟩, ⟨8,2,0⟩, ⟨10,3,5⟩, ⟨13,9,7⟩, ⟨14,1,3⟩, ⟨16,14,11⟩, ⟨19,6,4⟩, ⟨20,17,9⟩, ⟨23,21,13⟩, ⟨25,19,12⟩, ⟨26,5,21⟩, ⟨28,11,19⟩, ⟨31,7,28⟩, ⟨38,27,1⟩]⟩,
+  ⟨-1, 43, [⟨4,0,1⟩, ⟨8,1,2⟩, ⟨13,5,6⟩, ⟨14,7,8⟩, ⟨16,6,14⟩, ⟨17,10,11⟩, ⟨19,11,12⟩, ⟨20,14,7⟩, ⟨22,15,16⟩, ⟨23,19,0⟩, ⟨25,23,15⟩, ⟨26,3,24⟩, ⟨32,26,3⟩, ⟨35,13,4⟩, ⟨37,2,20⟩]⟩,
+  ⟨-1, 43, [⟨7,5,4⟩, ⟨10,4,6⟩, ⟨13,10,9⟩, ⟨14,2,10⟩, ⟨16,13,12⟩, ⟨17,15,14⟩, ⟨19,6,15⟩, ⟨20,7,0⟩, ⟨22,20,1⟩, ⟨23,21,7⟩, ⟨25,22,8⟩, ⟨26,11,19⟩, ⟨28,0,17⟩, ⟨29,9,21⟩, ⟨31,8,29⟩, ⟨32,3,27⟩, ⟨35,31,2⟩, ⟨37,18,5⟩, ⟨38,17,3⟩, ⟨40,1,13⟩]⟩,
+  ⟨-1, 44, [⟨8,3,6⟩, ⟨11,9,4⟩, ⟨13,8,7⟩, ⟨14,10,11⟩, ⟨16,14,13⟩, ⟨17,12,0⟩, ⟨19,13,12⟩, ⟨20,5,16⟩, ⟨22,17,10⟩, ⟨25,22,3⟩, ⟨26,23,9⟩, ⟨28,0,19⟩, ⟨29,4,21⟩, ⟨31,6,18⟩, ⟨32,16,8⟩, ⟨34,7,24⟩, ⟨35,1,23⟩, ⟨37,18,5⟩, ⟨38,2,27⟩, ⟨40,26,1⟩, ⟨41,15,2⟩]⟩,
+  ⟨-1, 45, [⟨5,1,3⟩, ⟨13,9,11⟩, ⟨14,10,6⟩, ⟨16,7,14⟩, ⟨17,13,15⟩, ⟨19,14,12⟩, ⟨20,8,9⟩, ⟨22,15,0⟩, ⟨23,4,19⟩, ⟨25,19,10⟩, ⟨26,20,1⟩, ⟨28,12,26⟩, ⟨29,3,25⟩, ⟨31,17,5⟩, ⟨32,2,17⟩, ⟨34,18,7⟩, ⟨35,29,4⟩, ⟨37,5,16⟩, ⟨38,25,2⟩, ⟨43,0,21⟩]⟩,
+  ⟨-1, 46, [⟨8,2,0⟩, ⟨10,3,7⟩, ⟨13,11,9⟩, ⟨14,7,11⟩, ⟨16,6,13⟩, ⟨17,15,14⟩, ⟨19,17,15⟩, ⟨20,9,3⟩, ⟨22,5,20⟩, ⟨23,8,5⟩, ⟨25,20,19⟩, ⟨26,14,10⟩, ⟨28,0,26⟩, ⟨29,25,1⟩, ⟨31,19,2⟩, ⟨32,12,18⟩, ⟨34,16,4⟩, ⟨35,30,6⟩, ⟨37,4,12⟩, ⟨38,1,21⟩]⟩,
+  ⟨-1, 47, [⟨4,0,1⟩, ⟨8,1,0⟩, ⟨14,7,6⟩, ⟨16,2,3⟩, ⟨17,5,10⟩, ⟨19,10,4⟩, ⟨20,6,11⟩, ⟨22,15,14⟩, ⟨23,19,7⟩, ⟨25,13,18⟩, ⟨26,23,12⟩, ⟨28,3,22⟩, ⟨29,14,26⟩, ⟨31,27,15⟩, ⟨34,11,28⟩, ⟨37,30,2⟩]⟩,
+  ⟨-2, 49, [⟨4,3,0⟩, ⟨8,2,5⟩, ⟨13,12,9⟩, ⟨16,4,7⟩, ⟨17,16,14⟩, ⟨20,17,6⟩, ⟨22,8,11⟩, ⟨23,5,15⟩, ⟨26,6,1⟩, ⟨28,13,25⟩, ⟨29,22,18⟩, ⟨31,14,17⟩, ⟨32,21,10⟩, ⟨37,9,30⟩, ⟨38,24,3⟩, ⟨40,0,34⟩, ⟨41,29,2⟩, ⟨43,1,19⟩]⟩,
+  ⟨-1, 49, [⟨5,3,0⟩, ⟨10,2,3⟩, ⟨13,1,11⟩, ⟨14,11,4⟩, ⟨16,4,12⟩, ⟨19,15,17⟩, ⟨20,17,1⟩, ⟨22,9,7⟩, ⟨23,7,8⟩, ⟨26,19,16⟩, ⟨28,16,22⟩, ⟨29,6,26⟩, ⟨31,10,27⟩, ⟨32,21,6⟩, ⟨34,29,14⟩, ⟨37,24,2⟩, ⟨38,26,9⟩, ⟨41,5,19⟩, ⟨47,0,34⟩]⟩,
+  ⟨-1, 50, [⟨4,1,0⟩, ⟨8,4,5⟩, ⟨16,6,3⟩, ⟨19,8,11⟩, ⟨20,15,14⟩, ⟨22,10,17⟩, ⟨23,16,15⟩, ⟨25,23,1⟩, ⟨26,14,7⟩, ⟨28,24,18⟩, ⟨29,2,27⟩, ⟨31,26,10⟩, ⟨32,11,22⟩, ⟨34,0,31⟩, ⟨35,7,23⟩, ⟨37,19,6⟩, ⟨38,30,9⟩, ⟨40,18,2⟩, ⟨44,3,25⟩]⟩,
+  ⟨-1, 51, [⟨4,0,1⟩, ⟨8,1,4⟩, ⟨16,14,10⟩, ⟨17,5,6⟩, ⟨19,15,16⟩, ⟨20,3,18⟩, ⟨22,13,8⟩, ⟨23,19,11⟩, ⟨25,6,14⟩, ⟨26,21,24⟩, ⟨28,10,3⟩, ⟨29,27,19⟩, ⟨31,26,15⟩, ⟨32,18,0⟩, ⟨35,2,22⟩, ⟨38,7,27⟩, ⟨40,29,7⟩, ⟨41,11,2⟩]⟩,
+  ⟨-1, 52, [⟨7,4,5⟩, ⟨11,5,6⟩, ⟨14,12,4⟩, ⟨17,7,10⟩, ⟨19,15,16⟩, ⟨20,13,14⟩, ⟨22,14,15⟩, ⟨23,19,8⟩, ⟨25,10,11⟩, ⟨26,17,22⟩, ⟨28,9,25⟩, ⟨29,22,20⟩, ⟨31,0,29⟩, ⟨32,28,13⟩, ⟨34,20,7⟩, ⟨35,29,3⟩, ⟨37,8,24⟩, ⟨38,6,23⟩, ⟨40,30,2⟩, ⟨43,21,0⟩, ⟨44,3,9⟩, ⟨46,2,21⟩, ⟨49,1,30⟩, ⟨50,23,1⟩]⟩,
+  ⟨-2, 54, [⟨4,0,1⟩, ⟨8,2,0⟩, ⟨16,11,3⟩, ⟨17,13,10⟩, ⟨19,3,4⟩, ⟨20,15,6⟩, ⟨22,17,14⟩, ⟨23,14,11⟩, ⟨25,6,22⟩, ⟨26,19,12⟩, ⟨28,23,15⟩, ⟨31,7,30⟩, ⟨32,1,28⟩, ⟨34,21,18⟩, ⟨37,29,2⟩, ⟨40,9,20⟩, ⟨41,5,31⟩, ⟨43,25,7⟩]⟩,
+  ⟨-1, 54, [⟨4,0,1⟩, ⟨8,5,3⟩, ⟨16,2,12⟩, ⟨17,9,14⟩, ⟨19,3,4⟩, ⟨20,15,18⟩, ⟨23,19,16⟩, ⟨25,6,22⟩, ⟨26,7,6⟩, ⟨28,11,8⟩, ⟨29,17,26⟩, ⟨31,27,15⟩, ⟨32,23,20⟩, ⟨34,30,0⟩, ⟨35,14,24⟩, ⟨37,10,30⟩, ⟨38,25,2⟩, ⟨43,38,7⟩, ⟨50,1,10⟩]⟩,
+  ⟨-2, 57, [⟨5,1,4⟩, ⟨10,5,1⟩, ⟨13,4,7⟩, ⟨14,10,8⟩, ⟨16,7,0⟩, ⟨17,3,13⟩, ⟨20,8,3⟩, ⟨23,9,12⟩, ⟨25,22,17⟩, ⟨28,27,10⟩, ⟨29,13,26⟩, ⟨31,2,28⟩, ⟨32,18,27⟩, ⟨34,19,25⟩, ⟨35,34,5⟩, ⟨37,12,18⟩, ⟨38,29,15⟩, ⟨43,40,2⟩, ⟨44,0,37⟩, ⟨46,14,6⟩]⟩,
+  ⟨-1, 56, [⟨8,2,4⟩, ⟨11,3,5⟩, ⟨13,7,8⟩, ⟨14,1,11⟩, ⟨16,12,3⟩, ⟨17,4,14⟩, ⟨19,13,7⟩, ⟨20,17,10⟩, ⟨22,8,2⟩, ⟨25,23,15⟩, ⟨26,19,17⟩, ⟨28,11,9⟩, ⟨29,6,13⟩, ⟨31,22,29⟩, ⟨32,9,0⟩, ⟨35,24,6⟩, ⟨37,31,18⟩, ⟨38,16,22⟩, ⟨40,0,33⟩, ⟨44,5,23⟩, ⟨53,27,1⟩]⟩,
+  ⟨-1, 57, [⟨5,1,3⟩, ⟨10,0,5⟩, ⟨13,9,11⟩, ⟨16,13,14⟩, ⟨17,8,10⟩, ⟨20,18,2⟩, ⟨22,15,19⟩, ⟨25,19,1⟩, ⟨26,7,21⟩, ⟨29,23,7⟩, ⟨31,12,29⟩, ⟨32,17,0⟩, ⟨34,24,20⟩, ⟨35,32,4⟩, ⟨37,2,34⟩, ⟨40,34,9⟩, ⟨41,14,31⟩, ⟨43,4,17⟩, ⟨44,27,12⟩, ⟨46,28,6⟩, ⟨49,5,40⟩, ⟨50,3,16⟩]⟩,
+  ⟨-1, 58, [⟨4,0,1⟩, ⟨8,1,0⟩, ⟨16,2,3⟩, ⟨17,13,10⟩, ⟨19,7,4⟩, ⟨20,3,6⟩, ⟨23,14,15⟩, ⟨25,10,11⟩, ⟨28,11,22⟩, ⟨29,22,18⟩, ⟨31,15,28⟩, ⟨32,21,7⟩, ⟨34,29,20⟩, ⟨35,19,30⟩, ⟨37,5,31⟩, ⟨38,31,14⟩, ⟨41,27,2⟩, ⟨43,38,12⟩, ⟨49,6,34⟩]⟩,
+  ⟨-1, 59, [⟨8,5,4⟩, ⟨11,8,5⟩, ⟨14,4,11⟩, ⟨16,12,8⟩, ⟨17,9,13⟩, ⟨19,16,10⟩, ⟨20,11,6⟩, ⟨22,20,1⟩, ⟨23,2,18⟩, ⟨25,22,17⟩, ⟨26,14,9⟩, ⟨28,6,22⟩, ⟨29,7,14⟩, ⟨31,27,0⟩, ⟨32,23,19⟩, ⟨38,1,33⟩, ⟨40,17,32⟩, ⟨41,15,37⟩, ⟨43,33,15⟩, ⟨46,3,21⟩, ⟨47,24,7⟩, ⟨50,0,34⟩, ⟨52,38,3⟩, ⟨55,10,2⟩]⟩,
+  ⟨-1, 60, [⟨4,2,1⟩, ⟨8,1,2⟩, ⟨16,0,8⟩, ⟨17,11,14⟩, ⟨19,5,16⟩, ⟨20,7,3⟩, ⟨22,15,0⟩, ⟨23,21,15⟩, ⟨26,3,20⟩, ⟨28,12,19⟩, ⟨29,23,7⟩, ⟨31,8,28⟩, ⟨34,19,32⟩, ⟨35,31,4⟩, ⟨38,13,27⟩, ⟨40,36,11⟩, ⟨43,20,12⟩, ⟨46,35,6⟩, ⟨52,4,30⟩]⟩,
+  ⟨-1, 61, [⟨4,0,2⟩, ⟨8,1,4⟩, ⟨16,2,1⟩, ⟨19,7,13⟩, ⟨20,11,5⟩, ⟨22,15,19⟩, ⟨25,21,23⟩, ⟨26,13,21⟩, ⟨28,19,15⟩, ⟨29,14,11⟩, ⟨31,23,0⟩, ⟨32,30,7⟩, ⟨35,29,24⟩, ⟨37,5,29⟩, ⟨41,27,16⟩, ⟨43,10,27⟩, ⟨44,38,9⟩, ⟨47,22,8⟩, ⟨49,6,37⟩, ⟨53,35,3⟩, ⟨55,3,35⟩]⟩,
+  ⟨-1, 62, [⟨4,0,1⟩, ⟨10,5,0⟩, ⟨16,6,3⟩, ⟨17,13,14⟩, ⟨20,3,6⟩, ⟨22,19,12⟩, ⟨25,17,2⟩, ⟨26,11,18⟩, ⟨28,18,11⟩, ⟨31,27,28⟩, ⟨32,29,15⟩, ⟨34,31,24⟩, ⟨35,33,7⟩, ⟨37,2,32⟩, ⟨38,21,36⟩, ⟨40,9,23⟩, ⟨41,10,38⟩, ⟨43,14,22⟩, ⟨46,7,43⟩, ⟨47,26,8⟩, ⟨49,1,16⟩, ⟨50,34,4⟩]⟩,
+  ⟨-1, 63, [⟨4,0,1⟩, ⟨8,2,4⟩, ⟨16,1,8⟩, ⟨17,13,14⟩, ⟨20,11,15⟩, ⟨25,14,18⟩, ⟨26,19,16⟩, ⟨28,25,6⟩, ⟨31,23,27⟩, ⟨32,27,19⟩, ⟨34,9,30⟩, ⟨35,6,32⟩, ⟨38,29,0⟩, ⟨40,22,7⟩, ⟨41,5,23⟩, ⟨43,21,11⟩, ⟨44,37,2⟩, ⟨46,15,22⟩, ⟨47,38,3⟩, ⟨49,35,10⟩, ⟨50,7,26⟩, ⟨52,3,39⟩]⟩,
+  ⟨-1, 64, [⟨4,1,2⟩, ⟨8,2,1⟩, ⟨16,3,4⟩, ⟨19,8,13⟩, ⟨20,0,3⟩, ⟨23,16,21⟩, ⟨25,6,15⟩, ⟨26,22,19⟩, ⟨28,15,0⟩, ⟨29,7,8⟩, ⟨31,23,16⟩, ⟨34,32,27⟩, ⟨35,28,24⟩, ⟨37,30,11⟩, ⟨38,14,29⟩, ⟨40,4,35⟩, ⟨43,38,12⟩, ⟨44,11,39⟩, ⟨46,24,7⟩, ⟨47,12,31⟩, ⟨55,47,5⟩]⟩,
+  ⟨-1, 65, [⟨11,9,2⟩, ⟨13,6,4⟩, ⟨16,8,7⟩, ⟨17,12,15⟩, ⟨19,11,10⟩, ⟨20,14,11⟩, ⟨22,15,16⟩, ⟨25,16,8⟩, ⟨26,22,19⟩, ⟨28,23,26⟩, ⟨29,10,21⟩, ⟨31,21,22⟩, ⟨32,25,20⟩, ⟨34,2,0⟩, ⟨35,33,9⟩, ⟨37,35,5⟩, ⟨38,28,25⟩, ⟨40,7,37⟩, ⟨41,3,18⟩, ⟨43,0,40⟩, ⟨44,17,27⟩, ⟨46,38,1⟩, ⟨47,13,28⟩, ⟨49,1,36⟩, ⟨50,5,41⟩, ⟨52,18,12⟩, ⟨55,27,6⟩, ⟨58,4,14⟩, ⟨59,26,3⟩]⟩,
+  ⟨-1, 66, [⟨10,8,7⟩, ⟨11,2,1⟩, ⟨14,12,11⟩, ⟨20,16,18⟩, ⟨22,7,19⟩, ⟨23,19,6⟩, ⟨25,22,21⟩, ⟨26,17,24⟩, ⟨28,11,14⟩, ⟨29,21,26⟩, ⟨31,10,13⟩, ⟨32,5,16⟩, ⟨34,30,20⟩, ⟨35,32,8⟩, ⟨37,34,22⟩, ⟨38,23,31⟩, ⟨40,20,33⟩, ⟨41,14,30⟩, ⟨43,9,35⟩, ⟨44,27,5⟩, ⟨46,3,40⟩, ⟨49,31,2⟩, ⟨50,44,10⟩, ⟨52,25,9⟩, ⟨53,0,28⟩, ⟨55,4,32⟩, ⟨56,6,36⟩, ⟨59,33,3⟩, ⟨61,45,4⟩, ⟨62,1,15⟩, ⟨64,15,0⟩]⟩,
+  ⟨-1, 67, [⟨10,8,5⟩, ⟨11,9,8⟩, ⟨14,12,6⟩, ⟨16,7,11⟩, ⟨19,14,13⟩, ⟨20,17,9⟩, ⟨22,3,17⟩, ⟨23,4,1⟩, ⟨25,16,21⟩, ⟨26,19,14⟩, ⟨28,21,26⟩, ⟨31,13,7⟩, ⟨32,11,28⟩, ⟨34,22,2⟩, ⟨35,1,33⟩, ⟨37,34,0⟩, ⟨38,35,4⟩, ⟨40,29,18⟩, ⟨41,24,31⟩, ⟨46,15,23⟩, ⟨47,30,10⟩, ⟨49,2,44⟩, ⟨50,46,3⟩, ⟨52,32,12⟩, ⟨53,10,50⟩, ⟨55,5,16⟩, ⟨56,6,22⟩, ⟨59,0,56⟩]⟩,
+  ⟨-1, 68, [⟨4,1,2⟩, ⟨8,0,1⟩, ⟨20,3,7⟩, ⟨22,14,15⟩, ⟨25,10,23⟩, ⟨26,20,19⟩, ⟨28,11,24⟩, ⟨29,22,11⟩, ⟨31,7,13⟩, ⟨32,18,29⟩, ⟨34,28,21⟩, ⟨35,12,0⟩, ⟨37,15,32⟩, ⟨38,34,5⟩, ⟨40,19,31⟩, ⟨41,31,12⟩, ⟨43,26,20⟩, ⟨44,30,16⟩, ⟨47,44,4⟩, ⟨49,6,36⟩, ⟨50,4,28⟩, ⟨53,42,3⟩, ⟨56,27,8⟩, ⟨64,2,39⟩]⟩,
+  ⟨-1, 69, [⟨5,3,1⟩, ⟨10,6,3⟩, ⟨16,9,12⟩, ⟨17,10,8⟩, ⟨20,12,17⟩, ⟨25,5,22⟩, ⟨26,21,24⟩, ⟨29,22,20⟩, ⟨31,14,27⟩, ⟨34,15,5⟩, ⟨35,7,32⟩, ⟨37,34,15⟩, ⟨38,24,10⟩, ⟨40,20,35⟩, ⟨41,35,14⟩, ⟨43,40,2⟩, ⟨44,39,18⟩, ⟨46,4,34⟩, ⟨47,17,40⟩, ⟨50,37,4⟩, ⟨52,2,30⟩, ⟨55,29,9⟩, ⟨56,11,38⟩, ⟨59,0,19⟩, ⟨61,31,7⟩, ⟨64,1,29⟩, ⟨65,19,0⟩]⟩,
+  ⟨-1, 70, [⟨4,1,0⟩, ⟨8,2,1⟩, ⟨16,12,13⟩, ⟨20,15,6⟩, ⟨22,8,15⟩, ⟨25,14,5⟩, ⟨26,20,21⟩, ⟨28,3,11⟩, ⟨29,22,14⟩, ⟨31,23,27⟩, ⟨32,24,22⟩, ⟨34,4,19⟩, ⟨35,32,7⟩, ⟨37,11,34⟩, ⟨40,7,23⟩, ⟨41,27,38⟩, ⟨43,0,35⟩, ⟨44,19,18⟩, ⟨47,40,3⟩, ⟨49,36,2⟩, ⟨56,6,31⟩, ⟨59,16,10⟩]⟩,
+  ⟨-1, 71, [⟨4,1,2⟩, ⟨14,8,9⟩, ⟨16,11,8⟩, ⟨19,16,17⟩, ⟨22,12,19⟩, ⟨25,23,7⟩, ⟨26,18,21⟩, ⟨28,24,16⟩, ⟨31,15,12⟩, ⟨32,10,13⟩, ⟨38,20,35⟩, ⟨40,32,20⟩, ⟨41,31,11⟩, ⟨43,30,25⟩, ⟨44,19,29⟩, ⟨46,14,33⟩, ⟨47,0,31⟩, ⟨49,28,0⟩, ⟨52,38,15⟩, ⟨53,2,27⟩, ⟨55,26,4⟩, ⟨56,6,48⟩, ⟨58,40,3⟩, ⟨59,51,5⟩, ⟨61,7,53⟩, ⟨62,4,39⟩, ⟨64,3,28⟩, ⟨68,39,1⟩]⟩,
+  ⟨-1, 72, [⟨4,1,2⟩, ⟨8,4,1⟩, ⟨16,14,12⟩, ⟨20,18,7⟩, ⟨22,10,15⟩, ⟨25,23,11⟩, ⟨28,22,20⟩, ⟨29,26,16⟩, ⟨31,16,21⟩, ⟨32,11,24⟩, ⟨34,6,29⟩, ⟨35,24,4⟩, ⟨37,34,32⟩, ⟨40,35,31⟩, ⟨41,39,23⟩, ⟨43,8,35⟩, ⟨46,27,5⟩, ⟨47,19,40⟩, ⟨52,31,3⟩, ⟨53,3,43⟩, ⟨55,15,19⟩, ⟨56,7,53⟩, ⟨62,2,13⟩, ⟨67,0,8⟩, ⟨68,42,0⟩]⟩
+]
+
+set_option maxRecDepth 4096 in
+set_option maxHeartbeats 0 in
+private theorem coprimeSeeds_checked : checkTable checkCoprimeSeed 37 coprimeSeeds = true := by
+  decide
+
+private theorem coprime_stable (n : Nat) (hn : 37 ≤ n) :
+    ∃ cs, Stable n cs ∧ ∀ c ∈ cs, c.modulus%3 ≠ 0 := by
+  induction n using Nat.strongRecOn with
+  | ind n ih =>
+    by_cases hs : n < 73
+    · let i := n-37
+      have hi : i < coprimeSeeds.length := by change i < 36; omega
+      have hc := checkTable_at coprimeSeeds_checked hi
+      rw [show 37+i=n by omega] at hc
+      simp only [checkCoprimeSeed, Bool.and_eq_true, List.all_eq_true, decide_eq_true_eq] at hc
+      exact ⟨coprimeSeeds[i].classes,stable_of_check hc.1,hc.2⟩
+    · let k := (n+1)/2
+      let p := 2*k-n
+      obtain ⟨cs,hc,hcop⟩ := ih k (by dsimp [k]; omega) (by dsimp [k]; omega)
+      have hp : p ≤ 1 := by dsimp [p,k]; omega
+      have he : 2*k-p=n := by dsimp [p,k]; omega
+      refine ⟨doubleRows p cs,he ▸ step hp hc,?_⟩
+      intro c hm
+      rcases List.mem_cons.mp hm with rfl | hm
+      · change 2%3 ≠ 0
+        decide
+      · obtain ⟨d,hd,rfl⟩ := List.mem_map.mp hm
+        have := hcop d hd
+        change (2*d.modulus)%3 ≠ 0
+        omega
+
+/-- There are near strips whose moduli avoid multiples of 3 at every width
+at least 37. The stricter construction interleaves these with a second strip. -/
+theorem coprime_near_strips (n : Nat) (hn : 37 ≤ n) :
+    ∃ cs, Strip n n cs ∧ NearRow n cs false ∧ NearRow n cs true ∧
+      ∀ c ∈ cs, c.modulus%3 ≠ 0 := by
+  obtain ⟨cs,hc,hcop⟩ := coprime_stable n hn
+  exact ⟨cs,hc.full,hc.lowerNear,hc.upperNear,hcop⟩
+
+private def along (p : Nat) (c : StripClass) : StripClass :=
+  ⟨2*c.modulus,2*c.lower+p,2*c.upper+p⟩
+
+/-- Each modulus of the first strip is placed on even columns of both rows.
+The second strip is placed on odd columns of both rows. -/
+def interleave (cs ds : List StripClass) : List StripClass :=
+  cs.map (along 0) ++ ds.map (along 1)
+
+private theorem along_count {cs : List StripClass} {p : Nat} (hp : p ≤ 1)
+    (hpos : ∀ c ∈ cs, 0 < c.modulus) (upper : Bool) (x : Int) :
+    (cs.map (along p)).countP (stripHit upper x) =
+      if x%2 = (p:Int) then cs.countP (stripHit upper (x/2)) else 0 := by
+  have heq (c : StripClass) (hm : 0 < c.modulus) :
+      (stripHit upper x ∘ along p) c =
+        if x%2 = (p:Int) then stripHit upper (x/2) c else false := by
+    have hres : (along p c).residue upper = 2*c.residue upper+p := by cases upper <;> rfl
+    have hiff :
+        x%(2*(c.modulus:Int))=2*(c.residue upper:Int)+(p:Int) ↔
+        x%2=(p:Int) ∧ (x/2)%(c.modulus:Int)=(c.residue upper:Int) := by
+      rw [emod_double _ _ (by omega)]
+      omega
+    change (stripHit upper x (along p c)) = _
+    unfold stripHit
+    rw [hres,Int.natCast_add,Int.natCast_mul]
+    change decide (x%(2*(c.modulus:Int))=2*(c.residue upper:Int)+(p:Int)) = _
+    by_cases he : x%2=(p:Int) <;> simp [hiff,he]
+  rw [List.countP_map]
+  by_cases h : x%2=(p:Int)
+  · rw [ite_eq_left h]
+    apply List.countP_congr
+    intro c hc
+    rw [heq c (hpos c hc),ite_eq_left h]
+  · rw [ite_eq_right h]
+    apply List.countP_eq_zero.mpr
+    intro c hc
+    rw [heq c (hpos c hc),ite_eq_right h]
+    decide
+
+private theorem interleave_count {cs ds : List StripClass}
+    (hcpos : ∀ c ∈ cs, 0 < c.modulus) (hdpos : ∀ c ∈ ds, 0 < c.modulus)
+    (upper : Bool) (x : Int) :
+    (interleave cs ds).countP (stripHit upper x) =
+      if x%2=0 then cs.countP (stripHit upper (x/2)) else ds.countP (stripHit upper (x/2)) := by
+  unfold interleave
+  rw [List.countP_append,along_count (by decide : 0≤1) hcpos,
+    along_count (by decide : 1≤1) hdpos]
+  have he : x%2=0 ∨ x%2=1 := by omega
+  rcases he with he | he <;> simp [he]
+
+private theorem along_moduli (p : Nat) (cs : List StripClass) :
+    (cs.map (along p)).map StripClass.modulus = (cs.map StripClass.modulus).map (2*·) := by
+  simp [List.map_map, Function.comp_def, along]
+
+private theorem along_valid {n k p : Nat} {cs : List StripClass} (hp : p ≤ 1)
+    (hc : Strip k k cs)
+    (hbound : ∀ x < k, 2*x+p < n) :
+    ∀ c ∈ cs.map (along p), 2 ≤ c.modulus ∧ c.lower < c.modulus ∧
+      c.upper < c.modulus ∧ c.lower ≠ c.upper ∧ c.lower < n ∧ c.upper < n ∧
+      (c.lower+c.modulus < n ∨ c.upper+c.modulus < n) := by
+  intro c hmem
+  obtain ⟨d,hd,rfl⟩ := List.mem_map.mp hmem
+  obtain ⟨hm,hl,hu,hne,hk₀,hk₁,ht⟩ := hc.valid d hd
+  have hl' := hbound d.lower hk₀
+  have hu' := hbound d.upper hk₁
+  refine ⟨by change 2 ≤ 2*d.modulus; omega, ?_, ?_, ?_, hl', hu', ?_⟩
+  · change 2*d.lower+p < 2*d.modulus
+    omega
+  · change 2*d.upper+p < 2*d.modulus
+    omega
+  · change 2*d.lower+p ≠ 2*d.upper+p
+    omega
+  · rcases ht with ht | ht
+    · have hb := hbound (d.lower+d.modulus) ht
+      left
+      change 2*d.lower+p+2*d.modulus < n
+      omega
+    · have hb := hbound (d.upper+d.modulus) ht
+      right
+      change 2*d.upper+p+2*d.modulus < n
+      omega
+
+/-- The two parity lifts preserve the near witnesses in the even columns.
+The output moduli are even and each class has equal parity in both rows. -/
+theorem interleave_near {n : Nat} {cs ds : List StripClass}
+    (hc : Strip ((n+1)/2) ((n+1)/2) cs) (hd : Strip (n/2) (n/2) ds)
+    (hsep : ∀ c ∈ cs, ∀ d ∈ ds, c.modulus ≠ d.modulus)
+    (hl : NearRow ((n+1)/2) cs false) (hu : NearRow ((n+1)/2) cs true) :
+    ∃ es, Strip n n es ∧ NearRow n es false ∧ NearRow n es true ∧
+      ∀ c ∈ es, c.modulus%2=0 ∧ c.lower%2=c.upper%2 := by
+  have hcpos : ∀ c ∈ cs, 0 < c.modulus := fun c hm => by have := (hc.valid c hm).1; omega
+  have hdpos : ∀ c ∈ ds, 0 < c.modulus := fun c hm => by have := (hd.valid c hm).1; omega
+  have heven : ∀ x < (n+1)/2, 2*x+0<n := by intro x hx; omega
+  have hodd : ∀ x < n/2, 2*x+1<n := by intro x hx; omega
+  have hexact (upper : Bool) : exactRow n (interleave cs ds) upper := by
+    intro x hx hn
+    rw [interleave_count hcpos hdpos]
+    by_cases he : x%2=0
+    · rw [ite_eq_left he]
+      have hlim : x/2 < ((n+1)/2 : Nat) := by omega
+      cases upper
+      · exact hc.exactLower (x/2) (by omega) hlim
+      · exact hc.exactUpper (x/2) (by omega) hlim
+    · rw [ite_eq_right he]
+      have hlim : x/2 < (n/2 : Nat) := by omega
+      cases upper
+      · exact hd.exactLower (x/2) (by omega) hlim
+      · exact hd.exactUpper (x/2) (by omega) hlim
+  have hnear (upper : Bool) (h : NearRow ((n+1)/2) cs upper) :
+      NearRow n (interleave cs ds) upper := by
+    obtain ⟨c,hc',l,r,hl₀,hl₁,hr₀,hr₁,ha,holeL,holeR⟩ := h
+    have hm : along 0 c ∈ interleave cs ds :=
+      List.mem_append_left _ (List.mem_map_of_mem hc')
+    have hres : (along 0 c).residue upper = 2*c.residue upper := by
+      cases upper <;> simp [along,StripClass.residue]
+    have hmod : (along 0 c).modulus = 2*c.modulus := rfl
+    refine ⟨along 0 c,hm,2*l,2*r,?_,by omega,by omega,?_,?_,?_,?_⟩
+    · rw [hres,hmod]
+      omega
+    · rw [hres,hmod]
+      omega
+    · rw [hres]
+      omega
+    · rw [interleave_count hcpos hdpos]
+      have hdiv : (2*l)/2=l := by omega
+      simp [hdiv,holeL]
+    · rw [interleave_count hcpos hdpos]
+      have hdiv : (2*r)/2=r := by omega
+      simp [hdiv,holeR]
+  refine ⟨interleave cs ds,⟨?_,?_,hexact false,hexact true⟩,hnear false hl,hnear true hu,?_⟩
+  · rw [interleave,List.map_append,List.nodup_append,along_moduli,along_moduli]
+    refine ⟨?_,?_,?_⟩
+    · rw [List.Nodup,List.pairwise_map]
+      exact hc.distinct.imp (fun hne he => hne (by omega))
+    · rw [List.Nodup,List.pairwise_map]
+      exact hd.distinct.imp (fun hne he => hne (by omega))
+    · intro x hx y hy hxy
+      obtain ⟨m,hm,rfl⟩ := List.mem_map.mp hx
+      obtain ⟨k,hk,rfl⟩ := List.mem_map.mp hy
+      obtain ⟨c,hcm,rfl⟩ := List.mem_map.mp hm
+      obtain ⟨d,hdm,rfl⟩ := List.mem_map.mp hk
+      exact hsep c hcm d hdm (by omega)
+  · intro c hm
+    rcases List.mem_append.mp hm with he | he
+    · exact along_valid (by decide) hc heven c he
+    · exact along_valid (by decide) hd hodd c he
+  · intro c hm
+    rcases List.mem_append.mp hm with he | he
+    · obtain ⟨d,hdm,rfl⟩ := List.mem_map.mp he
+      dsimp [along]
+      omega
+    · obtain ⟨d,hdm,rfl⟩ := List.mem_map.mp he
+      dsimp [along]
+      omega
 
 end DisjointCovers

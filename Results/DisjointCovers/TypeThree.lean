@@ -66,8 +66,42 @@ private theorem label_iff {n x : Nat} {cs : List StripClass} {upper : Bool}
     have hcd := only_one_hit (he (x:Int) (by omega) (by omega)) hc hdm ((nat_hit _).mpr hh) hdh
     rwa [hcd]
 
-theorem Strip.realizes {n : Nat} {cs : List StripClass} (h : Strip n n cs) (hn : 2 ≤ n) :
-    TwoRowIRDCS n (stripLabel cs false) (stripLabel cs true) := by
+/-- Equations realizing a class's two residues with a specified coefficient bound. -/
+def RealizesResidues (minCoeff m lower upper : Nat) : Prop :=
+  ∃ a b c : Nat, minCoeff ≤ a ∧ a < m ∧ minCoeff ≤ b ∧ b < m ∧
+    Nat.gcd a b = 1 ∧ ∀ x : Nat,
+      (x%m = lower ↔ (a*x)%m = c%m) ∧
+      (x%m = upper ↔ (a*x+b)%m = c%m)
+
+private theorem ordinary_residues {m l u : Nat} (hm : 2 ≤ m) (hl : l < m)
+    (hu : u < m) (hne : l ≠ u) : RealizesResidues 1 m l u := by
+  let b := if u < l then l-u else m+l-u
+  have hb₀ : 0 < b := by dsimp [b]; split <;> omega
+  have hb₁ : b < m := by dsimp [b]; split <;> omega
+  have hab : (u+b)%m = l := by
+    have ho : u+b = l ∨ u+b = l+m := by
+      dsimp [b]
+      split <;> omega
+    rcases ho with he | he
+    · rw [he,Nat.mod_eq_of_lt hl]
+    · rw [he,Nat.add_mod_right,Nat.mod_eq_of_lt hl]
+  have hmod (y : Nat) : (y+b)%m = l ↔ y%m = u := by
+    constructor
+    · intro hey
+      have he := Nat.add_mod_eq_add_mod_right (m-b) (hey.trans hab.symm)
+      simpa only [Nat.add_assoc, show b+(m-b)=m by omega, Nat.add_mod_right,
+        Nat.mod_eq_of_lt hu] using he
+    · intro hey
+      exact (Nat.add_mod_eq_add_mod_right b (hey.trans (Nat.mod_eq_of_lt hu).symm)).trans hab
+  refine ⟨1,b,l,by decide,by omega,by omega,hb₁,by simp,?_⟩
+  intro x
+  simp only [Nat.one_mul,Nat.mod_eq_of_lt hl]
+  exact ⟨True.intro,(hmod x).symm⟩
+
+theorem Strip.realizes_with {minCoeff n : Nat} {cs : List StripClass}
+    (h : Strip n n cs) (hn : 2 ≤ n)
+    (hcoeff : ∀ c ∈ cs, RealizesResidues minCoeff c.modulus c.lower c.upper) :
+    TwoRowIRDCSWith minCoeff n (stripLabel cs false) (stripLabel cs true) := by
   refine ⟨hn, ?_⟩
   intro m hm
   change 0 < ((List.range n).countP (fun x => decide (stripLabel cs false x = m))) +
@@ -88,34 +122,16 @@ theorem Strip.realizes {n : Nat} {cs : List StripClass} (h : Strip n n cs) (hn :
       exact ⟨c,hc,he.symm.trans hxlabel⟩
   obtain ⟨c,hc,rfl⟩ := c_exists
   obtain ⟨hm,hl,hu,hne,hln,hun,htwo⟩ := h.valid c hc
-  let b := if c.upper < c.lower then c.lower-c.upper else c.modulus+c.lower-c.upper
-  have hb₀ : 0 < b := by dsimp [b]; split <;> omega
-  have hb₁ : b < c.modulus := by dsimp [b]; split <;> omega
-  have hab : (c.upper+b)%c.modulus = c.lower := by
-    have ho : c.upper+b = c.lower ∨ c.upper+b = c.lower+c.modulus := by
-      dsimp [b]
-      split <;> omega
-    rcases ho with he | he
-    · rw [he,Nat.mod_eq_of_lt hl]
-    · rw [he,Nat.add_mod_right,Nat.mod_eq_of_lt hl]
-  have hmod (y : Nat) : (y+b)%c.modulus = c.lower ↔ y%c.modulus = c.upper := by
-    constructor
-    · intro hey
-      have he := Nat.add_mod_eq_add_mod_right (c.modulus-b) (hey.trans hab.symm)
-      simpa only [Nat.add_assoc, show b+(c.modulus-b)=c.modulus by omega, Nat.add_mod_right,
-        Nat.mod_eq_of_lt hu] using he
-    · intro hey
-      exact (Nat.add_mod_eq_add_mod_right b (hey.trans (Nat.mod_eq_of_lt hu).symm)).trans hab
   have lo (x : Nat) (hx : x<n) :
       stripLabel cs false x = c.modulus ↔ x % c.modulus = c.lower :=
     label_iff h.exactLower h.distinct hx hc
   have up (x : Nat) (hx : x<n) :
       stripLabel cs true x = c.modulus ↔ x % c.modulus = c.upper :=
     label_iff h.exactUpper h.distinct hx hc
-  refine ⟨1,b,c.lower,by decide,by omega,hb₀,hb₁,by simp,?_,?_⟩
+  obtain ⟨a,b,r,ha,ham,hb,hbm,hcop,hrows⟩ := hcoeff c hc
+  refine ⟨a,b,r,ha,ham,hb,hbm,hcop,?_,?_⟩
   · intro x hx
-    simp only [Nat.one_mul, Nat.mod_eq_of_lt hl]
-    exact ⟨lo x hx,(up x hx).trans (hmod x).symm⟩
+    exact ⟨(lo x hx).trans (hrows x).1,(up x hx).trans (hrows x).2⟩
   · rcases htwo with htwo | htwo
     · left
       refine ⟨⟨c.lower,hln⟩,⟨c.lower+c.modulus,htwo⟩,⟨c.upper,hun⟩,?_,?_,?_,?_⟩
@@ -135,6 +151,13 @@ theorem Strip.realizes {n : Nat} {cs : List StripClass} (h : Strip n n cs) (hn :
       · exact (up _ hun).mpr (Nat.mod_eq_of_lt hu)
       · exact (up _ htwo).mpr (by rw [Nat.add_mod_right,Nat.mod_eq_of_lt hu])
       · exact (lo _ hln).mpr (Nat.mod_eq_of_lt hl)
+
+theorem Strip.realizes {n : Nat} {cs : List StripClass} (h : Strip n n cs) (hn : 2 ≤ n) :
+    TwoRowIRDCS n (stripLabel cs false) (stripLabel cs true) := by
+  apply h.realizes_with hn
+  intro c hc
+  obtain ⟨hm,hl,hu,hne,_⟩ := h.valid c hc
+  exact ordinary_residues hm hl hu hne
 
 /-- Affirmative answer to Emanuel's §7.4.1 eventual Type 3 question. Both rows
 can be near IRDCS at every width at least 19. -/

@@ -16,4 +16,6 @@ lean -o "$build_dir/PatternCertificates.olean" PatternCertificates.lean
 lean PatternOptimal.lean
 lean -o "$build_dir/ShiftCounterexample.olean" ShiftCounterexample.lean
 lean -o "$build_dir/NearStrips.olean" NearStrips.lean
-lean TypeThree.lean
+lean -o "$build_dir/TypeThree.olean" TypeThree.lean
+lean -o "$build_dir/StrictCoefficients.olean" StrictCoefficients.lean
+lean StrictTypeThree.lean

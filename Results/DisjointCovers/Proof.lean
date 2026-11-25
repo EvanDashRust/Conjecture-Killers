@@ -16,21 +16,40 @@ theorem coprime_covers (n : Nat) (hn : 44 ≤ n) :
       dsimp [k]
       omega
 
+private theorem triple_bound {n r₀ r₁ r₂ : Nat} {cs ds : List Class}
+    (hn : 132 ≤ n) (hc : Cover ((n+1)/3) cs) (hd : Cover ((n+1)/3) ds) :
+    ∀ c ∈ (3,r₀) :: (lift 3 r₁ cs ++ lift 3 r₂ ds), c.1+2 ≤ n := by
+  intro c hm
+  rcases List.mem_cons.mp hm with rfl | hm
+  · change 5 ≤ n
+    omega
+  · rcases List.mem_append.mp hm with hm | hm
+    · obtain ⟨d, hdmem, rfl⟩ := List.mem_map.mp hm
+      have ht := (hc.valid d hdmem).2.2
+      change 3*d.1+2 ≤ n
+      omega
+    · obtain ⟨d, hdmem, rfl⟩ := List.mem_map.mp hm
+      have ht := (hd.valid d hdmem).2.2
+      change 3*d.1+2 ≤ n
+      omega
+
 /-- Two residues modulo 3 have the common fibre size (n+1)/3. -/
 private theorem assemble {n : Nat} {cs ds : List Class} (hn : 132 ≤ n)
     (hc : Cover ((n+1)/3) cs) (hd : Cover ((n+1)/3) ds)
-    (hsep : Separate cs ds) : ∃ es, Cover n es ∧ MultiplesOfThree es ∧ HasModulus es 3 := by
+    (hsep : Separate cs ds) : ∃ es, Cover n es ∧ MultiplesOfThree es ∧ HasModulus es 3 ∧
+      (∀ c ∈ es, c.1+2 ≤ n) := by
   by_cases he : n % 3 = 1
-  · refine ⟨(3,0) :: (lift 3 1 cs ++ lift 3 2 ds), ?_, triple_multiples, by simp [HasModulus]⟩
+  · refine ⟨(3,0) :: (lift 3 1 cs ++ lift 3 2 ds), ?_, triple_multiples, by simp [HasModulus], triple_bound hn hc hd⟩
     exact triple hc hd hsep (by decide) (by decide) (by decide) (by decide)
       (by decide) (by decide) (by omega) (fun y => by omega) (fun y => by omega)
-  · refine ⟨(3,2) :: (lift 3 0 cs ++ lift 3 1 ds), ?_, triple_multiples, by simp [HasModulus]⟩
+  · refine ⟨(3,2) :: (lift 3 0 cs ++ lift 3 1 ds), ?_, triple_multiples, by simp [HasModulus], triple_bound hn hc hd⟩
     exact triple hc hd hsep (by decide) (by decide) (by decide) (by decide)
       (by decide) (by decide) (by omega) (fun y => by omega) (fun y => by omega)
 
-/-- For every n at least 132, there is a cover using modulus 3 and only multiples of 3. -/
-theorem multiple_covers_with_three (n : Nat) (hn : 132 ≤ n) :
-    ∃ cs, Cover n cs ∧ MultiplesOfThree cs ∧ HasModulus cs 3 := by
+/-- The tripling construction uses modulus 3, and no modulus greater than n-2. -/
+theorem multiple_covers_bounded (n : Nat) (hn : 132 ≤ n) :
+    ∃ cs, Cover n cs ∧ MultiplesOfThree cs ∧ HasModulus cs 3 ∧
+      (∀ c ∈ cs, c.1+2 ≤ n) := by
   induction n using Nat.strongRecOn with
   | ind n ih =>
     let k := (n+1)/3
@@ -39,8 +58,14 @@ theorem multiple_covers_with_three (n : Nat) (hn : 132 ≤ n) :
     · obtain ⟨cs, ds, hc, hd, hsep⟩ := paired_base k hk hsmall
       exact assemble hn hc hd hsep
     · obtain ⟨cs, hc, hcop⟩ := coprime_covers k hk
-      obtain ⟨ds, hd, hmul, _⟩ := ih k (by dsimp [k]; omega) (by omega)
+      obtain ⟨ds, hd, hmul, _, _⟩ := ih k (by dsimp [k]; omega) (by omega)
       exact assemble hn hc hd (separate_of_three hcop hmul)
+
+/-- For every n at least 132, there is a cover using modulus 3 and only multiples of 3. -/
+theorem multiple_covers_with_three (n : Nat) (hn : 132 ≤ n) :
+    ∃ cs, Cover n cs ∧ MultiplesOfThree cs ∧ HasModulus cs 3 := by
+  obtain ⟨cs,hc,hm,hthree,_⟩ := multiple_covers_bounded n hn
+  exact ⟨cs,hc,hm,hthree⟩
 
 /-- For every n at least 132, the cover can use only multiples of 3. -/
 theorem multiple_covers (n : Nat) (hn : 132 ≤ n) :

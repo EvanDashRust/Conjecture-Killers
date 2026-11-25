@@ -1,6 +1,6 @@
 # Emanuel’s Type 3 question and the Lean statement
 
-The Lean proof establishes eventual existence with the coefficient convention used in Emanuel’s examples and horizontal doubling. Definition 7.2 prints a stricter coefficient bound. Under that literal bound the existence question remains open in this work.
+The Lean proof establishes eventual existence with the coefficient convention used in Emanuel’s examples and horizontal doubling. Definition 7.2 prints a stricter coefficient bound. A separate construction now proves eventual existence with the literal bound. [Strict-coefficient theorem](STRICT_TYPE_THREE.md)
 
 ## Original source
 

@@ -21,13 +21,16 @@ private def HasNoncollinearHits (w : Nat) (lower upper : Nat → Nat) (m : Nat) 
 /-- Definition 7.2 specialized to a rectangle with two rows and prescribed
 modulus labels. There is one linear congruence per used modulus. The coefficient
 bounds include 1, as in Emanuel's worked examples. -/
-def TwoRowIRDCS (w : Nat) (lower upper : Nat → Nat) : Prop :=
+def TwoRowIRDCSWith (minCoeff w : Nat) (lower upper : Nat → Nat) : Prop :=
   2 ≤ w ∧ ∀ m, 0 < boxCount w lower upper m →
-    ∃ a b c : Nat, 0 < a ∧ a < m ∧ 0 < b ∧ b < m ∧ Nat.gcd a b = 1 ∧
+    ∃ a b c : Nat, minCoeff ≤ a ∧ a < m ∧ minCoeff ≤ b ∧ b < m ∧ Nat.gcd a b = 1 ∧
       (∀ x < w,
         (lower x = m ↔ (a*x) % m = c % m) ∧
         (upper x = m ↔ (a*x+b) % m = c % m)) ∧
       HasNoncollinearHits w lower upper m
+
+/-- The coefficient convention used in the worked examples. -/
+abbrev TwoRowIRDCS := TwoRowIRDCSWith 1
 
 private theorem rowCount_pos {w x m : Nat} {row : Nat → Nat}
     (hx : x < w) (hm : row x = m) : 0 < rowCount w row m :=

@@ -2,6 +2,12 @@
 
 Formal mathematics, auditable Lean 4 proofs, reproducible experiments, and careful attribution.
 
+## Case 006: Emanuel’s Type 3 conjecture with strict coefficients
+
+**Status: proved in Lean.** Every width at least 262 admits a two-row Type 3 covering system under the printed bound $1<a,b<m$. Both rows are near covers.
+
+[Construction, proof, and replay instructions](Results/DisjointCovers/STRICT_TYPE_THREE.md)
+
 ## Case 005: Emanuel’s eventual Type 3 conjecture
 
 **Status: proved in Lean under the coefficient convention used in the thesis’s worked examples.** Every width at least 19 admits a two-row incongruent restricted disjoint covering system in which both rows are near covers. The printed strict coefficient bound remains outside the scope of this proof.

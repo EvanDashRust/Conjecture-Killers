@@ -2,7 +2,7 @@
 
 Paul R. Emanuel asked whether Type 3 two-row incongruent restricted disjoint covering systems exist at every sufficiently large width. Under the coefficient convention used in his worked examples and horizontal doubling, the answer is **yes** for every \(n\ge19\), with both rows near IRDCS. I found no prior resolution in searches on November 25, 2026. [Emanuel, *Covering systems*, Definition 7.9 and §7.4.1](https://doi.org/10.25949/19441907)
 
-Definition 7.2 prints \(1<a,b<m\). The Lean theorem uses \(1\le a,b<m\). The induction introduces modulus 2, for which the printed strict inequalities have no integer solution. The construction therefore leaves open the existence question with the printed strict bound. [Source and formalization audit](TYPE_THREE_SOURCE_AUDIT.md)
+Definition 7.2 prints \(1<a,b<m\). The Lean theorem uses \(1\le a,b<m\). The induction introduces modulus 2, for which the printed strict inequalities have no integer solution. The printed strict bound is handled by a separate construction with threshold 262. [Source and formalization audit](TYPE_THREE_SOURCE_AUDIT.md) · [Strict-coefficient theorem](STRICT_TYPE_THREE.md)
 
 ## The induction
 

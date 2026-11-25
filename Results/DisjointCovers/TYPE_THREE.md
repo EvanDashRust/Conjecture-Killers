@@ -1,6 +1,8 @@
 # Type 3 covers exist at every width from 19 onward
 
-Paul R. Emanuel asked whether Type 3 two-row incongruent restricted disjoint covering systems exist at every sufficiently large width. The answer is **yes**. For every \(n\ge19\) there is an \(n\times2\) cover in which both rows are near IRDCS in the sense of Emanuel’s definition. I found no prior resolution of this question in searches on November 25, 2026. [Emanuel, *Covering systems*, Definition 7.9 and §7.4.1](https://doi.org/10.25949/19441907)
+Paul R. Emanuel asked whether Type 3 two-row incongruent restricted disjoint covering systems exist at every sufficiently large width. Under the coefficient convention used in his worked examples and horizontal doubling, the answer is **yes** for every \(n\ge19\), with both rows near IRDCS. I found no prior resolution in searches on November 25, 2026. [Emanuel, *Covering systems*, Definition 7.9 and §7.4.1](https://doi.org/10.25949/19441907)
+
+Definition 7.2 prints \(1<a,b<m\). The Lean theorem uses \(1\le a,b<m\). The induction introduces modulus 2, for which the printed strict inequalities have no integer solution. The construction therefore leaves open the existence question with the printed strict bound. [Source and formalization audit](TYPE_THREE_SOURCE_AUDIT.md)
 
 ## The induction
 

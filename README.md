@@ -4,9 +4,9 @@ Formal mathematics, auditable Lean 4 proofs, reproducible experiments, and caref
 
 ## Case 005: Emanuel’s eventual Type 3 conjecture
 
-**Status: proved in Lean.** Every width at least 19 admits a two-row incongruent restricted disjoint covering system in which both rows are near covers.
+**Status: proved in Lean under the coefficient convention used in the thesis’s worked examples.** Every width at least 19 admits a two-row incongruent restricted disjoint covering system in which both rows are near covers. The printed strict coefficient bound remains outside the scope of this proof.
 
-[Construction, certificates, and replay instructions](Results/DisjointCovers/TYPE_THREE.md)
+[Construction and replay instructions](Results/DisjointCovers/TYPE_THREE.md) · [Source and formalization audit](Results/DisjointCovers/TYPE_THREE_SOURCE_AUDIT.md)
 
 ## Case 004: Emanuel’s two-row shifting conjecture
 

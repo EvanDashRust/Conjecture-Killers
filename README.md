@@ -2,6 +2,12 @@
 
 Formal mathematics, auditable Lean 4 proofs, reproducible experiments, and careful attribution.
 
+## Case 005: Emanuel’s eventual Type 3 conjecture
+
+**Status: proved in Lean.** Every width at least 19 admits a two-row incongruent restricted disjoint covering system in which both rows are near covers.
+
+[Construction, certificates, and replay instructions](Results/DisjointCovers/TYPE_THREE.md)
+
 ## Case 004: Emanuel’s two-row shifting conjecture
 
 **Status: disproved in Lean.** Two distinct length-20 covers satisfy the hypotheses of Emanuel’s §7.3 conjecture. No shift produces a valid two-row cover, even with extra cropping.

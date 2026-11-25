@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
+build_dir="$(mktemp -d)"
+trap 'rm -rf -- "$build_dir"' EXIT
+export LEAN_PATH="$build_dir"
+
+lean --version
+lean -o "$build_dir/Construction.olean" Construction.lean
+lean -o "$build_dir/Checker.olean" Checker.lean
+lean -o "$build_dir/Tables.olean" Tables.lean
+lean Proof.lean

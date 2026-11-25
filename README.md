@@ -2,6 +2,12 @@
 
 Formal mathematics, auditable Lean 4 proofs, reproducible experiments, and careful attribution.
 
+## Case 002: Myerson’s disjoint congruence covers
+
+**Status: proved in Lean.** For every length at least 17, there is a disjoint congruence cover with distinct moduli all at least 3 and at least two points per class. From length 132 onward, all the moduli can be multiples of 3.
+
+[Proof, certificates, and replay instructions](Results/DisjointCovers/)
+
 ## Case 001: René Gy's second-kind Stirling inequality
 
 **Status: alternative proof of an already-proved result, not a new solution to an open conjecture.**

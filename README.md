@@ -2,6 +2,12 @@
 
 Formal mathematics, auditable Lean 4 proofs, reproducible experiments, and careful attribution.
 
+## Case 009: Graffiti.pc Conjecture 138
+
+**Status: disproved in Lean.** A 19-vertex tree has a unique maximum independent set and a longest induced path of order 17. The only two maximum-degree vertices of its square are at distance 6, so the conjecture demands an induced path of order at least 18.
+
+[Counterexample, proof, and replay instructions](Results/Graffiti138/README.md)
+
 ## Case 008: Graffiti.pc Conjecture 256
 
 **Status: independently refuted in Lean.** DeLaViña’s live catalog credits Tony Newton with a prior 14-vertex counterexample, submitted November 21, 2026. Our 15-vertex graph has total domination number 3. The union of the neighborhoods of its minimum-degree vertices has size 14, and the largest edge neighborhood union has size 9. The conjecture requires $3\cdot9\ge2\cdot14$.

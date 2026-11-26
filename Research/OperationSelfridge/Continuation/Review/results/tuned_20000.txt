@@ -1,0 +1,25 @@
+stage 3 terms 0 upper (millionths) 0
+stage 5 terms 0 upper (millionths) 0
+stage 7 terms 0 upper (millionths) 0
+stage 11 terms 61 upper (millionths) 234432
+stage 13 terms 82 upper (millionths) 208720
+stage 17 terms 92 upper (millionths) 101735
+stage 19 terms 112 upper (millionths) 137015
+stage 23 terms 118 upper (millionths) 92835
+stage 29 terms 116 upper (millionths) 44682
+stage 31 terms 122 upper (millionths) 38311
+stage 37 terms 116 upper (millionths) 17722
+stage 41 terms 114 upper (millionths) 10512
+stage 43 terms 116 upper (millionths) 8431
+stage 47 terms 113 upper (millionths) 4474
+stage 53 terms 108 upper (millionths) 15746
+stage 59 terms 100 upper (millionths) 11371
+stage 61 terms 101 upper (millionths) 10502
+stage 67 terms 96 upper (millionths) 7970
+stage 71 terms 93 upper (millionths) 6680
+stage 73 terms 93 upper (millionths) 6177
+stage 79 terms 90 upper (millionths) 4825
+stage 83 terms 88 upper (millionths) 4190
+Peeled 2239 active 22 residual labels 2013
+outward loss upper, denominator 1e12: 966320102469
+PROVED

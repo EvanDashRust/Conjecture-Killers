@@ -2,6 +2,18 @@
 
 Formal mathematics, auditable Lean 4 proofs, reproducible experiments, and careful attribution.
 
+## Case 027 · Araki’s outerplanar spanning-tree conjecture
+
+Conjecture 6.2 is true. For each $k\ge4$, an explicit 3-connected triangulated disc has a $k$-outerplanar embedding and lacks a pair of completely independent spanning trees. Lean verifies the obstruction uniformly in the number of added triangular layers.
+
+[Construction, proof, and replay instructions](Results/OuterplanarCIST/README.md)
+
+## Case 026 · Kališnik–Lešnik’s magnitude determinant conjecture
+
+Conjecture 6.3 is false. For two centers a distance $d>0$ apart, the coefficient of $r^2$ is $16(1-e^{-2d})$. Lean verifies the disproof, and the write-up derives the corrected leading coefficient in all dimensions.
+
+[Counterexample, corrected expansion, and replay instructions](Results/SkewMagnitude/README.md)
+
 ## Cases 016–025 · Ten Graffiti.pc conjectures
 
 Lean verifies nine proofs (#161, #162, #271, #310, #393a–c, #416, #432b) and a counterexample to #393d. The counterexample has 2-domination number 26 against the asserted upper bound of 25. DeLaViña’s catalog listed all ten as open before this batch.

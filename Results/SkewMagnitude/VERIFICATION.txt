@@ -1,0 +1,9 @@
+Current branch: HEAD
+Using cache from origin: (some leanprover-community/mathlib4)
+No files to download
+Already decompressed 2236 file(s)
+Lean (version 4.36.0, x86_64-unknown-linux-gnu, commit 611c117bfaf7b7ae1cfcf246ce6fba31e8f509e9, Release)
+'SkewMagnitude.corners_strictMono' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SkewMagnitude.det_two_intervals' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SkewMagnitude.normalized_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SkewMagnitude.conjecture63_false' depends on axioms: [propext, Classical.choice, Quot.sound]

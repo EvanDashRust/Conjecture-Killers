@@ -1,0 +1,10 @@
+Current branch: HEAD
+Using cache from origin: (some leanprover-community/mathlib4)
+No files to download
+Already decompressed 3177 file(s)
+Lean (version 4.36.0, x86_64-unknown-linux-gnu, commit 611c117bfaf7b7ae1cfcf246ce6fba31e8f509e9, Release)
+'OuterplanarCIST.base_obstruction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OuterplanarCIST.no_connected_dominating_partition' depends on axioms: [propext, Classical.choice, Quot.sound]
+Embedding certificate: 71 vertices, 207 edges, 138 faces
+All 2485 two-vertex deletions leave the graph connected
+Peeling rounds: [3, 32, 33, 3]

@@ -1,0 +1,2 @@
+'Selfridge.Head.intersecting_orbit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.Head.nonintersecting_orbit' depends on axioms: [propext, Classical.choice, Quot.sound]

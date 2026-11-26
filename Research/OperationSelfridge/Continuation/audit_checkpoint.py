@@ -17,12 +17,21 @@ def audit(path):
         missed=[x for x in s["integers"] if not any(int(x)%m==r for m,r in classes)]
         assert s["status"]=="exact_hole" and missed==[s["holes"][-1]]
         return f"{len(classes)} distinct odd classes; exact final integer {missed[0]}"
-    if s.get("version")=="incumbent-1":
+    if s.get("version") in ("incumbent-1","released-1"):
+        pure=s.get("pure",[])
         ps,hs=s["primes"],s["heights"]
         pats=[pack(slot,v) for slot,v in zip(s["slots"],s["latest_phases"]) if v is not None]
-        validate(ps,hs,s["pure"]+pats)
-        missing=[w for w in s["observations"] if not any(matches(ps,hs,w,p) for p in pats+s["pure"])]
+        validate(ps,hs,pure+pats)
+        missing=[w for w in s["observations"] if not any(matches(ps,hs,w,p) for p in pats+pure)]
         assert s["status"]=="exact_hole" and missing==[s["exact_holes"][-1]]
+        if s["version"]=="released-1":
+            import sys
+            sys.path.insert(0,str(Path(__file__).resolve().parent/"Review"))
+            from check_original import concrete_hole
+            integer,copies=concrete_hole(dict(primes=ps,heights=hs,pure=pure,patterns=pats,
+                                         uncovered_atom_word=missing[0]))
+            assert str(integer) in s["integers"]
+            return f"{copies} lifted classes all miss integer {integer}"
         return f"{len(s['observations'])} observations, only final labelled witness escapes"
     if s.get("version")=="prefix-cegis-2":
         cfg=s["config"]

@@ -9,4 +9,5 @@ prefix6.json.gz 1304 constraints, final phase-model check passed
 rank20.json.gz 1113 observations, only final labelled witness escapes
 rank23.json.gz 1562 observations, only final labelled witness escapes
 rank24.json.gz 1714 observations, only final labelled witness escapes
+released24.json.gz 32536723404 lifted classes all miss integer 851857296940398805595725522898848239412511577556033434122582666316329144113271473934591181929324069743081061673876453683638591912523806
 shifted8.json.gz 3541 constraints, final phase-model check passed

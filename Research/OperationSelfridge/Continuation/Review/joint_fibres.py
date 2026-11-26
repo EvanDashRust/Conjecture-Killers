@@ -54,15 +54,17 @@ def head(g3, g5):
     return distribution, ceiling(first*UNIT), ceiling(third*UNIT)
 
 
-def check_loss(primes, g3, g5):
-    hist, mean, cubic = head(g3, g5)
+def check_loss(primes, g3, g5, head_law=head, minimum_prime=7, schedule=None, omit_stages=()):
+    if schedule is None:
+        schedule = EARLY
+    hist, mean, cubic = head_law(g3, g5)
     high = 3*PREFIX//10
     prefix = middle = 0
     for p in primes:
-        if p < 7:
+        if p < minimum_prime or p in omit_stages:
             continue
         r = p-1
-        delta = Q(EARLY[p], r) if p in EARLY else Q(3, 10)
+        delta = Q(schedule[p], r) if p in schedule else Q(3, 10)
         gamma = 1 / (1-delta)
         if p <= PREFIX:
             t = delta*r

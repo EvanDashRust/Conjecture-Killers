@@ -1,0 +1,3 @@
+'Selfridge.Tail.exit_capacity_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.Tail.pair_union_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.Tail.clipped_loss' depends on axioms: [propext, Classical.choice, Quot.sound]

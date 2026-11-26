@@ -22,7 +22,7 @@ def collect(folder, output):
             values.add(int(data["pending_obligation"]["integer"]))
         if data.get("schema") == "multi-pattern-rough-row-1":
             values.update(int(h["integer"]) for h in data["exact_holes"])
-        elif data.get("version") in ("incumbent-1", "prefix-cegis-2"):
+        elif data.get("version") in ("incumbent-1", "released-1", "prefix-cegis-2"):
             cfg = data.get("config", data)
             for word in data["exact_holes"]:
                 values.add(actual_witness(word, cfg["primes"], cfg["heights"]))

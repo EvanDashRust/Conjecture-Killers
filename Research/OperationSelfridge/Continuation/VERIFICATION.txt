@@ -81,3 +81,10 @@ November 26 cumulative continuation. Independent audits, exact source states and
   All four unbounded fresh-prime tail ceilings are in Review/results/fresh_tail.txt.
   Sorted actual prime comparisons: python3 prime_positions.py
   No unrestricted coverage certificate or nonexistence theorem.
+
+Further unrestricted prime restrictions: Review/THIRD_PRIME.md and Review/results/no7_*.txt.
+  python3 head_forest.py  # bounds the fifth and sixth primes in the true LCM
+  python3 phase_orbits.py  # exhaustive finite head examples for the sharp density infima
+  Lean 4.36.0: Review/OrbitBounds.lean and Review/TailInequalities.lean
+  Released-unary rank 24: final integer checked against all 32,536,723,404 generator-defined classes.
+  3,561 numerical test obligations in Runs/integer_bank_latest.json.gz; original inputs retained.

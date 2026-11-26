@@ -1,4 +1,5 @@
 import Mathlib.Tactic
+import Mathlib.Data.ZMod.Units
 
 namespace Selfridge
 set_option synthInstance.maxSize 2048
@@ -34,6 +35,31 @@ theorem third_prime_orbit_translation_glue :
     ∀ (v₉ : Fin 9) (v₅ : Fin 5),
       ∃ v : Fin 45, v.val % 9 = v₉.val ∧ v.val % 5 = v₅.val := by decide +kernel
 
+/-- Every affine permutation of the 45-cell head lifts to an affine
+permutation of every positive period divisible by 45, with the same
+action after reduction to the head. -/
+theorem third_prime_orbit_period_lift {Q : ℕ} [NeZero Q] (h : 45 ∣ Q)
+    (u : (ZMod 45)ˣ) (v : ZMod 45) :
+    ∃ (U : (ZMod Q)ˣ) (V : ZMod Q),
+      Function.Bijective (fun x : ZMod Q => (U : ZMod Q) * x + V) ∧
+      ∀ x : ZMod Q, ZMod.castHom h (ZMod 45) ((U : ZMod Q) * x + V) =
+        (u : ZMod 45) * ZMod.castHom h (ZMod 45) x + v := by
+  obtain ⟨U, hU⟩ := ZMod.unitsMap_surjective h u
+  obtain ⟨V, hV⟩ := ZMod.castHom_surjective h v
+  refine ⟨U, V, ⟨?_, ?_⟩, ?_⟩
+  · intro x y hxy
+    have hmul : (U : ZMod Q) * x = (U : ZMod Q) * y := add_right_cancel hxy
+    have := congrArg (fun z : ZMod Q => (↑U⁻¹ : ZMod Q) * z) hmul
+    simpa [← mul_assoc] using this
+  · intro y
+    refine ⟨(↑U⁻¹ : ZMod Q) * (y - V), ?_⟩
+    simp [← mul_assoc]
+  · intro x
+    have hU' : ZMod.castHom h (ZMod 45) (U : ZMod Q) = (u : ZMod 45) :=
+      congrArg Units.val hU
+    rw [map_add, map_mul, hU', hV]
+
+#print axioms third_prime_orbit_period_lift
 #print axioms third_prime_orbit_three
 #print axioms third_prime_orbit_five
 #print axioms third_prime_orbit_unit_glue

@@ -1,0 +1,3 @@
+Orbit r=2, no 23. Direct subset deficit envelope matches retained quantile
+at 14 thresholds, for all 100 capped 3/5 exponent pairs and all 131072 cell subsets.
+head mass 45/68 quantile 4/3 upper-tail mean input 893/408 unconditional cubic 185151/2176

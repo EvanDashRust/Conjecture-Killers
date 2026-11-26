@@ -29,7 +29,9 @@ def initial(base,bank):
                                 backend="cadical195",probe_count=512))
 
 
-def refit(state,ps,hs,slots,phases,rng):
+def refit(state,ps,hs,slots,phases,rng, *, normalize=False):
+    if normalize:
+        from Dominance.dominance import cylinder_parent, phase_count
     unary=state["original_unaries"]
     # Enforce one switched unary on a core prime. Other unaries are free to move too.
     candidates=[i for i,s in enumerate(slots[:len(unary)]) if s[0][0]<3]
@@ -54,14 +56,27 @@ def refit(state,ps,hs,slots,phases,rng):
         for k,i in enumerate(movable):
             menu={row[k] for row in projected}
             if phases[i] is not None:menu.add(tuple(phases[i]))
-            if i==forced:
+            if i==forced or (normalize and i<len(unary)):
                 j,e=slots[i][0];p,h=ps[j],hs[j]
-                menu.update((value,) for value in range(p**e if e<=h else p**h*(p-1)))
+                limit=phase_count(p,h,e) if normalize else (p**e if e<=h else p**h*(p-1))
+                menu.update((value,) for value in range(limit))
+            if i==forced:
                 menu.discard(tuple(unary[i]))
             if not menu:menu.add(None)
             lut={v:pool.id((i,v)) for v in sorted(menu,key=lambda x:() if x is None else x)}
             sat.append_formula(CardEnc.equals(list(lut.values()),1,vpool=pool).clauses)
             choices.append(lut)
+        if normalize:
+            # All unaries are movable and have full menus except the one forced inequality.
+            unary_luts={tuple(slots[i][0]): lut for i,lut in zip(movable,choices) if i<len(unary)}
+            for (j,e),lut in unary_luts.items():
+                for (v,),literal in lut.items():
+                    for d in range(1,e):
+                        parent_lut=unary_luts.get((j,d),{})
+                        ancestor=cylinder_parent(ps[j],hs[j],e,v,d)
+                        parent=parent_lut.get((ancestor,))
+                        if parent is not None:
+                            sat.add_clause([-literal,-parent])
         for row in projected:
             sat.add_clause([lut[v] for lut,v in zip(choices,row) if v in lut])
         sat.set_phases([lut[tuple(phases[i])] for i,lut in zip(movable,choices)

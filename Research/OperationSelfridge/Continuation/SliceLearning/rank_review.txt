@@ -1,0 +1,4 @@
+orbit 1 rank at most 224 upper numerator over 10^12 971944757547
+orbit 1 rank at most 224 upper numerator over 10^12 999937544139
+orbit 2 retained atoms 77 linear slack 41389601/5228296875000
+orbit 2 rank at most 73 upper numerator over 10^12 999293202725

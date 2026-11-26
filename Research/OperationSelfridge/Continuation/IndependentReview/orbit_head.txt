@@ -1,0 +1,6 @@
+no23 independent active-line calculation agrees, mean 893/408 third moment 185151/2176 retained breakpoints 77
+no29 independent active-line calculation agrees, mean 269/120 third moment 185151/2176 retained breakpoints 77
+no31 independent active-line calculation agrees, mean 4609/2040 third moment 185151/2176 retained breakpoints 77
+no37 independent active-line calculation agrees, mean 4663/2040 third moment 185151/2176 retained breakpoints 77
+head1 independent active-line calculation agrees, mean 1789/720 third moment 187967/2304 retained breakpoints 58
+head2 independent active-line calculation agrees, mean 4897/2040 third moment 185151/2176 retained breakpoints 77

@@ -1,5 +1,7 @@
 # Operation Selfridge continuation
 
+[Latest continuation: the prime 23, no-7 support bounds, and repaired rank-24 search](CHECKPOINT_PRIME_23.md)
+
 Erdős Problem 7 remains open. This pass gives lower bounds on the number of classes any hypothetical cover needs at primes 3 and 5, a stronger obstruction to extending Harrington's near-cover, and an equivalent finite search model with more freedom than the original valuation box.
 
 [November 26 cumulative results](CUMULATIVE_SEARCH.md) include the 7-or-11 restriction, the two normalized no-7 phase configurations, obstructions allowing unbounded fresh support, and resumable rank-24 searches.

@@ -1,5 +1,7 @@
 # Operation Selfridge • November 26, 2026
 
+[Latest continuation: the prime 23, no-7 support bounds, and repaired rank-24 search](CHECKPOINT_PRIME_23.md)
+
 No covering or unrestricted impossibility proof was found. This checkpoint starts from 73fb39da and keeps the previous candidates. All references to a rank below count core prime coordinates of a particular construction. Only the original valuation-box model has the earlier exclusion through rank 19.
 
 ## Restrictions on every hypothetical covering

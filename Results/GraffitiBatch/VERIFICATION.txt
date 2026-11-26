@@ -1,0 +1,16 @@
+Current branch: HEAD
+Using cache from origin: (some leanprover-community/mathlib4)
+No files to download
+Already decompressed 1325 file(s)
+Lean (version 4.36.0, x86_64-unknown-linux-gnu, commit 611c117bfaf7b7ae1cfcf246ce6fba31e8f509e9, Release)
+'GraffitiBatch.conjecture393b' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GraffitiBatch.conjecture393c' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GraffitiBatch.conjecture310' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GraffitiBatch.conjecture416' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GraffitiBatch.conjecture432b' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GraffitiBatch.conjecture271' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GraffitiBatch.conjecture161' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GraffitiBatch.conjecture162' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GraffitiBatch.conjecture393a' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GraffitiBatch.Corona.conjecture393d_counterexample' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GraffitiBatch.Corona.twoDomination_optimum' depends on axioms: [propext, Classical.choice, Quot.sound]

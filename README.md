@@ -2,6 +2,12 @@
 
 Formal mathematics, auditable Lean 4 proofs, reproducible experiments, and careful attribution.
 
+## Cases 016–025 · Ten Graffiti.pc conjectures
+
+Lean verifies nine proofs (#161, #162, #271, #310, #393a–c, #416, #432b) and a counterexample to #393d. The counterexample has 2-domination number 26 against the asserted upper bound of 25. DeLaViña’s catalog listed all ten as open before this batch.
+
+[Proofs, priority audit, and replay instructions](Results/GraffitiBatch/README.md)
+
 ## Case 015: Graffiti.pc Conjecture 169
 
 **Status: classified in Lean.** The spanning-tree leaf bound holds for every connected graph with at least two vertices. The literal statement fails on the one-vertex graph under the degree-one definition of a leaf.

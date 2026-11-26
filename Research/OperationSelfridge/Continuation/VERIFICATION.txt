@@ -1,0 +1,50 @@
+Lean (version 4.36.0, x86_64-unknown-linux-gnu, commit 611c117bfaf7b7ae1cfcf246ce6fba31e8f509e9, Release)
+fc4f59e577feb1a4956671bc04ac18aaaf8cd842
+'Selfridge.certificate_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.harrington_budget_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.crossing_budget_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.linear_payoff_half' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.square_payoff_half' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.unique_heavy_coordinate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.avoid_assigned_classes' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.first_nonzero_exit' depends on axioms: [propext, Classical.choice, Quot.sound]
+old survivor lower 0.32233258534720
+small scaled 321245590829925919
+mid scaled 2048425482480
+second moment 2535234506914557167526891/37321044789957361184384
+tail 300001/360000000000
+fresh upper 0.32144135012536
+gap 0.00089123522185
+Exact integer witness avoids all 3067 distinct odd classes.
+91936485968535674544717876460629214792430824377985886421730961288724790445043620489825769817787807773365966796877
+Exact integer witness avoids all 3067 distinct odd classes.
+1877866043035491891730467502920788787175358127079379613780813704589843758
+The explicit point avoids all 1144 patterns.
+Even positive control: 12 distinct classes cover all 240 residues.
+Verified an exact atom-word hole across 1692 patterns.
+Prime-free distortion replay (directed rounding; see FIBRE_COUNTS.md for analytic inputs):
+  3-free guaranteed surviving mass > 0.7494
+  5-free guaranteed surviving mass > 0.2097
+Ternary weighted-tree replay: all budgets through 17 excluded; 18 feasible in the relaxation.
+(3,) 39 747680281
+(9,) 19 740921499
+(15,) 20 746882288
+(3, 9) 53 746153578
+(3, 15) 55 749352364
+(9, 15) 27 742838116
+(3, 9, 15) 76 748994712
+(7, 11) (21, 33) 2320/11319
+(7, 33) (11, 21) 220/1029
+(7, 39) (13, 21) 900/4459
+(7, 51) (17, 21) 3260/17493
+(7, 57) (19, 21) 1180/6517
+(7, 63) (11, 21) 5120/33957
+(7, 63) (21, 27) 220/1323
+Only compatible pairs: ((7, 33), (11, 21))
+Upper bound inside any class modulo 9: 2320/33957
+'Selfridge.fibre_distortion_margins' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.five_fibre_margins' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.five_pair_margins' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.five_fibre_profile' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.five_fibre_at_most_nine' depends on axioms: [propext, Quot.sound]
+'Selfridge.conditional_volume_margins' depends on axioms: [propext, Classical.choice, Quot.sound]

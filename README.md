@@ -2,6 +2,12 @@
 
 Formal mathematics, auditable Lean 4 proofs, reproducible experiments, and careful attribution.
 
+## Case 012: Graffiti.pc Conjecture 318
+
+**Status: proved in Lean.** If some vertex has at least as many vertices at even distance as the complement has edges, every minimal total dominating set has two vertices. The proof shows that deleting the chosen vertex leaves at most one complement edge.
+
+[Proof and replay instructions](Results/Graffiti318/README.md)
+
 ## Case 011: Binary Cartesian-tree square avoidance
 
 **Status: proved in Lean.** A seven-uniform morphism gives an infinite binary word with no two adjacent equal-length blocks of length at least four sharing the same Cartesian tree. This proves the binary case conjectured in Shibata, Mieno, Köppl, and Inenaga’s Table 2.

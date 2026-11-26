@@ -9,4 +9,5 @@ export LEAN_PATH="$build_dir"
 lean --version
 lean -o "$build_dir/Basic.olean" Basic.lean
 lean -o "$build_dir/Certificates.olean" Certificates.lean
-lean Result.lean
+lean -o "$build_dir/Result.olean" Result.lean
+lean Binary.lean

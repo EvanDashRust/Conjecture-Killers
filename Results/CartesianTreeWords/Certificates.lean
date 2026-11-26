@@ -19,7 +19,7 @@ private theorem squareB_spec (w : Word) (i p : Nat) :
     squareB w i p = true ↔ Square w i p := by
   simp [squareB, Square, List.all_eq_true]
 
-private def minimaB (w : Word) (i p : Nat) : Bool :=
+def minimaB (w : Word) (i p : Nat) : Bool :=
   (List.range p).all (fun a =>
     (List.range (p-a)).all (fun k =>
       firstMin w (i+a) (k+1) == firstMin w (i+p+a) (k+1)))
@@ -59,7 +59,7 @@ private def shortB (L stop first : Nat) (test : Word → Nat → Nat → Bool)
   (List.range L).all (fun i => (List.range stop).all (fun p =>
     if first ≤ p ∧ i+2*p ≤ L*n then !test w i p else true))
 
-private def ShortCertificate (L stop first : Nat) (test : Word → Nat → Nat → Bool)
+def ShortCertificate (L stop first : Nat) (test : Word → Nat → Nat → Bool)
     (code : Code) : Prop :=
   ∀ a b c d e : Letter, ∀ m : Fin 6,
     freeB (pack a b c d e) m.val = true →
@@ -131,18 +131,20 @@ theorem no_short_leech_square {w : Word} {n i p : Nat}
   rw [hv] at ht
   contradiction
 
-theorem no_short_cartesian_square {w : Word} {n i p : Nat}
-    (h : SquareFreeUpTo w n) (hp : 3 ≤ p) (hlen : i+2*p ≤ 12*n) (hs : p < 12) :
-    ¬ SameMinima (expand 12 markerCode w) (expand 12 markerCode w) i (i+p) p := by
+theorem no_short_cartesian_square_of_certificate {w : Word} {L stop first n i p : Nat}
+    {code : Code} (hc : ShortCertificate L stop first minimaB code) (hL : 0 < L)
+    (h : SquareFreeUpTo w n) (hp : first ≤ p) (hlen : i+2*p ≤ L*n) (hs : p < stop)
+    (hCover : i%L+2*p ≤ L*5) :
+    ¬ SameMinima (expand L code w) (expand L code w) i (i+p) p := by
   intro sq
-  obtain ⟨v, hv, equal⟩ := short_checked cartesian_small (by decide) h hlen (by omega) hp hs
-  have hsquare : SameMinima v v (i%12) (i%12+p) p := by
+  obtain ⟨v, hv, equal⟩ := short_checked hc hL h hlen hCover hp hs
+  have hsquare : SameMinima v v (i%L) (i%L+p) p := by
     intro a k hk hsize
-    have h1 : firstMin v (i%12+a) k = firstMin (expand 12 markerCode w) (i+a) k := by
+    have h1 : firstMin v (i%L+a) k = firstMin (expand L code w) (i+a) k := by
       apply firstMin_congr
       intro j hj
       simpa only [Nat.add_assoc] using equal (a+j) (by omega)
-    have h2 : firstMin v (i%12+p+a) k = firstMin (expand 12 markerCode w) (i+p+a) k := by
+    have h2 : firstMin v (i%L+p+a) k = firstMin (expand L code w) (i+p+a) k := by
       apply firstMin_congr
       intro j hj
       simpa only [Nat.add_assoc] using equal (p+a+j) (by omega)
@@ -151,6 +153,11 @@ theorem no_short_cartesian_square {w : Word} {n i p : Nat}
   have ht := (minimaB_spec _ _ _).mpr hsquare
   rw [hv] at ht
   contradiction
+
+theorem no_short_cartesian_square {w : Word} {n i p : Nat}
+    (h : SquareFreeUpTo w n) (hp : 3 ≤ p) (hlen : i+2*p ≤ 12*n) (hs : p < 12) :
+    ¬ SameMinima (expand 12 markerCode w) (expand 12 markerCode w) i (i+p) p :=
+  no_short_cartesian_square_of_certificate cartesian_small (by decide) h hp hlen hs (by omega)
 
 theorem leech_first (a : Letter) : leech a 0 = a := by
   simp [leech]

@@ -2,6 +2,12 @@
 
 Formal mathematics, auditable Lean 4 proofs, reproducible experiments, and careful attribution.
 
+## Case 011: Binary Cartesian-tree square avoidance
+
+**Status: proved in Lean.** A seven-uniform morphism gives an infinite binary word with no two adjacent equal-length blocks of length at least four sharing the same Cartesian tree. This proves the binary case conjectured in Shibata, Mieno, Köppl, and Inenaga’s Table 2.
+
+[Construction, proof, and replay instructions](Results/CartesianTreeWords/BINARY.md)
+
 ## Case 010: Ternary Cartesian-tree square avoidance
 
 **Status: proved in Lean.** A 12-uniform morphism gives an infinite ternary word with no two adjacent equal-length blocks of length at least three sharing the same Cartesian tree. This proves the ternary case conjectured in Shibata, Mieno, Köppl, and Inenaga’s Table 2.

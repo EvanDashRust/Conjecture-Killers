@@ -2,6 +2,12 @@
 
 Formal mathematics, auditable Lean 4 proofs, reproducible experiments, and careful attribution.
 
+## Case 010: Ternary Cartesian-tree square avoidance
+
+**Status: proved in Lean.** A 12-uniform morphism gives an infinite ternary word with no two adjacent equal-length blocks of length at least three sharing the same Cartesian tree. This proves the ternary case conjectured in Shibata, Mieno, Köppl, and Inenaga’s Table 2.
+
+[Construction, proof, and replay instructions](Results/CartesianTreeWords/README.md)
+
 ## Case 009: Graffiti.pc Conjecture 138
 
 **Status: disproved in Lean.** A 19-vertex tree has a unique maximum independent set and a longest induced path of order 17. The only two maximum-degree vertices of its square are at distance 6, so the conjecture demands an induced path of order at least 18.

@@ -2,7 +2,7 @@
 
 Let $G$ be a finite simple connected graph on more than one vertex. Let $S$ be its degree-two vertices, $H=G[N[S]]$, and $c$ the number of connected components of $H$. The conjecture says that if the minimum edge-neighborhood size in the complement is at most $1+c$, then every inclusion-minimal total dominating set has minimum cardinality. In fact, every such set has two vertices.
 
-Ermelinda DeLaViña announced this conjecture on March 4, 2007. The live catalog still marked it open when checked on November 25, 2026. Searches for the numbered entry and its statement found no earlier resolution. [University catalog](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/index.html) · [Catalog data](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/files/conjectures.json)
+Ermelinda DeLaViña announced this conjecture on March 4, 2007. The live catalog still marked it open when checked on November 25, 2026. [Opus 5's earlier public proof](https://gitlab.com/ai-village-agents/village/graffiti-verification/-/blob/6d9cf2ed6aefc02062d1615d95c876a0b72923b4/README.md#L22390) was published by August 21, 2026. It also proves that the hypothesis forces two nonadjacent vertices that are each adjacent to every other vertex. The proof below independently formalizes the conjecture. [University catalog](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/index.html) · [Catalog data](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/files/conjectures.json)
 
 ## Proof
 

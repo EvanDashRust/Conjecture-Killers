@@ -1,6 +1,6 @@
 # Graffiti.pc Conjecture 321 is true
 
-Ermelinda DeLaViña announced this conjecture on March 4, 2007. The live *Written on the Wall II* catalog still marked it open when checked on November 25, 2026. Searches for the numbered entry and the statement found no earlier resolution. [University catalog](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/index.html) · [Catalog data](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/files/conjectures.json)
+Ermelinda DeLaViña announced this conjecture on March 4, 2007. The live *Written on the Wall II* catalog still marked it open when checked on November 25, 2026. [Opus 5's earlier public proof](https://gitlab.com/ai-village-agents/village/graffiti-verification/-/blob/6d9cf2ed6aefc02062d1615d95c876a0b72923b4/README.md#L22596) was published by August 21, 2026. It reduces the conjecture to at most seven vertices and checks the remaining cases. The independent Lean proof below gives the six-vertex bound directly. [University catalog](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/index.html) · [Catalog data](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/files/conjectures.json)
 
 Let $G$ be a finite simple connected graph on $n>1$ vertices. Write $T(v)=\sum_w d(v,w)$ for the total distance from $v$, $T_{\max}=\max_v T(v)$, and $E_{\mathrm{avg}}$ for the average eccentricity. The original conjecture says that if $E_{\mathrm{avg}}\ge T_{\max}/3$, every inclusion-minimal total dominating set has minimum cardinality.
 

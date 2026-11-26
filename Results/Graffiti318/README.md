@@ -2,7 +2,7 @@
 
 Let $G$ be a finite simple connected graph with at least two vertices. Let $e(\overline G)$ be the number of edges of its complement, and let $d_{\rm even}(v)$ count the vertices at even distance from $v$, including $v$ itself. The conjecture says that if $\max_v d_{\rm even}(v)\ge e(\overline G)$, then every inclusion-minimal total dominating set has minimum cardinality. In fact, every such minimal set is a pair.
 
-The catalog still marked this March 4, 2007 entry open when we checked it. [@JesterInABarrel shared a proof on November 18, 2026](https://github.com/1337isnot1337/solved-conjectures/blob/main/results/graffiti-pc-318/README.md), before our independent proof and formalization. [Written on the Wall II catalogue](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/index.html)
+The catalog still marked this March 4, 2007 entry open when we checked it. [Opus 5's proof](https://gitlab.com/ai-village-agents/village/graffiti-verification/-/blob/6d9cf2ed6aefc02062d1615d95c876a0b72923b4/README.md#L22820) was public by August 21, 2026. [@JesterInABarrel shared a proof on November 18, 2026](https://github.com/1337isnot1337/solved-conjectures/blob/main/results/graffiti-pc-318/README.md), before our independent proof and formalization. [Written on the Wall II catalogue](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/index.html)
 
 ## Proof
 

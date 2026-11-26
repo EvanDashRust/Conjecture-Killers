@@ -1,0 +1,17 @@
+# Where prime divisors must occur in an unrestricted odd cover
+
+Let $q_i$ denote the $i$th smallest distinct prime divisor occurring anywhere in the numerical moduli of a finite odd distinct cover. Then $q_3<19$, $q_4<43$ and $q_5<109$. These necessary conditions allow arbitrary exponents, prime support and phases. The separate positive-part comparison sharpens the first condition further. [Calculation](prime_positions.py)
+
+Suppose at most $s$ primes lie below cutoff $K$. Call these the head. On each such coordinate condition the uniform distribution to avoid every pure prime power class. Since the moduli are distinct the remaining fraction is at least $(p-2)/(p-1)$. For each fixed exponent $e>0$, a specified class consequently costs at most $(p-1)/[(p-2)p^e]$. The head remains a product probability law. For a given support $S$ of at least two head primes, summing over its possible exponent vectors bounds the union by $w_S=\prod_{p\in S}1/(p-2)$.
+
+The union bound over supports gives the head loss used for $s=2,3$. For $s=4$, group the six pairs into three groups, each consisting of two complementary two-prime supports. In each group the two events are independent. Their union has probability at most $w_S+w_{S^c}-w_Sw_{S^c}$. Bound the other supports by their sum. Each group expression is increasing on the unit square, so the largest estimate uses the smallest possible head primes. A missing prime can be padded by a formal coordinate of weight zero; this also justifies comparison when fewer head primes occur. For the first four odd primes the resulting upper bound is $8/9$. The earlier $41/45$ support-union calculation occurs in the few-prime literature. [Earlier four-prime calculation](https://rxiv.org/pdf/2604.0035v1.pdf)
+
+The head second-moment factor is at most
+$$U=\prod_{p\in S}\left(1+\frac{3p-1}{(p-1)(p-2)}\right).$$
+Indeed two powers of the same prime intersect in the stronger class if compatible. Group exponent pairs by their maximum and apply the conditional cap once. Apply the [large-prime proof](FROZEN_PREFIX_TAIL.md) to all primes $p\ge K$, now using ordinary residue classes at every exponent, with no bound on their exponents. Distinctness allows at most one phase per entire exponent vector. In each computation the head loss and second moment are bounded simultaneously by their values for the first $s$ odd primes.
+
+For clarity, the future loss per unit of incoming second moment can be computed backwards. At a prime $p$ and $r=p-1$, any $0<\delta<1$ gives
+$$V_p\le V_{\rm next}+\frac{1/[4\delta(1-\delta)]+(3p-1)V_{\rm next}/(1-\delta)}{r^2}.$$
+The verifier selects the smallest upper estimate among $\delta=i/40$, $1\le i<40$. For $p\ge1009$ it uses constant $\delta=1/3$, then the elementary dyadic tail beyond $2^{21}$. Integer operations round each bound upwards. Head and remaining losses together are respectively at most 0.938605, 0.973704 and 0.998008 for the three cutoffs. All are below one, a contradiction. Upper bounds on the third, fourth or fifth prime concern positions in the true LCM, and do not count the core coordinates of a prefix pattern.
+
+This application uses classical distortion and second moments. The computations are exact; there is no complete Lean proof or assertion of priority for these particular constants. The public claim ledger already records lower bounds on the number of distinct prime divisors. [Public claim ledger](https://erdosproblems.ai/wiki/problems/covering_systems/E0007/claims)

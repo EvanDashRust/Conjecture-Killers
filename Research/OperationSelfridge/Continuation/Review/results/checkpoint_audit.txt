@@ -1,0 +1,12 @@
+beyond20000.json.gz 3687 distinct odd classes; exact final integer 830844066280753740290752518400322793367016184651593732692413674633544921878
+control.json.gz 9 constraints, final phase-model check passed
+enlarged.json.gz 3307 distinct odd classes; exact final integer 3296161431901641720278533245310370788101242445354626616646724627197265693
+expanded11.json.gz 7433 constraints, final phase-model check passed
+free8.json.gz 5358 constraints, final phase-model check passed
+harrington_frozen.json.gz 3067 distinct odd classes; exact final integer 6786890631455819560732145360035070757153856968842700926375086697021484383
+harrington_mutable.json.gz 3067 distinct odd classes; exact final integer 12436134779640113100362626836289486386507246822186136511461288829345703128
+prefix6.json.gz 1304 constraints, final phase-model check passed
+rank20.json.gz 1113 observations, only final labelled witness escapes
+rank23.json.gz 1562 observations, only final labelled witness escapes
+rank24.json.gz 1714 observations, only final labelled witness escapes
+shifted8.json.gz 3541 constraints, final phase-model check passed

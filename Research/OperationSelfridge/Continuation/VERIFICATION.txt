@@ -71,3 +71,13 @@ Two-triple upper for partner 39 42338/120393
 'Selfridge.five_fibre_at_most_nine' depends on axioms: [propext, Quot.sound]
 'Selfridge.ten_fibre_profiles' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Selfridge.conditional_volume_margins' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+November 26 cumulative continuation. Independent audits, exact source states and commands:
+  CUMULATIVE_SEARCH.md, FROZEN_PREFIX_TAIL.md, PRIME_POSITIONS.md, Review/results/
+  Latest candidate audit: python3 audit_checkpoint.py
+  Real SIGTERM and mathematical restart test: python3 restart_check.py
+  Glucose4 DRAT replay: drat-trim Runs/control.cnf Runs/control.drat (31 variables, 48 clauses).
+  Frozen-prefix first moment and pair moment: python3 fresh_coordinate_bound.py
+  All four unbounded fresh-prime tail ceilings are in Review/results/fresh_tail.txt.
+  Sorted actual prime comparisons: python3 prime_positions.py
+  No unrestricted coverage certificate or nonexistence theorem.

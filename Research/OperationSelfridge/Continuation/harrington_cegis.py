@@ -1,6 +1,7 @@
 """Repair actual congruences with permanent integer counterexamples."""
 import argparse
 import numpy as np
+from collections import Counter
 from fractions import Fraction
 from math import prod
 from pathlib import Path
@@ -8,8 +9,8 @@ import random
 from time import monotonic
 
 from pysat.card import CardEnc
-from pysat.examples.rc2 import RC2
-from pysat.formula import IDPool, WCNF
+from pysat.solvers import Solver
+from pysat.formula import IDPool, CNF
 
 from prefix_sat import read, write
 from catalogue_obstruction import local_cap
@@ -41,7 +42,7 @@ def weighted_core(moduli, primes):
 
 
 def repair(current, required, movable):
-    pool, formula = IDPool(), WCNF()
+    pool, formula = IDPool(), CNF()
     fixed = [(m,a) for m,a in current.items() if m not in movable]
     active = [x for x in required if all(x%m!=a for m,a in fixed)]
     opts = {}
@@ -50,23 +51,28 @@ def repair(current, required, movable):
         residues.add(current[m])
         lut = {r:pool.id((m,r)) for r in sorted(residues)}
         formula.extend(CardEnc.equals(list(lut.values()),1,vpool=pool).clauses)
-        formula.append([lut[current[m]]],weight=1)
         opts[m]=lut
     for x in active:
         formula.append([opts[m][x%m] for m in movable])
-    with RC2(formula) as solver:
-        assignment = solver.compute()
-    if assignment is None:
-        return None
+    incumbent=[lut[current[m]] for m,lut in opts.items()]
+    if all(any(x%m==current[m] for m in movable) for x in active):
+        return current,"retained"
+    with Solver(name="cadical195",bootstrap_with=formula.clauses) as solver:
+        solver.set_phases(incumbent)
+        solver.conf_budget(8000)
+        answer=solver.solve_limited()
+        if answer is not True:
+            return None,"window_unsat" if answer is False else "window_budget"
+        assignment=solver.get_model()
     yes = set(assignment)
     new = dict(current)
     for m,lut in opts.items():
         new[m]=next(r for r,lit in lut.items() if lit in yes)
     assert all(any(x%m==a for m,a in new.items()) for x in required)
-    return new
+    return new,"repaired"
 
 
-def enlarge(initial, primes, count, minimum):
+def enlarge(initial, primes, count, minimum, requirements):
     """Greedy phases for unused labels ranked by their capacity on the seed-free product."""
     eligible=[]
     for m in range(minimum | 1,max(50_001,minimum+65_000),2):
@@ -83,8 +89,12 @@ def enlarge(initial, primes, count, minimum):
     rng=np.random.default_rng(23423)
     residual=without(sample(rng,caps,100000),old)
     from refine_harrington import assemble,labels
+    escaped=[int(x) for x in requirements if all(int(x)%m!=a for m,a in initial.items())]
     for _,m,factors in selected:
-        if len(residual):
+        if escaped:
+            a=Counter(x%m for x in escaped).most_common(1)[0][0]
+            escaped=[x for x in escaped if x%m!=a]
+        elif len(residual):
             values=labels(residual,factors)
             best=int(np.bincount(values).argmax())
             _,a=assemble(best,factors)
@@ -100,10 +110,13 @@ def main():
     ap.add_argument("--move-seed",action="store_true")
     ap.add_argument("--rounds",type=int,default=50)
     ap.add_argument("--seconds",type=float,default=60)
+    ap.add_argument("--integer-file",action="append",default=[])
     ap.add_argument("--integer", action="append",default=[])
     ap.add_argument("--extend",type=int,default=0)
     ap.add_argument("--extension-min",type=int,default=3797)
     a=ap.parse_args()
+    for file in a.integer_file:
+        a.integer.extend(read(file)["integers"])
     folder=Path(__file__).resolve().parent
     out=Path(a.output)
     base=read(folder/"harrington_reoptimized.json")
@@ -115,7 +128,7 @@ def main():
         if out.exists():
             initial.update(read(out)["classes"])
         else:
-            enlarge(initial,primes,a.extend,a.extension_min)
+            enlarge(initial,primes,a.extend,a.extension_min,a.integer)
     factors={m:decompose(m,primes) for m in initial}
     caps=[max([1]+[power for ff in factors.values() for j,power in ff if j==i])
           for i in range(len(primes))]
@@ -136,6 +149,7 @@ def main():
                    classes=list(current.items()),holes=[],runs=0,
                    weighted_test=weighted_core(extra,primes),phase_changes=[])
     state["integers"]=list(dict.fromkeys(state["integers"]+list(map(str,map(int,a.integer)))))
+    write(out,state)
     start=monotonic()
     for _ in range(a.rounds):
         if monotonic()-start>a.seconds: break
@@ -144,13 +158,15 @@ def main():
         movable=rng.sample(extra, min(56,len(extra)))
         if a.move_seed:
             movable += [m for m in [15,21,25,35] if m in original]
-        new=repair(current,xset,movable)
+        new,reason=repair(current,xset,movable)
         state["runs"]+=1
         if new is None:
-            state["status"]="window_unsat"
+            state["status"]=reason
             write(out,state)
             continue
         changed=[m for m in new if new[m]!=current[m]]
+        state.setdefault("phase_deltas",[]).append(dict(round=state["runs"],
+                    changes=[[m,current[m],new[m]] for m in changed]))
         current=new
         state.update(classes=list(current.items()),status="model_pending_check")
         state["phase_changes"].append(changed)

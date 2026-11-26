@@ -7,9 +7,12 @@ import multiprocessing as mp
 import os
 from itertools import combinations, product
 from pathlib import Path
+from functools import lru_cache
+from math import prod
 import random
 import signal
 import tempfile
+import shlex
 from time import monotonic
 
 from pysat.solvers import Solver
@@ -63,6 +66,27 @@ def atoms_of(x, primes, heights):
 def representative(atoms, primes, heights):
     _, x = crt([(p**(h+1), r+d*p**h) for p,h,(r,d) in zip(primes, heights, atoms)])
     assert atoms_of(x, primes, heights) == list(map(tuple, atoms))
+    return x
+
+
+@lru_cache(None)
+def auxiliary_product(primes, heights):
+    q=max([2,*primes,*(h+1 for h in heights)])+1
+    result=1
+    for n in range(sum(p**h for p,h in zip(primes,heights))):
+        while not is_prime(q):
+            q+=1
+        result*=q
+        q+=1
+    return result
+
+
+def actual_witness(word, primes, heights):
+    """Escape the original per-root auxiliary lift with every auxiliary at -1."""
+    auxiliary=auxiliary_product(tuple(primes),tuple(heights))
+    _,x=crt([(auxiliary,auxiliary-1)]+[(p**(h+1),r+d*p**h)
+             for p,h,(r,d) in zip(primes,heights,word)])
+    assert key(atoms_of(x,primes,heights))==key(word)
     return x
 
 
@@ -167,6 +191,7 @@ def start(args):
             if any(matches(source["primes"],source["heights"],word,pat)
                    for pat in source["pure"]+source["patterns"]):
                 raise ValueError("Source witness is covered.")
+            integers.add(actual_witness(word,source["primes"],source["heights"]))
             x = representative(word,source["primes"],source["heights"])
             add(atoms_of(x,primes,heights))
     for path in args.carry:
@@ -178,9 +203,12 @@ def start(args):
             x = representative(word,old_cfg["primes"],old_cfg["heights"])
             add(atoms_of(x,primes,heights))
         integers.update(map(int,old["integer_requirements"]))
+        integers.update(actual_witness(w,old_cfg["primes"],old_cfg["heights"]) for w in old["exact_holes"])
         state["imports"].append({"name":Path(path).name,
                                  "sha256":hashlib.sha256(Path(path).read_bytes()).hexdigest(),
                                  "source_constraints":len(old["observations"])})
+    for file in args.integer_file:
+        integers.update(map(int,read(file)["integers"]))
     for x in sorted(integers):
         add(atoms_of(x,primes,heights))
     state["integer_requirements"] = list(map(str,sorted(integers)))
@@ -210,6 +238,9 @@ def worker(path, rounds):
             for i,atom in enumerate(word):
                 indices[i][tuple(atom)]
             enc.add(word)
+        if state["latest"]:
+            saved=[tuple(a for i,e,a in p) for p in state["latest"]]
+            solver.set_phases([lut[v] for lut,v in zip(enc.labels,saved) if v in lut])
         state["timing"]["encode"] += monotonic()-t
         for _ in range(rounds):
             if not state["pending"]:
@@ -241,6 +272,9 @@ def worker(path, rounds):
             observations.update(added)
             state["observations"].extend(added)
             state["exact_holes"].append(point)
+            x=str(actual_witness(point,primes,heights))
+            if x not in state["integer_requirements"]:
+                state["integer_requirements"].append(x)
             state["completed"] += 1
             state.update(pending=False,status="bounded_incomplete")
             # Commit the exact witness before either scoring or encoding can be interrupted.
@@ -262,6 +296,7 @@ def main():
     p.add_argument("--resume")
     p.add_argument("--output")
     p.add_argument("--carry",action="append",default=[])
+    p.add_argument("--integer-file",action="append",default=[])
     p.add_argument("--integer",action="append",default=[])
     p.add_argument("--input")
     p.add_argument("--rank",type=int,default=8)
@@ -290,7 +325,7 @@ def main():
         print(state["status"])
         return
     state["run_limits"]={"seconds":args.seconds,"rounds":args.rounds}
-    state["resume_command"]="python3 prefix_sat.py --resume " + __import__("shlex").quote(str(path))
+    state["resume_command"]="python3 prefix_sat.py --resume " + shlex.quote(str(path))
     write(path,state)
     child=mp.Process(target=worker,args=(path,args.rounds))
     child.start()
@@ -313,7 +348,7 @@ def main():
     if reason and state["status"] not in ("box_cover","unsat_finite_constraints"):
         state["status"]=reason
         write(path,state)
-    elif child.exitcode:
+    elif child.exitcode and not reason:
         raise RuntimeError(f"Worker exited with {child.exitcode}; checkpoint retained")
     print(json.dumps({k:state[k] for k in ("status","completed","slot_count","timing","best_score")}
                      |{"constraints":len(state["observations"])}),flush=True)

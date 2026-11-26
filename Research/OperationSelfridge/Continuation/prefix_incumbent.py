@@ -12,7 +12,7 @@ from pysat.examples.rc2 import RC2
 from pysat.formula import IDPool,WCNF
 from prefix_box import exact_hole, make_box, value
 from prefix_lift import matches,validate,crt
-from prefix_sat import atoms_of, key, read, write
+from prefix_sat import actual_witness, atoms_of, key, read, representative, write
 
 
 def shape(pattern):
@@ -94,8 +94,22 @@ def run(a):
                    atom_format="one [low root, first exit digit] per labelled prime column",
                    exact_holes=[],observations=[base["uncovered_atom_word"]],integers=[],round=0,
                    timing=dict(refit=0.,hole=0.,validation=0.),width=40)
-    state["integers"]=list(dict.fromkeys(state["integers"]+list(map(str,map(int,a.integer)))))
+    incoming=list(map(int,a.integer))
+    for file in a.integer_file:
+        incoming.extend(map(int,read(file)["integers"]))
+    state["integers"]=list(dict.fromkeys(state["integers"]+list(map(str,incoming))))
     words=dict.fromkeys(map(key,state["observations"]))
+    for path in a.words:
+        src=read(path)
+        from hashlib import sha256
+        stamp=sha256(Path(path).read_bytes()).hexdigest()
+        state.setdefault("imports",{})[stamp]=Path(path).name
+        old_ps=[z["prime"] for z in src["coordinates"]]
+        old_hs=[z["height"] for z in src["coordinates"]]
+        for word in src["atom_words"]:
+            x=representative(word,old_ps,old_hs)
+            w=key(atoms_of(x,ps,hs))
+            if not any(matches(ps,hs,w,p) for p in pure): words[w]=None
     for x in state["integers"]:
         w=key(atoms_of(int(x),ps,hs))
         if not any(matches(ps,hs,w,p) for p in pure):
@@ -147,6 +161,9 @@ def run(a):
         w=[A[j] for A,j in zip(alph,hole)]
         assert not any(matches(ps,hs,w,p) for p in patterns+list(pure))
         state["exact_holes"].append(w)
+        number=str(actual_witness(w,ps,hs))
+        if number not in state["integers"]:
+            state["integers"].append(number)
         state["observations"].append(w)
         state["status"]="exact_hole"
         write(out,state)
@@ -167,5 +184,7 @@ if __name__=="__main__":
     p.add_argument("--seed",type=int,default=2607)
     p.add_argument("--rounds",type=int,default=60)
     p.add_argument("--seconds",type=int,default=120)
+    p.add_argument("--words",action="append",default=[])
+    p.add_argument("--integer-file",action="append",default=[])
     p.add_argument("--integer",action="append",default=[])
     run(p.parse_args())

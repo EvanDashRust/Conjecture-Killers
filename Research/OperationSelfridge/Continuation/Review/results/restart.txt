@@ -1,0 +1,3 @@
+{"status": "interrupted", "completed": 7, "slot_count": 63, "timing": {"encode": 0.011210490003577434, "solve": 0.0016694230016582878, "hole": 0.002900475001297309, "score": 0.0016681279957992956}, "best_score": 48, "constraints": 67}
+{"status": "bounded_incomplete", "completed": 10, "slot_count": 63, "timing": {"encode": 0.023794028002157575, "solve": 0.0025999660028901417, "hole": 0.004156114002398681, "score": 0.0021138679949217476}, "best_score": 60, "constraints": 77}
+Verified interrupted reconstruction of 67 constraints

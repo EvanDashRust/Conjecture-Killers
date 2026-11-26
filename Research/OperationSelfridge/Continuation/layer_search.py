@@ -53,6 +53,15 @@ def run(a):
         state["rows"][j-1].append(pat)
         used.add(s)
         return True
+    pending=state.pop("pending_obligation",None)
+    if pending:
+        if not require(pending["row"],pending["atoms"]):
+            state.update(status="greedy_catalogue_spent",pending_obligation=pending)
+            write(out,state)
+            return
+        state["integers"].append(pending["integer"])
+        state["exact_holes"].append(pending)
+        write(out,state)
     for file in a.integers:
         integers=read(file)
         for x in map(int,integers["integers"]):

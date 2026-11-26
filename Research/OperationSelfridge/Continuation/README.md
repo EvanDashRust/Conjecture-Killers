@@ -2,6 +2,8 @@
 
 Erdős Problem 7 remains open. This pass gives lower bounds on the number of classes any hypothetical cover needs at primes 3 and 5, a stronger obstruction to extending Harrington's near-cover, and an equivalent finite search model with more freedom than the original valuation box.
 
+[November 26 cumulative search, new obstructions, saved states and replay commands](CUMULATIVE_SEARCH.md)
+
 ## Results
 
 - **Any hypothetical odd cover needs at least 18 moduli divisible by 3 and 11 divisible by 5.** If modulus 3 is absent, at least 39 moduli must be divisible by 3. The fibre bounds allow arbitrary prime support and exponents. [Proof and replay](FIBRE_COUNTS.md)

@@ -8,6 +8,7 @@ PREFIX_LAST = 20_000
 PRIME_LAST = 10_000_000
 MULTIPLIER_CAP = 10
 PREPRINT_BEYOND = Q(8082310506662, SCALE)
+FIVE_PAIR_SCHEDULE = {11: Q(1, 5)}
 
 
 def prime_sieve(limit):
@@ -94,8 +95,9 @@ def schedule(excluded, optimized=True):
     return adjustments
 
 
-def bound(prefix_limit=PREFIX_LAST, excluded=3, optimized=True):
-    adjustments=schedule(excluded,optimized)
+def bound(prefix_limit=PREFIX_LAST, excluded=3, optimized=True, adjustments=None):
+    if adjustments is None:
+        adjustments = schedule(excluded, optimized)
     assert 100<=prefix_limit<=PRIME_LAST
     first,middle=prefix_and_middle(prefix_limit,adjustments,excluded)
     def moment(p,delta):
@@ -118,7 +120,12 @@ if __name__=="__main__":
     p.add_argument("--prefix",type=int,default=PREFIX_LAST)
     p.add_argument("--excluded",type=int,choices=(3,5),default=3)
     p.add_argument("--baseline",action="store_true")
+    p.add_argument("--five-pair-schedule", action="store_true")
     args=p.parse_args()
+    if args.five_pair_schedule:
+        uncovered = bound(args.prefix, 5, adjustments=FIVE_PAIR_SCHEDULE)
+        assert uncovered > Q(2085, 10_000)
+        raise SystemExit
     uncovered = bound(args.prefix,args.excluded,not args.baseline)
     if args.prefix == PREFIX_LAST:
         if args.excluded == 3 and not args.baseline:

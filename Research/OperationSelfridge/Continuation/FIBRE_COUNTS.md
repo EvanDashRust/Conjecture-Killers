@@ -2,7 +2,7 @@
 
 Let a hypothetical distinct odd covering have $N_3$ moduli divisible by 3 and $N_5$ moduli divisible by 5. Then
 $$
-N_3\ge18,\qquad N_5\ge10.
+N_3\ge18,\qquad N_5\ge11.
 $$
 There are also stronger bounds if specified small moduli are absent.
 
@@ -85,6 +85,33 @@ The only remaining profile is one singleton with cofactor 1 and four double rows
 
 The only compatible nonspecial pair of rows is $(7,33)$ and $(11,21)$. Three nonspecial pairs are therefore impossible, and the other two rows must separately use 3 and 9. Applying the same conditional mass check to these two nonspecial rows together with a class modulo 9 bounds the portion inside that class by $2320/33957$. The other cofactor paired with 9 differs from $1,3,7,9$ and has weight at most $W(21)=20/147$. Their sum is below $h_5$. This excludes the final row profile, proving $N_5\ge10$.
 
+## 5. Excluding ten 5-divisible moduli
+
+Use a second law for the same 5-free family and the same uncovered set $H$. Change only $\delta_{11}$, from $3/10$ to $1/5$, so the cap factor at 11 becomes $5/4$. The distortion checker gives upper bounds $0.778268846599072937$ through 20,000, $0.013211858866950087$ through $10^7$, and less than $0.000007536$ beyond $10^7$. This law gives $H$ mass greater than $h'_5=2085/10000$. All its cofactor caps are at most their baseline values. The adjusted pair enumeration uses $h'_5$ and cofactor limit 70,000, which suffices by the same upper bound $2/\sqrt{3d}$. It excludes **every** pair of two nonspecial double rows.
+
+Suppose exactly ten moduli are divisible by 5. Every first-level row is nonempty. A row of size at least five would force either four singleton rows, which is impossible, or the profile $1,1,1,2,5$. In the latter case the three singleton cofactors include 9, and the double row with no special label fails by its intersection with $R_9$. In all other profiles every row has at most four classes, so the second-digit argument discards all classes with exponent at least two. We already excluded nine or fewer classes, so this leaves ten exponent-one classes.
+
+If there are no singleton rows, there are five double rows. At least two are nonspecial, excluded by the adjusted law. Any profile with a singleton cofactor 9 is also impossible. As in Section 4, some row of size at most three has no special label and fails to cover $H\subset R_9$. To check the count, the possible profiles are $1,2,2,2,3$, $1,1,2,2,4$, $1,1,2,3,3$, $1,1,1,2,5$, and $1,1,1,3,4$. Each has a size-two or size-three row unprotected by an unused special label.
+
+If the only singleton cofactor is 3, three double rows force all three options from Section 4, including the pair 7, 21. The triple row then fails under the same bound $20/441$ per class applied on $R_3$ and the union of the at most two specified classes modulo 7. With two singleton cofactors, they are 1 and 3. If the profile is $1,1,2,2,4$, both double-row options must be used and the remaining size-four row fails, because $4(20/441)<h_5$. If the profile is $1,1,2,3,3$, the double row must use 9. Otherwise it uses 7 and 21, and a triple row without 9 fails by the same intersection estimate.
+
+It remains to handle these two profiles.
+
+1. **Singleton cofactors 1 and 3, one double and two triples.** The double row uses cofactors 9 and $D$. The triple row avoiding label 27 gives $\mu(H\cap R_9)\le60/441$ under the baseline law. Since $H\subset R_3\cap(R_9\cup[D])$, with $[D]$ denoting the projected class, we need $W(\operatorname{lcm}(3,D))>h_5-60/441$. Inspecting the prime factors gives $D\in\{7,11,13,21,27,33,39\}$ as an upper list. In fact, for any remaining cofactor the bound is at most $20/273<h_5-60/441$. Each other projected class with label $d$ contributes at most
+   $$
+   \min\!\big(W(\operatorname{lcm}(3,d)),\,W(\operatorname{lcm}(9,d))+W(\operatorname{lcm}(3,D,d))\big).
+   $$
+   The two triples jointly need six distinct labels and total contribution greater than $2h_5$. For each $D$, the exact sum of the six largest eligible upper bounds is below $2h_5$. The largest of these sums is $513718/1324323$. The checker enumerates through 10,000 and upper-bounds each omitted cofactor by $1/50$ using $W(d)\le 2/\sqrt{3d}$.
+2. **Only singleton cofactor 1, three doubles and one triple.** The adjusted law permits at most one nonspecial double, so one double uses 3 and another uses 9. The nonspecial double gives $\mu(H\cap R_9)\le 2/27+20/441$ since its two labels are distinct. Therefore the cofactor paired with 9 must have weight greater than $h'_5-2/27-20/441$. Under the adjusted caps the only eligible labels are $7,11,13,21$. The exact two-row test over all phases leaves three possibilities for the nonspecial double and the row containing 9:
+   $$
+   (21,27)\text{ with }(9,7),\qquad
+   (7,27)\text{ with }(9,21),\qquad
+   (7,63)\text{ with }(9,21).
+   $$
+   For any triple-row label $d$, its intersection with the two row unions has mass at most both $W(d)$ and the sum of $W(\operatorname{lcm}(a,b,d))$ over the four cross pairs $(a,b)$ of these rows. The triple row must use three distinct previously unused labels. The largest possible sum of their upper bounds is at most $1780/14553<h'_5$. Here the checker enumerates through 5,000 and bounds each omitted cofactor by $1/50$.
+
+The two profiles are impossible, proving $N_5\ge11$.
+
 ## Replay and priority
 
 Run these commands from the continuation directory in the pinned Lean 4.36.0 environment.
@@ -94,6 +121,8 @@ Run these commands from the continuation directory in the pinned Lean 4.36.0 env
     python3 weighted_tree.py --prime 3 --max 18
     python3 three_volume.py
     python3 five_pairs.py
+    python3 three_free_loss.py --five-pair-schedule
+    python3 five_pairs.py --adjusted
     lake env lean FibreCertificate.lean
 
 Lean checks the stated rational margins and the seven-class row count. The ternary search, projected pair enumeration and numerical summations are exact Python computations. The linking arguments, full distortion comparison and infinite-prime tail are outside the Lean certificate.

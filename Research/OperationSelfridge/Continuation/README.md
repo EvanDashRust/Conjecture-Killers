@@ -4,7 +4,7 @@ Erdős Problem 7 remains open. This pass gives lower bounds on the number of cla
 
 ## Results
 
-- **Any hypothetical odd cover needs at least 18 moduli divisible by 3 and 10 divisible by 5.** If modulus 3 is absent, at least 39 moduli must be divisible by 3. The fibre bounds allow arbitrary prime support and exponents. [Proof and replay](FIBRE_COUNTS.md)
+- **Any hypothetical odd cover needs at least 18 moduli divisible by 3 and 11 divisible by 5.** If modulus 3 is absent, at least 39 moduli must be divisible by 3. The fibre bounds allow arbitrary prime support and exponents. [Proof and replay](FIBRE_COUNTS.md)
 - **At least six mixed classes are needed to extend the Harrington seed.** The result permits any number of old-prime-only and single-fresh-prime additions and arbitrary exponents. More generally, any completion must have a nonempty set of at least two fresh primes on which all but at most one weighted incident load exceeds its threshold.
 - **Fixed prefixes and variable exits give an equivalent finite-box formulation.** Modes can fix a low prime-power residue or identify the first nonzero digit beyond that prefix. A complete finite box in the model lifts to explicit odd congruences. Every odd covering has a representation in this model. The searched configurations still have exact holes.
 - **Vivian's handoff reproduced.** Both Gmail checkers ran successfully. Her nine-coordinate bound and frozen ten-coordinate diagnostic agree with the archived data. I used the verified rank-20 hole to seed counterexample-guided searches and allowed existing phases to move.

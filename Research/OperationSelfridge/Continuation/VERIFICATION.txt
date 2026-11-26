@@ -42,9 +42,32 @@ Ternary weighted-tree replay: all budgets through 17 excluded; 18 feasible in th
 (7, 63) (21, 27) 220/1323
 Only compatible pairs: ((7, 33), (11, 21))
 Upper bound inside any class modulo 9: 2320/33957
+(7, 11) (21, 33) 635/3234
+(7, 13) (21, 39) 200/1029
+(7, 33) (11, 21) 10/49
+(7, 39) (13, 21) 900/4459
+(7, 51) (17, 21) 3260/17493
+(7, 57) (19, 21) 1180/6517
+(7, 63) (11, 21) 1445/9702
+(7, 63) (13, 21) 5960/40131
+(7, 63) (21, 27) 220/1323
+The adjusted measure excludes all pairs of nonspecial double rows.
+Nine-row pairs (21, 27) (9, 7) triple upper 1555/14553
+Nine-row pairs (7, 27) (9, 21) triple upper 1555/14553
+Nine-row pairs (7, 63) (9, 21) triple upper 1780/14553
+Two-triple upper for partner 7 513718/1324323
+Two-triple upper for partner 11 484678/1324323
+Two-triple upper for partner 13 42338/120393
+Two-triple upper for partner 21 513718/1324323
+Two-triple upper for partner 27 52180/189189
+Two-triple upper for partner 33 484678/1324323
+Two-triple upper for partner 39 42338/120393
 'Selfridge.fibre_distortion_margins' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Selfridge.five_fibre_margins' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Selfridge.five_pair_margins' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.adjusted_five_distortion_margin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.ten_fibre_margins' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Selfridge.five_fibre_profile' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Selfridge.five_fibre_at_most_nine' depends on axioms: [propext, Quot.sound]
+'Selfridge.ten_fibre_profiles' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Selfridge.conditional_volume_margins' depends on axioms: [propext, Classical.choice, Quot.sound]

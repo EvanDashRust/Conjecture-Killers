@@ -2,7 +2,7 @@
 
 Let $G$ be a finite simple connected graph with at least two vertices. Let $e(\overline G)$ be the number of edges of its complement, and let $d_{\rm even}(v)$ count the vertices at even distance from $v$, including $v$ itself. The conjecture says that if $\max_v d_{\rm even}(v)\ge e(\overline G)$, then every inclusion-minimal total dominating set has minimum cardinality. In fact, every such minimal set is a pair.
 
-The current catalogue data classify the March 4, 2007 entry as open. I found no earlier resolution of this statement in searches through November 25, 2026. The earlier *Written on the Wall* series also has an item numbered 318, concerning maximum degree in triangle-free graphs. [Written on the Wall II catalogue](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/index.html)
+The catalog still marked this March 4, 2007 entry open when we checked it. [@JesterInABarrel shared a proof on November 18, 2026](https://github.com/1337isnot1337/solved-conjectures/blob/main/results/graffiti-pc-318/README.md), before our independent proof and formalization. [Written on the Wall II catalogue](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/index.html)
 
 ## Proof
 

@@ -2,9 +2,15 @@
 
 Formal mathematics, auditable Lean 4 proofs, reproducible experiments, and careful attribution.
 
+## Case 013: Graffiti.pc Conjecture 321
+
+**Status: proved in Lean.** If the average eccentricity is at least one third of the maximum total distance, the graph is well total dominated. The triangle inequality gives a bound of six vertices, and the proof checks every remaining graph.
+
+[Proof and replay instructions](Results/Graffiti321/README.md)
+
 ## Case 012: Graffiti.pc Conjecture 318
 
-**Status: proved in Lean.** If some vertex has at least as many vertices at even distance as the complement has edges, every minimal total dominating set has two vertices. The proof shows that deleting the chosen vertex leaves at most one complement edge.
+**Status: independently formalized in Lean.** [@JesterInABarrel shared a proof on November 18, 2026](https://github.com/1337isnot1337/solved-conjectures/blob/main/results/graffiti-pc-318/README.md). If some vertex has at least as many vertices at even distance as the complement has edges, every minimal total dominating set has two vertices. The proof shows that deleting the chosen vertex leaves at most one complement edge.
 
 [Proof and replay instructions](Results/Graffiti318/README.md)
 

@@ -28,8 +28,34 @@ prefix 69299211099249987053/100000000000000000000 middle 24384534985982791/20000
 upper total charge 1-s+loss 0.9971629896055444
 lower mass margin (relative to the initial low cells) 0.0028370103944556245
 
+no29ternary selected mass 139/204 threshold 4/3 mean upper input 2659/1224 unconditional head third moment 185151/2176 retained breakpoints 79 grid 6
+prefix 67200906888555354877/100000000000000000000 middle 24384534985982791/20000000000000000000 infinite 155167248957020926003398106967/14812546567897096200000000000000000
+upper total charge 1-s+loss 0.991866222008402
+lower mass margin (relative to the initial low cells) 0.008133777991598024
+no31ternary selected mass 139/204 threshold 4/3 mean upper input 2659/1224 unconditional head third moment 185151/2176 retained breakpoints 79 grid 6
+prefix 13611676114636718747/20000000000000000000 middle 12453153082167403/50000000000000000000 infinite 79623506406151079213631197507/7406273283948548100000000000000000
+upper total charge 1-s+loss 0.9994710705932583
+lower mass margin (relative to the initial low cells) 0.0005289294067416041
+
+square2 selected mass 45/68 threshold 4/3 mean upper input 893/408 unconditional head third moment 185151/2176 retained breakpoints 77 grid 6
+squarefree rough primes through 23 mixed pure-coordinate head charge 0
+prefix 33022288090862090941/50000000000000000000 middle 53740447117596759/50000000000000000000 infinite 25647682050575053640504183189/2777352481480705537500000000000000
+upper total charge 1-s+loss 0.9997650994566547
+lower mass margin (relative to the initial low cells) 0.00023490054334530545
+square1lo selected mass 1 threshold 1 mean upper input 68/27 unconditional head third moment 28355/432 retained breakpoints 42 grid 1
+squarefree rough primes through 13 mixed pure-coordinate head charge 4/15
+prefix 68935942825705636883/100000000000000000000 middle 24595764592267407/25000000000000000000 infinite 6707630407026546276592120981/793529280423058725000000000000000
+upper total charge 1-s+loss 0.9570183784159232
+lower mass margin (relative to the initial low cells) 0.042981621584076764
+square1hi selected mass 1 threshold 1 mean upper input 8/3 unconditional head third moment 3317/48 retained breakpoints 42 grid 1
+squarefree rough primes through 13 mixed pure-coordinate head charge 11/45
+prefix 18456122846543244639/25000000000000000000 middle 51790326952765849/50000000000000000000 infinite 131823921357714162296191120463/14812546567897096200000000000000000
+upper total charge 1-s+loss 0.9837340643224904
+lower mass margin (relative to the initial low cells) 0.016265935677509506
+
 Lean 4.36.0, mathlib fc4f59e577feb1a4956671bc04ac18aaaf8cd842
 $ lake env lean TheoryJoint/HeadQuantile.lean
+'OperationSelfridge.HeadQuantile.full_digit_set' depends on axioms: [propext, Classical.choice, Quot.sound]
 'OperationSelfridge.HeadQuantile.restrict_hinge' depends on axioms: [propext, Classical.choice, Quot.sound]
 'OperationSelfridge.HeadQuantile.orbit_two_missing_23_margin' depends on axioms: [propext, Classical.choice, Quot.sound]
 'OperationSelfridge.HeadQuantile.no29_phase_margin' depends on axioms: [propext, Classical.choice, Quot.sound]

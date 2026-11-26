@@ -1,0 +1,1 @@
+orbit 2 rank at most 74 last prime 383 grid denominator 6 upper numerator over 10^12 999413310243

@@ -29,7 +29,7 @@ def initial(base,bank):
                                 backend="cadical195",probe_count=512))
 
 
-def refit(state,ps,hs,slots,phases,rng, *, normalize=False):
+def refit(state,ps,hs,slots,phases,rng, *, normalize=True):
     if normalize:
         from Dominance.dominance import cylinder_parent, phase_count
     unary=state["original_unaries"]
@@ -97,6 +97,7 @@ def main():
     p.add_argument("--output",required=True,type=Path)
     p.add_argument("--rounds",type=int,default=80)
     p.add_argument("--seconds",type=float,default=90)
+    p.add_argument("--legacy-overlap",action="store_true",help="Reproduce the historical overlapping-unary heuristic")
     a=p.parse_args()
     s=read(a.output) if a.output.exists() else initial(read(a.base),read(a.bank))
     if s["status"]=="box_cover":
@@ -105,13 +106,36 @@ def main():
     alph=[list(product(range(p**h),range(1,p))) for p,h in zip(ps,hs)]
     points=Random(s["seed"])
     probes=[[points.choice(A) for A in alph] for _ in range(512)]
+    if not a.legacy_overlap and not s["parameters"].get("normalized_unaries"):
+        from Dominance.dominance import normalize_unaries
+        for field in ("latest_phases","best_phases"):
+            incumbent=s[field]
+            if incumbent is None:
+                continue
+            changed=[i for i,v in enumerate(s["original_unaries"])
+                     if slots[i][0][0]<3 and list(incumbent[i])!=list(v)]
+            forced=s.get("forced_slot") if field=="latest_phases" else None
+            if forced not in changed:
+                if field=="latest_phases" and s["status"]=="model_pending_check":
+                    raise ValueError("Pending legacy proposal violates its recorded unary change")
+                forced=changed[0] if changed else None
+            forbidden={} if forced is None else {forced:s["original_unaries"][forced][0]}
+            s[field],moves=normalize_unaries(ps,hs,slots,incumbent,lambda i,menu:menu[0],forbidden)
+            if moves and field=="latest_phases" and s["status"]!="model_pending_check":
+                s["status"]="normalized_seed"
+        if s["best_phases"] is not None:
+            best=[pack(slot,v) for slot,v in zip(slots,s["best_phases"]) if v is not None]
+            s["best_score"]=sum(any(matches(ps,hs,w,p) for p in best) for w in probes)
+        s["parameters"]["normalized_unaries"]=True
+    if a.legacy_overlap and s["parameters"].get("normalized_unaries"):
+        raise ValueError("The selected archive was already migrated to normalized unary phases")
     write(a.output,s)
     start=monotonic()
     for i in range(a.rounds):
         if monotonic()-start>a.seconds:break
         if s["status"]!="model_pending_check":
             rng=Random(s["seed"]+s["round"])
-            phases,forced,status=refit(s,ps,hs,slots,s["latest_phases"],rng)
+            phases,forced,status=refit(s,ps,hs,slots,s["latest_phases"],rng,normalize=not a.legacy_overlap)
             s.update(round=s["round"]+1,status=status,forced_slot=forced)
             if phases is None:
                 write(a.output,s)

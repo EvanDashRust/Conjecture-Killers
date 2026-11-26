@@ -1,0 +1,4 @@
+third base upper /10^12 855327662983 finite truncation <10^-15 True infinite tail <10^-9 True
+permitted arbitrary high-arity labels 103 upper /10^12 999929936756 required in a cover 104
+sibling base upper /10^12 931288993561 finite truncation <10^-15 True infinite tail <10^-9 True
+permitted arbitrary high-arity labels 23 upper /10^12 999354715642 required in a cover 24

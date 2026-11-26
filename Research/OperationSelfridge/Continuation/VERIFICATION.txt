@@ -92,7 +92,11 @@ Further unrestricted prime restrictions: Review/THIRD_PRIME.md and Review/result
 Continuation from 2d85ec0. Exact certificates and scopes are indexed in CHECKPOINT_PRIME_23.md.
   python3 PrimeSupport/support_rank.py
   python3 SliceLearning/rank_review.py
+  python3 SliceLearning/rank_review_grid.py
   python3 IndependentReview/group_counts.py
+  python3 Dominance/ordinary_arity.py
+  python3 Dominance/arity_tail.py
+  python3 Dominance/schroeder_counts.py
   python3 Dominance/verify_orbits.py
   python3 Dominance/verify.py
   python3 SliceLearning/checkpoint.py
@@ -100,4 +104,4 @@ Continuation from 2d85ec0. Exact certificates and scopes are indexed in CHECKPOI
   The full-prime and phase case commands are in TheoryJoint/HEAD_QUANTILE.md,
   Alternative/JOINT_SAVINGS.md and FibrePacking/README.md.
   The new Lean statements and #print axioms are in TheoryJoint/QUANTILE_VERIFICATION.txt
-  and IndependentReview/axioms.txt. No end-to-end Lean proof of either orbit exclusion.
+  and IndependentReview/axioms.txt. The prime-23 theorem retains written and computational dependencies.

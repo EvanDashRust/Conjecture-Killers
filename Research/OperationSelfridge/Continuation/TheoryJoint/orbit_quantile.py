@@ -1,4 +1,4 @@
-"""Exact tail certificate for a no-7, no-23 period and normalized orbit r=2."""
+"""Exact quantile distortion certificates for normalized odd covering heads without 7."""
 from argparse import ArgumentParser
 from bisect import bisect_right
 from collections import defaultdict
@@ -21,6 +21,9 @@ SHAPES = ((0,0), (0,0), (1,0), (0,1), (0,1), (1,1))
 # strict upper charge bound). Changing the head gap is legal only when
 # an independent argument gives that much mass on the actual head holes.
 CASES = {
+    "square1lo": (1, 0, F(0), F(989,1000)),
+    "square1hi": (1, 0, F(0), F(989,1000)),
+    "square2": (2, 0, F(1,4), F(9999,10000)),
     "no23": (2, 23, F(1,4), F(9974,10000)),
     "no29ternary": (2, 29, F(139,540), F(992,1000)),
     "no31ternary": (2, 31, F(139,540), F(9996,10000)),
@@ -142,11 +145,37 @@ def head(orbit, density, conditioned=0):
     return s, u, adjusted_mean, cube, retained
 
 
+def product_endpoint(z):
+    # Alternative/README.md derives this orbit-1 endpoint comparison.
+    # Here all pure powers of 3 and 5 are allowed.
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "Alternative"))
+    from power_orbits import coordinate
+    v3, e3, c3 = coordinate(3, None, z)
+    v5, e5, c5 = coordinate(5, None, F(4,15))
+    distribution = defaultdict(F)
+    for a,pa in enumerate(v3,1):
+        for b,pb in enumerate(v5,1):
+            distribution[F(a*b)] += pa*pb
+    assert sum(distribution.values()) == 1
+    mixed = F(4,3)*(F(1,12)+(1-z)/5+z/20)
+    return (F(1),F(1),e3*e5,c3*c5,sorted(distribution.items())), mixed
+
+
 def certify(case):
     orbit, omitted, density, target = CASES[case]
-    conditioned = 25 if case=="no29root" else 27 if case.endswith("ternary") else 0
+    conditioned = {"no29root":25, "no29ternary":27, "no31ternary":27}.get(case,0)
     prefix_limit = 600_000 if case=="no31ternary" else PREFIX
-    s, u, mean0, cube, retained = head(orbit, density, conditioned)
+    mixed_head_cost = F(0)
+    squarefree_through = 0
+    if case in ("square1lo","square1hi"):
+        z = F(5,9) if case=="square1lo" else F(2,3)
+        inputs, mixed_head_cost = product_endpoint(z)
+        squarefree_through = 13
+    else:
+        inputs = head(orbit, density, conditioned)
+        if case=="square2":
+            squarefree_through = 23
+    s, u, mean0, cube, retained = inputs
     # Integer breakpoint grid shared by all rational atoms of the lower hinge.
     from math import lcm
     grid = lcm(*(x.denominator for x,_ in retained))
@@ -159,7 +188,7 @@ def certify(case):
         masses.append(ceiling(SCALE*mass))
         gross = SCALE*off
         offsets.append(gross.numerator//gross.denominator)
-    assert u>=1 and len(xs)>0
+    assert u>=1 and len(xs)>0 and 0<s<=1
     print(case,'selected mass',s,'threshold',u,'mean upper input',mean0,'unconditional head third moment',cube,
           'retained breakpoints',len(xs),'grid',grid,flush=True)
     primes = primes_through(END)
@@ -185,7 +214,8 @@ def certify(case):
     for p in primes:
         if p<11 or p==omitted:
             continue
-        r = p-1
+        only_first_power = p<=squarefree_through
+        r = p if only_first_power else p-1
         ta = 10*THRESHOLDS[p] if p in THRESHOLDS else 3*r
         gamma = F(10*r, 10*r-ta)
         gn,gd=gamma.as_integer_ratio()
@@ -208,7 +238,9 @@ def certify(case):
             assert raw>=0
             prefix += ceil_ratio(raw*gn,10*r*gd)
             nxt = [0]*len(hist)
-            for link,prob in zip(links,capped_exponent(p,gamma)):
+            probabilities = ([1-gamma/p,gamma/p] if only_first_power
+                             else capped_exponent(p,gamma))
+            for link,prob in zip(links,probabilities):
                 coeff=ceiling(prob*SCALE)
                 for i,k in enumerate(link):
                     if hist[i]:
@@ -217,11 +249,17 @@ def certify(case):
             mean += ceil_ratio(mean*gn,gd*r)
         else:
             middle += ceil_ratio(4000*cubic,1701*r**3)
-        cubic += ceil_ratio(cubic*gn*(7*p*p-2*p+1),gd*r**3)
+        if only_first_power:
+            cubic += ceil_ratio(7*cubic*gn,gd*p)
+        else:
+            cubic += ceil_ratio(cubic*gn*(7*p*p-2*p+1),gd*r**3)
     b = len(primes)-1
     assert F(11,4)**13 < b
     infinite = F(4000*cubic,1701*SCALE*b*b*13**2*14)
-    loss=F(prefix+middle,SCALE)+infinite
+    if squarefree_through:
+        print('squarefree rough primes through',squarefree_through,
+              'mixed pure-coordinate head charge',mixed_head_cost)
+    loss=mixed_head_cost+F(prefix+middle,SCALE)+infinite
     print('prefix',F(prefix,SCALE),'middle',F(middle,SCALE),'infinite',infinite)
     print('upper total charge 1-s+loss',float(1-s+loss))
     print('lower mass margin (relative to the initial low cells)',float(s-loss))

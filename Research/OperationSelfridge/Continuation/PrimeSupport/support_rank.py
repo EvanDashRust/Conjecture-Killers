@@ -26,7 +26,7 @@ def backward(primes, thresholds):
         assert 0 <= 2*t <= r
         # c=r/(r-t). A*m-B bounds the exact affine branch at the right.
         # On the entire half-line A*m bounds the true continuation.
-        affine = lambda m: slope*m - intercept
+        c = Q(r, r-t)
         unit = p**(EXIT-1)*r
         weights = [r*r * p**(EXIT-1-j) for j in range(2, EXIT)]
         future = [0]*(limit+1)
@@ -36,9 +36,8 @@ def backward(primes, thresholds):
             mass = slope*m*(EXIT*r+1)
             for j, w in enumerate(weights, 2):
                 v = m*j
-                mass += w * (cost[v] if v <= limit else affine(v))
+                mass += w * (cost[v] if v <= limit else slope*v - intercept)
             b = Q(mass - (unit//p)*cost[m], unit)
-            c = Q(r, r-t)
             kappa = c if m >= t else Q(r, r-m)
             adjusted = max(kappa*b, c*b - SCALE*(c-kappa)/c)
             value = cost[m] + adjusted + SCALE*Q(max(0,m-t), r-t)
@@ -91,5 +90,7 @@ def certify(orbit, thresholds):
 
 
 if __name__ == '__main__':
-    for key, schedule in json.loads((HERE/'schedules.json').read_text()).items():
+    schedules = json.loads((HERE/'schedules.json').read_text())
+    assert {orbit: len(cuts)+2 for orbit, cuts in schedules.items()} == {'1': 224, '2': 73}
+    for key, schedule in schedules.items():
         certify(int(key),schedule)

@@ -1,0 +1,2 @@
+missed mass > 15731/250000 at least 13 previous sum 451763842318/7289602429725 threshold weight 36/8645
+missed mass > 26213/1000000 at least 5 previous sum 37445752/1527701175 threshold weight 32/6175

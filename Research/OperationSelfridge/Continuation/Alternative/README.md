@@ -5,9 +5,9 @@ Let a finite distinct covering have odd numerical moduli greater than one, perio
 | Hypothesis | Divisibility required |
 |---|---|
 | Either orbit | $27\mid Q, 25\mid Q$, and $81\mid Q$ or $125\mid Q$ |
-| $r=1$ | $81\mid Q, 23\cdot29\cdot31\mid Q$, and $243\mid Q$ or $125\mid Q$ |
+| $r=1$ | $81\mid Q, 23\cdot29\cdot31\cdot37\cdot41\cdot43\cdot47\mid Q$, and $243\mid Q$ or $125\mid Q$ |
 
-These conditions concern the least common multiple. An individual period divisor need not occur as a numerical modulus. The results are written and computer-assisted.
+These conditions concern the least common multiple. An individual period divisor need not occur as a numerical modulus. The results are written and computer-assisted. The [joint-stage proof](JOINT_SAVINGS.md) supplies the four prime divisors above 31.
 
 ## Head law and cofactor constraints
 

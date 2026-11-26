@@ -28,6 +28,17 @@ theorem orbit_two_missing_23_margin :
 theorem no29_phase_margin :
     (1 : ℚ)/135 + 1/75 - 1/675 > 53/200 - 1/4 := by norm_num
 
+/-- If coordinate strips cover a product, one coordinate uses all its digits. -/
+theorem full_digit_set {ι : Type*} (β : ι → Type*) (used : (i : ι) → Set (β i))
+    (cover : ∀ x : (i : ι) → β i, ∃ i, x i ∈ used i) :
+    ∃ i, ∀ d : β i, d ∈ used i := by
+  classical
+  by_contra! missed
+  choose x hx using missed
+  obtain ⟨i, hi⟩ := cover x
+  exact hx i hi
+
+#print axioms full_digit_set
 #print axioms restrict_hinge
 #print axioms orbit_two_missing_23_margin
 #print axioms no29_phase_margin

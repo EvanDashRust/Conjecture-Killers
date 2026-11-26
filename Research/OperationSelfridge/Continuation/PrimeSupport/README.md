@@ -1,6 +1,6 @@
 # How many primes would a no-7 cover need?
 
-Let a finite family of residue classes cover the integers with pairwise distinct odd moduli greater than one. Let Q be their least common multiple and suppose 7 does not divide Q. In the normalized orbit with r=1, Q must have at least **225 distinct prime factors**. In the other orbit it must have at least **74**. Arbitrarily large primes and arbitrary prime powers are allowed. The bounds count actual prime divisors of the period, including 3 and 5.
+Let a finite family of residue classes cover the integers with pairwise distinct odd moduli greater than one. Let Q be their least common multiple and suppose 7 does not divide Q. In the normalized orbit with r=1, Q must have at least **225 distinct prime factors**. In the other orbit it must have at least **75**. Arbitrarily large primes and arbitrary prime powers are allowed. The bounds count actual prime divisors of the period, including 3 and 5. For the sharper second-orbit certificate also run `python3 SliceLearning/rank_review_grid.py`. It uses a grid of sixths, on which every retained head breakpoint is represented exactly. The outward charge for 74 primes is at most 0.999413310243.
 
 Run `python3 PrimeSupport/support_rank.py` from the continuation directory. The threshold numerators used by the proof are in [schedules.json](schedules.json). The [integer transcript](verified.txt) gives the upper charges; exclusion requires a charge strictly below one.
 

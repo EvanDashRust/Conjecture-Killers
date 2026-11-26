@@ -2,6 +2,10 @@
 
 Consider the **3,303 mode vectors** in the released rank-24 catalogue, with heights 2 at 3, 1 at 5 and 7, and 0 at the other 21 primes. Give each used vector any legal phase. If this catalogue admits a covering of the full atom product, it admits one with either of just two fixed unary layouts. Both representatives have now produced improved finite fits and exact uncovered products. Existence in each representative remains open. The rank-24 catalogue includes the prime 7. These two profiles concern a different question from the two no-7 affine orbits modulo 45.
 
+For ordinary odd covering systems, the [no-7 calculation](ORDINARY_ARITY.md) forces at least 1,712 numerical moduli with four distinct prime factors or more, including 1,541 whose prime divisors are all at most $10^9$.
+
+All possible low-arity supports can now be excluded in these height profiles, even with arbitrarily many fresh prime axes. The [unlimited-rank obstruction](ARITY.md) requires at least 104 higher-arity patterns in a third-branch cover and at least 24 in a sibling cover.
+
 ## Lossless unary normalization
 
 On a prime coordinate of height $h$, represent the atom $(r,d)$ by the $h$ base-$p$ digits of $r$, least significant first, followed by $d-1$. The first $h$ levels have radix $p$, and the last has radix $p-1$. A fixed mode at level $e\le h$ selects one prefix of length $e$; the variable mode selects an entire word. A shallow and deep selected prefix are disjoint or the shallow contains the deep one.
@@ -14,7 +18,7 @@ $$
 p^e-\sum_{d=1}^{e-1} p^{e-d}.
 $$
 
-For the variable mode it is $p^h(p-1)(1-\sum_{d=1}^h p^{-d})=p^h(p-2)+1$. Both counts are at least two for every odd prime, including $h=0$. Fewer preceding cylinders leave at least as many choices. Consequently a full unary menu with one prohibited value in the forced-change slot still permits this normalization, provided the initial assignment already satisfies that inequality. This is exactly the restriction used by the released SAT repair. The normalized SAT path supplies every unary phase, deletes the single prohibited value, and forbids compatible ancestor/descendant choices. Its mixed phase menus and repair windows remain restricted. The optimization only scores normalized proposals. The legacy runner continues to support exact reproduction of earlier experiments.
+For the variable mode it is $p^h(p-1)(1-\sum_{d=1}^h p^{-d})=p^h(p-2)+1$. Both counts are at least two for every odd prime, including $h=0$. Fewer preceding cylinders leave at least as many choices. Consequently a full unary menu with one prohibited value in the forced-change slot still permits this normalization, provided the initial assignment already satisfies that inequality. This is exactly the restriction used by the released SAT repair. The normalized SAT path supplies every unary phase, deletes the single prohibited value, and forbids compatible ancestor/descendant choices. Its mixed phase menus and repair windows remain restricted. The optimization only scores normalized proposals. The release runner normalizes both incumbents before scoring. Its explicit historical flag is --legacy-overlap.
 
 The same idea frees mixed slots. Let $R_j$ be the set of atoms left by the normalized unaries at coordinate $j$. A mixed pattern is already covered by their union precisely when one of its coordinate cylinders misses $R_j$. Indeed the intersection with the surviving product is a product of the local intersections. Moving such a slot arbitrarily preserves all previous atom coverage. We choose replacement phases meeting every relevant $R_j$. The replacement can still coincide with pieces of other mixed patterns.
 

@@ -2,6 +2,12 @@
 
 Formal mathematics, auditable Lean 4 proofs, reproducible experiments, and careful attribution.
 
+## Case 014: Graffiti.pc Conjecture 325
+
+**Status: proved in Lean.** The complement edge-neighborhood bound forces the closed neighborhood of the degree-two vertices to have one component and gives a pair of vertices adjacent in the original graph to every vertex outside the pair. Every minimal total dominating set has two vertices.
+
+[Proof and replay instructions](Results/Graffiti325/README.md)
+
 ## Case 013: Graffiti.pc Conjecture 321
 
 **Status: proved in Lean.** If the average eccentricity is at least one third of the maximum total distance, the graph is well total dominated. The triangle inequality gives a bound of six vertices, and the proof checks every remaining graph.

@@ -1,0 +1,3 @@
+orbit 1 rank at most 224 last prime 1429 upper numerator over 10^12 971944762825
+orbit 1 rank at most 224 last prime 1429 upper numerator over 10^12 999937549416
+orbit 2 rank at most 73 last prime 379 upper numerator over 10^12 999293202726

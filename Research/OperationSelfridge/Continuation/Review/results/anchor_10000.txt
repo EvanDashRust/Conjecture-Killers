@@ -1,0 +1,25 @@
+stage 3 terms 0 upper (millionths) 0
+stage 5 terms 0 upper (millionths) 0
+stage 7 terms 0 upper (millionths) 0
+stage 11 terms 46 upper (millionths) 222916
+stage 13 terms 58 upper (millionths) 186606
+stage 17 terms 64 upper (millionths) 78666
+stage 19 terms 77 upper (millionths) 104188
+stage 23 terms 79 upper (millionths) 62087
+stage 29 terms 73 upper (millionths) 23752
+stage 31 terms 75 upper (millionths) 18859
+stage 37 terms 70 upper (millionths) 5885
+stage 41 terms 67 upper (millionths) 2606
+stage 43 terms 69 upper (millionths) 1953
+stage 47 terms 66 upper (millionths) 719
+stage 53 terms 62 upper (millionths) 8914
+stage 59 terms 60 upper (millionths) 6562
+stage 61 terms 59 upper (millionths) 5809
+Peeled 1211 active 17 residual labels 983
+outward loss upper, denominator 1e12: 729515280256
+Additional smooth tail, outward, denominator 1e12: 212634722173
+Combined outward upper, denominator 1e12: 942150002428
+Retained seed phase labels: [3, 5, 7, 11, 13, 15, 17, 21, 27, 35, 45, 49, 51, 63, 65, 75, 77, 81, 105, 125, 135, 147, 153, 175, 189, 225, 243, 245, 315, 325, 343, 375, 405, 441, 459, 525, 539, 567, 675, 729, 735, 945, 1029, 1125, 1215, 1323, 1377, 1575, 2205]
+Retained 49 released 2422
+Final outward upper, denominator 1e12: 999208985497
+PROVED

@@ -1,0 +1,6 @@
+single_3 disjoint_products 9 escaping_words 164859974858421502270823826432000 additive_optimum 7 lower_bound_search_states 854
+single_3 edits_at_least 10 search_states 142171
+latest_mixed disjoint_products 9 escaping_words 21475855258515684941885765222400 additive_optimum 5 lower_bound_search_states 24
+latest_mixed edits_at_least 9 search_states 21978
+scored_mixed disjoint_products 9 escaping_words 17863587575633862891394921267200 additive_optimum 5 lower_bound_search_states 39
+scored_mixed edits_at_least 9 search_states 37272

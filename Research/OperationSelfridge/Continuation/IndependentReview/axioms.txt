@@ -1,0 +1,5 @@
+'Selfridge.SharedHole.grid_budget' depends on axioms: [propext, Quot.sound]
+'Selfridge.SharedHole.redundant_replacement' does not depend on any axioms
+'Selfridge.SharedHole.avoid_one_phase' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.SharedHole.pair_charge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.SharedHole.singleton_roots' depends on axioms: [propext, Quot.sound]

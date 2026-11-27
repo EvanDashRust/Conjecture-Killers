@@ -1,0 +1,8 @@
+'Selfridge.Prefix.core_exponent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.Prefix.core_copy_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.Prefix.ordinary_cover_to_roots' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.Prefix.single_auxiliary_lift' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.Prefix.decode_fixed' depends on axioms: [propext, Quot.sound]
+'Selfridge.Prefix.decode_variable' depends on axioms: [propext, Quot.sound]
+'Selfridge.Prefix.exponentVector_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.Prefix.terminal_divisor_gadget' depends on axioms: [propext, Quot.sound]

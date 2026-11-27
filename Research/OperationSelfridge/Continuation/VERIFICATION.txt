@@ -1,0 +1,107 @@
+Lean (version 4.36.0, x86_64-unknown-linux-gnu, commit 611c117bfaf7b7ae1cfcf246ce6fba31e8f509e9, Release)
+fc4f59e577feb1a4956671bc04ac18aaaf8cd842
+'Selfridge.certificate_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.harrington_budget_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.crossing_budget_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.linear_payoff_half' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.square_payoff_half' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.unique_heavy_coordinate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.avoid_assigned_classes' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.first_nonzero_exit' depends on axioms: [propext, Classical.choice, Quot.sound]
+old survivor lower 0.32233258534720
+small scaled 321245590829925919
+mid scaled 2048425482480
+second moment 2535234506914557167526891/37321044789957361184384
+tail 300001/360000000000
+fresh upper 0.32144135012536
+gap 0.00089123522185
+Exact integer witness avoids all 3067 distinct odd classes.
+91936485968535674544717876460629214792430824377985886421730961288724790445043620489825769817787807773365966796877
+Exact integer witness avoids all 3067 distinct odd classes.
+1877866043035491891730467502920788787175358127079379613780813704589843758
+The explicit point avoids all 1144 patterns.
+Even positive control: 12 distinct classes cover all 240 residues.
+Verified an exact atom-word hole across 1692 patterns.
+Prime-free distortion replay (directed rounding; see FIBRE_COUNTS.md for analytic inputs):
+  3-free guaranteed surviving mass > 0.7494
+  5-free guaranteed surviving mass > 0.2097
+Ternary weighted-tree replay: all budgets through 17 excluded; 18 feasible in the relaxation.
+(3,) 39 747680281
+(9,) 19 740921499
+(15,) 20 746882288
+(3, 9) 53 746153578
+(3, 15) 55 749352364
+(9, 15) 27 742838116
+(3, 9, 15) 76 748994712
+(7, 11) (21, 33) 2320/11319
+(7, 33) (11, 21) 220/1029
+(7, 39) (13, 21) 900/4459
+(7, 51) (17, 21) 3260/17493
+(7, 57) (19, 21) 1180/6517
+(7, 63) (11, 21) 5120/33957
+(7, 63) (21, 27) 220/1323
+Only compatible pairs: ((7, 33), (11, 21))
+Upper bound inside any class modulo 9: 2320/33957
+(7, 11) (21, 33) 635/3234
+(7, 13) (21, 39) 200/1029
+(7, 33) (11, 21) 10/49
+(7, 39) (13, 21) 900/4459
+(7, 51) (17, 21) 3260/17493
+(7, 57) (19, 21) 1180/6517
+(7, 63) (11, 21) 1445/9702
+(7, 63) (13, 21) 5960/40131
+(7, 63) (21, 27) 220/1323
+The adjusted measure excludes all pairs of nonspecial double rows.
+Nine-row pairs (21, 27) (9, 7) triple upper 1555/14553
+Nine-row pairs (7, 27) (9, 21) triple upper 1555/14553
+Nine-row pairs (7, 63) (9, 21) triple upper 1780/14553
+Two-triple upper for partner 7 513718/1324323
+Two-triple upper for partner 11 484678/1324323
+Two-triple upper for partner 13 42338/120393
+Two-triple upper for partner 21 513718/1324323
+Two-triple upper for partner 27 52180/189189
+Two-triple upper for partner 33 484678/1324323
+Two-triple upper for partner 39 42338/120393
+'Selfridge.fibre_distortion_margins' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.five_fibre_margins' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.five_pair_margins' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.adjusted_five_distortion_margin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.ten_fibre_margins' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.five_fibre_profile' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.five_fibre_at_most_nine' depends on axioms: [propext, Quot.sound]
+'Selfridge.ten_fibre_profiles' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.conditional_volume_margins' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+November 26 cumulative continuation. Independent audits, exact source states and commands:
+  CUMULATIVE_SEARCH.md, FROZEN_PREFIX_TAIL.md, PRIME_POSITIONS.md, Review/results/
+  Latest candidate audit: python3 audit_checkpoint.py
+  Real SIGTERM and mathematical restart test: python3 restart_check.py
+  Glucose4 DRAT replay: drat-trim Runs/control.cnf Runs/control.drat (31 variables, 48 clauses).
+  Frozen-prefix first moment and pair moment: python3 fresh_coordinate_bound.py
+  All four unbounded fresh-prime tail ceilings are in Review/results/fresh_tail.txt.
+  Sorted actual prime comparisons: python3 prime_positions.py
+  No unrestricted coverage certificate or nonexistence theorem.
+
+Further unrestricted prime restrictions: Review/THIRD_PRIME.md and Review/results/no7_*.txt.
+  python3 head_forest.py  # bounds the fifth and sixth primes in the true LCM
+  python3 phase_orbits.py  # exhaustive finite head examples for the sharp density infima
+  Lean 4.36.0: Review/OrbitBounds.lean and Review/TailInequalities.lean
+  Released-unary rank 24: final integer checked against all 32,536,723,404 generator-defined classes.
+  3,561 numerical test obligations in Runs/integer_bank_latest.json.gz; original inputs retained.
+
+Continuation from 2d85ec0. Exact certificates and scopes are indexed in CHECKPOINT_PRIME_23.md.
+  python3 PrimeSupport/support_rank.py
+  python3 SliceLearning/rank_review.py
+  python3 SliceLearning/rank_review_grid.py
+  python3 IndependentReview/group_counts.py
+  python3 Dominance/ordinary_arity.py
+  python3 Dominance/arity_tail.py
+  python3 Dominance/schroeder_counts.py
+  python3 Dominance/verify_orbits.py
+  python3 Dominance/verify.py
+  python3 SliceLearning/checkpoint.py
+  python3 SliceLearning/mixed_budget.py
+  The full-prime and phase case commands are in TheoryJoint/HEAD_QUANTILE.md,
+  Alternative/JOINT_SAVINGS.md and FibrePacking/README.md.
+  The new Lean statements and #print axioms are in TheoryJoint/QUANTILE_VERIFICATION.txt
+  and IndependentReview/axioms.txt. The prime-23 theorem retains written and computational dependencies.

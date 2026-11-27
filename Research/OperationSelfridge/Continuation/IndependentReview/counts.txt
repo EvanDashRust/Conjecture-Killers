@@ -1,0 +1,15 @@
+p=7, assume at most 13, 1 period cases, worst D=1
+normalized sum <= 23162352465103/3315064726701 < 7 (approx. 6.986998558)
+p=11, assume at most 38, 1 period cases, worst D=1
+normalized sum <= 6613977999294025698684821079865324/605225651023129910658823055835081 < 11 (approx. 10.928119104)
+p=13, assume at most 30, 1 period cases, worst D=1
+normalized sum <= 244833687798628757267351869402/18849662073871149061360386567 < 13 (approx. 12.988757403)
+p=17, assume at most 31, 10 period cases, worst D=15
+normalized sum <= 23625876779783/1448390339253 < 17 (approx. 16.311816048)
+p=19, assume at most 31, 15 period cases, worst D=195
+normalized sum <= 17693117272/958759659 < 19 (approx. 18.454173688)
+p=23, assume at most 36, 18 period cases, worst D=495
+normalized sum <= 68836/3003 < 23 (approx. 22.922410922)
+r=1 p=23 max singleton cofactors 6, N(p)>=40
+r=1 p=29 max singleton cofactors 8, N(p)>=50
+r=1 p=31 max singleton cofactors 9, N(p)>=53

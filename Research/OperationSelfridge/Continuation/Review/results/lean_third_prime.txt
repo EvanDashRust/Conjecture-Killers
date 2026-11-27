@@ -1,0 +1,5 @@
+'Selfridge.third_prime_orbit_period_lift' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.third_prime_orbit_three' depends on axioms: [propext, Quot.sound]
+'Selfridge.third_prime_orbit_five' depends on axioms: [propext, Quot.sound]
+'Selfridge.third_prime_orbit_unit_glue' depends on axioms: [propext, Quot.sound]
+'Selfridge.third_prime_orbit_translation_glue' depends on axioms: [propext, Quot.sound]

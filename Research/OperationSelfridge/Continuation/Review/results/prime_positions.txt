@@ -1,0 +1,4 @@
+[3, 5, 7, 11] head survivor >= 65/288 second moment <= 1001/36
+at least 5 prime divisors below 73 upper / 1e12 994827968631
+[3, 5, 7, 11, 13] head survivor >= 17/324 second moment <= 73073/1944
+at least 6 prime divisors below 277 upper / 1e12 999473340863

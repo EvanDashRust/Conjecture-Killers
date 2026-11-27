@@ -1,0 +1,6 @@
+orbit 1 depth 2 uncovered 76/225
+orbit 1 depth 3 uncovered 994/3375
+orbit 1 depth 4 uncovered 1582/5625
+orbit 2 depth 2 uncovered 71/225
+orbit 2 depth 3 uncovered 913/3375
+orbit 2 depth 4 uncovered 12989/50625

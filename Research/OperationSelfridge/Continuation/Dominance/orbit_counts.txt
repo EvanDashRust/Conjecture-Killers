@@ -1,0 +1,29 @@
+3 2 {'third': 108, 'sibling': 72}
+5 1 {'one': 80}
+7 1 {'one': 252}
+11 0 {'one': 10}
+13 0 {'one': 12}
+17 0 {'one': 16}
+19 0 {'one': 18}
+23 0 {'one': 22}
+29 0 {'one': 28}
+31 0 {'one': 30}
+37 0 {'one': 36}
+41 0 {'one': 40}
+43 0 {'one': 42}
+47 0 {'one': 46}
+53 0 {'one': 52}
+59 0 {'one': 58}
+61 0 {'one': 60}
+67 0 {'one': 66}
+71 0 {'one': 70}
+73 0 {'one': 72}
+79 0 {'one': 78}
+83 0 {'one': 82}
+89 0 {'one': 88}
+97 0 {'one': 96}
+All normalized full-product unary layouts 20971416596336980700452757742551040000000
+Prime 3 orbit counts at heights 0 through 6 [1, 1, 2, 6, 27, 176, 1602]
+Prime 5 orbit counts at heights 0 through 6 [1, 1, 2, 7, 39, 320, 3649]
+Prime 7 orbit counts at heights 0 through 6 [1, 1, 2, 7, 39, 321, 3686]
+Ternary height-three pairwise common-prefix matrices 6

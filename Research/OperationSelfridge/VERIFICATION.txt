@@ -1,0 +1,14 @@
+Lean (version 4.36.0, x86_64-unknown-linux-gnu, commit 611c117bfaf7b7ae1cfcf246ce6fba31e8f509e9, Release)
+fc4f59e577feb1a4956671bc04ac18aaaf8cd842
+'Selfridge.certificate_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.harrington_budget_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.align_coordinate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Selfridge.close_residual_class' depends on axioms: [propext, Classical.choice, Quot.sound]
+Exact upper bound below 9991/10000
+Decimal approximation 0.999045640711
+All 2471 Harrington classes miss the product witness, by exact CRT checks.
+Conditioned alphabets: 1, 351562499/97656250, 553420895/121060821, 39/5, 59/6, 127/8
+Guaranteed old-only survivor mass: 0.322332585347
+Fresh-prime blocked mass upper bound: 0.318850980167
+Combined bad mass upper bound: 0.996518394820
+The explicit point avoids all 721 patterns.

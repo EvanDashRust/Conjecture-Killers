@@ -1,0 +1,3 @@
+7 absent baseline upper /10^12 547344095742 max extras 1711 upper /10^12 999888601749 necessary count 1712
+Schroeder unrestricted tail ratio 1810/3289 tail upper 6644691/328900000
+7 absent and only counting P+<=10^9 exceptions baseline upper /10^12 567546865580 max extras 1540 upper /10^12 999885775874 necessary count 1541

@@ -1,0 +1,61 @@
+no23 selected mass 45/68 threshold 4/3 mean upper input 893/408 unconditional head third moment 185151/2176 retained breakpoints 77 grid 6
+prefix 65797962514143156449/100000000000000000000 middle 56096830242012333/50000000000000000000 infinite 142785430665193108280065077439/14812546567897096200000000000000000
+upper total charge 1-s+loss 0.9973464953563593
+lower mass margin (relative to the initial low cells) 0.002653504643640671
+no29 selected mass 477/680 threshold 4/3 mean upper input 269/120 unconditional head third moment 185151/2176 retained breakpoints 77 grid 6
+prefix 17446132167922288401/25000000000000000000 middle 24384534985982791/20000000000000000000 infinite 155167248957020926003398106967/14812546567897096200000000000000000
+upper total charge 1-s+loss 0.9976044006240536
+lower mass margin (relative to the initial low cells) 0.002395599375946312
+no31 selected mass 243/340 threshold 4/3 mean upper input 4609/2040 unconditional head third moment 185151/2176 retained breakpoints 77 grid 6
+prefix 14140239070348116237/20000000000000000000 middle 12512834961745539/10000000000000000000 infinite 79623506406151079213631197507/7406273283948548100000000000000000
+upper total charge 1-s+loss 0.9935681054800262
+lower mass margin (relative to the initial low cells) 0.006431894519973857
+no37 selected mass 999/1360 threshold 4/3 mean upper input 4663/2040 unconditional head third moment 185151/2176 retained breakpoints 77 grid 6
+prefix 14563641378092664953/20000000000000000000 middle 128091205560228619/100000000000000000000 infinite 489053246095447968834477200131/44437639703691288600000000000000000
+upper total charge 1-s+loss 0.9949151628138584
+lower mass margin (relative to the initial low cells) 0.005084837186141568
+head1 selected mass 33/40 threshold 1 mean upper input 1789/720 unconditional head third moment 187967/2304 retained breakpoints 58 grid 1
+prefix 81119009396865075819/100000000000000000000 middle 160365446819065409/100000000000000000000 infinite 306138278523634355990956655623/22218819851845644300000000000000000
+upper total charge 1-s+loss 0.9878075267689295
+lower mass margin (relative to the initial low cells) 0.012192473231070523
+head2 selected mass 279/340 threshold 4/3 mean upper input 4897/2040 unconditional head third moment 185151/2176 retained breakpoints 77 grid 6
+prefix 40563140497552609393/50000000000000000000 middle 33450978797711207/20000000000000000000 infinite 638580521377331655293319765541/44437639703691288600000000000000000
+upper total charge 1-s+loss 0.992361493858734
+lower mass margin (relative to the initial low cells) 0.007638506141266004
+
+no29root selected mass 237/340 threshold 4/3 mean upper input 13631/6120 unconditional head third moment 185151/2176 retained breakpoints 79 grid 858
+prefix 69299211099249987053/100000000000000000000 middle 24384534985982791/20000000000000000000 infinite 155167248957020926003398106967/14812546567897096200000000000000000
+upper total charge 1-s+loss 0.9971629896055444
+lower mass margin (relative to the initial low cells) 0.0028370103944556245
+
+no29ternary selected mass 139/204 threshold 4/3 mean upper input 2659/1224 unconditional head third moment 185151/2176 retained breakpoints 79 grid 6
+prefix 67200906888555354877/100000000000000000000 middle 24384534985982791/20000000000000000000 infinite 155167248957020926003398106967/14812546567897096200000000000000000
+upper total charge 1-s+loss 0.991866222008402
+lower mass margin (relative to the initial low cells) 0.008133777991598024
+no31ternary selected mass 139/204 threshold 4/3 mean upper input 2659/1224 unconditional head third moment 185151/2176 retained breakpoints 79 grid 6
+prefix 13611676114636718747/20000000000000000000 middle 12453153082167403/50000000000000000000 infinite 79623506406151079213631197507/7406273283948548100000000000000000
+upper total charge 1-s+loss 0.9994710705932583
+lower mass margin (relative to the initial low cells) 0.0005289294067416041
+
+square2 selected mass 45/68 threshold 4/3 mean upper input 893/408 unconditional head third moment 185151/2176 retained breakpoints 77 grid 6
+squarefree rough primes through 23 mixed pure-coordinate head charge 0
+prefix 33022288090862090941/50000000000000000000 middle 53740447117596759/50000000000000000000 infinite 25647682050575053640504183189/2777352481480705537500000000000000
+upper total charge 1-s+loss 0.9997650994566547
+lower mass margin (relative to the initial low cells) 0.00023490054334530545
+square1lo selected mass 1 threshold 1 mean upper input 68/27 unconditional head third moment 28355/432 retained breakpoints 42 grid 1
+squarefree rough primes through 13 mixed pure-coordinate head charge 4/15
+prefix 68935942825705636883/100000000000000000000 middle 24595764592267407/25000000000000000000 infinite 6707630407026546276592120981/793529280423058725000000000000000
+upper total charge 1-s+loss 0.9570183784159232
+lower mass margin (relative to the initial low cells) 0.042981621584076764
+square1hi selected mass 1 threshold 1 mean upper input 8/3 unconditional head third moment 3317/48 retained breakpoints 42 grid 1
+squarefree rough primes through 13 mixed pure-coordinate head charge 11/45
+prefix 18456122846543244639/25000000000000000000 middle 51790326952765849/50000000000000000000 infinite 131823921357714162296191120463/14812546567897096200000000000000000
+upper total charge 1-s+loss 0.9837340643224904
+lower mass margin (relative to the initial low cells) 0.016265935677509506
+
+Lean 4.36.0, mathlib fc4f59e577feb1a4956671bc04ac18aaaf8cd842
+$ lake env lean TheoryJoint/HeadQuantile.lean
+'OperationSelfridge.HeadQuantile.full_digit_set' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OperationSelfridge.HeadQuantile.restrict_hinge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OperationSelfridge.HeadQuantile.orbit_two_missing_23_margin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OperationSelfridge.HeadQuantile.no29_phase_margin' depends on axioms: [propext, Classical.choice, Quot.sound]

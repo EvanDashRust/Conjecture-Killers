@@ -1,0 +1,2 @@
+r=1 required_prime_count=10 upper_with_9=33410297/145981440 (0.228866744978)
+r=2 required_prime_count=6 upper_with_5=7807/51840 (0.150597993827)
